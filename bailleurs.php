@@ -2,7 +2,6 @@
 
 <body>
     <div class="container-fluid">
-        <h2>liste des bailleurs</h2>
 
         <!-- Button trigger modal -->
         <div id="modalBtn">
