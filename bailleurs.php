@@ -27,6 +27,10 @@
                                     <input type="text" class="form-control" id="competeName" name="competeName" placeholder="Entrer le nom du bailleur">
                                 </div>
                                 <div class="form-group p-2">
+                                    <label for="compeleteTypeBailleur">type de bailleur</label>
+                                    <input type="text" class="form-control" id="compeleteTypeBailleur" name="compeleteTypeBailleur" placeholder="Entrer le type du bailleur">
+                                </div>
+                                <div class="form-group p-2">
                                     <label for="competeSecteurIntervation">secteur d'intervation</label>
                                     <input type="text" class="form-control" id="competeSecteurIntervation" name="competeSecteurIntervation" placeholder="Entrer son secteur d'intervation">
                                 </div>
@@ -134,6 +138,10 @@
                                     <input type="text" class="form-control" id="updateName" name="updateName" placeholder="Entrer le nom du bailleur">
                                 </div>
                                 <div class="form-group p-2">
+                                    <label for="updateTypeBailleur">type de bailleur</label>
+                                    <input type="text" class="form-control" id="updateTypeBailleur" name="updateTypeBailleur" placeholder="Entrer le type du bailleur">
+                                </div>
+                                <div class="form-group p-2">
                                     <label for="updateSecteurIntervation">secteur d'intervation</label>
                                     <input type="text" class="form-control" id="updateSecteurIntervation" name="updateSecteurIntervation" placeholder="Entrer son secteur d'intervation">
                                 </div>
@@ -220,6 +228,27 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-primary" id="ModifierBailleur" onclick="updateBalleur()">Modifier</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal confirm before delete -->
+        <div id="PopupModalDelete" class="modal fade">
+            <div class="modal-dialog modal-confirmPop">
+                <div class="modal-content">
+                    <div class="modal-header flex-column">
+                        <div class="icon-box">
+                            <i class="material-icons">&#xE5CD;</i>
+                        </div>
+                        <h4 class="modal-title w-100">Êtes-vous sûr?</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Voulez-vous vraiment supprimer ces enregistrements ? Ce processus ne peut pas être annulé.</p>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                        <button type="button" class="btn btn-danger">Effacer</button>
                     </div>
                 </div>
             </div>

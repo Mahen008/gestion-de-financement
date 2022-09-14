@@ -9,6 +9,7 @@ if ($action == 'CREATE') {
     $query = "INSERT INTO bailleurs SET 
     id= '', 
     nom= '$competeName', 
+    type_de_bailleur='$compeleteTypeBailleur',
     secteur_intervation = '$competeSecteurIntervation', 
     type_financement = '$completeTypeFinancement', 
     part_financer = '$completePartFinance', 
@@ -48,7 +49,7 @@ if ($action == 'CREATE') {
                         
                         <td>
                             <button class="btn btn-dark" onclick="editBailleur(' . $row['id'] . ')" data-toggle="modal" data-target="#bailleur-update-modal">Editer</button>
-                            <button class="btn btn-danger" onclick="deleteBailleur(' . $row['id'] . ')">Supprimer</button>
+                            <button class="btn btn-danger trigger-btn" onclick="deleteBailleur(' . $row['id'] . ')" data-toggle="modal" href="PopupModalDelete">Supprimer</button>
                         </td>
                     </tr>';
     };
@@ -67,6 +68,7 @@ if ($action == 'CREATE') {
 
     $query = "UPDATE bailleurs SET
     nom = '$updateName',
+    type_de_bailleur='$updateTypeBailleur',
     secteur_intervation = '$updateSecteurIntervation',
     type_financement = '$updateTypeFinancement',
     part_financer = '$updatePartFinance',

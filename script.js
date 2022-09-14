@@ -83,6 +83,7 @@ function editBailleur(editId) {
       var userid = JSON.parse(data);
       $("#hidden-update-id-bailleur").val(userid.id);
       $("#updateName").val(userid.nom);
+      $("#updateTypeBailleur").val(userid.type_de_bailleur);
       $("#updateSecteurIntervation").val(userid.secteur_intervation);
       $("#updateTypeFinancement").val(userid.type_financement);
       $("#updatePartFinance").val(userid.part_financer);
@@ -141,11 +142,12 @@ function updateBalleur() {
 }
 
 function deleteBailleur(deleteid) {
+  $("#PopupModalDelete").modal("show");
   $.ajax({
     url: "bailleurs-requette.php",
     type: "POST",
     data: {
-      deleteid: parseInt(deleteid),
+      deleteid: deleteid,
       action: "DELETE",
     },
     success: function (response) {
