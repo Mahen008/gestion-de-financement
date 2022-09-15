@@ -28,7 +28,7 @@ if ($action == 'CREATE') {
                     
                     <td>
                         <button class="btn btn-dark" onclick="editPlafondFmi(' . $row['id'] . ')" data-toggle="modal" data-target="#fmi-update-modal">Editer</button>
-                        <button class="btn btn-danger" onclick="deletePlafondFmi(' . $row['id'] . ')">Supprimer</button>
+                        <button class="btn btn-danger" onclick="confirmDataDeleteFmi(' . $row['id'] . ')" data-toggle="modal" data-target="#PopupModalDeleteFMI">Supprimer</button>
                     </td>
                 </tr>';
     };
@@ -49,8 +49,17 @@ if ($action == 'CREATE') {
                 montant = '$updateMontant'
             WHERE id = '$id'";
     mysqli_query($conn, $query);
+} elseif ($action == 'DATADELETE') {
+    $id = $_POST['id'];
+    $query = "SELECT * FROM plafond_fmi WHERE id = $id LIMIT 1";
+    $resultat = mysqli_query($conn, $query);
+    $response = array();
+    while ($row = mysqli_fetch_assoc($resultat)) {
+        $response = $row;
+    }
+    echo json_encode($response);
 } elseif ($action == 'DELETE') {
-    $id = $_POST['deleteid'];
+    $id = $_POST['id'];
     echo $id;
     $query = "DELETE FROM plafond_fmi WHERE id = $id";
     mysqli_query($conn, $query);

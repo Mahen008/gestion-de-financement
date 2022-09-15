@@ -49,7 +49,7 @@ if ($action == 'CREATE') {
                         
                         <td>
                             <button class="btn btn-dark" onclick="editBailleur(' . $row['id'] . ')" data-toggle="modal" data-target="#bailleur-update-modal">Editer</button>
-                            <button class="btn btn-danger trigger-btn" onclick="deleteBailleur(' . $row['id'] . ')" data-toggle="modal" href="PopupModalDelete">Supprimer</button>
+                            <button class="btn btn-danger trigger-btn" onclick="confirmDataDelete(' . $row['id'] . ')" data-toggle="modal" data-target="#PopupModalDelete">Supprimer</button>
                         </td>
                     </tr>';
     };
@@ -91,6 +91,15 @@ if ($action == 'CREATE') {
     frais_lies_mep_lettre_credit = '$updateFraisLiesMepLettreCredit'
     WHERE id = '$id'";
     mysqli_query($conn, $query);
+} elseif ($action == 'DATADELETE') {
+    $id = $_POST['id'];
+    $query = "SELECT * FROM bailleurs WHERE id = $id LIMIT 1";
+    $resultat = mysqli_query($conn, $query);
+    $response = array();
+    while ($row = mysqli_fetch_assoc($resultat)) {
+        $response = $row;
+    }
+    echo json_encode($response);
 } elseif ($action == 'DELETE') {
 
     $unique = $_POST['deleteid'];

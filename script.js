@@ -141,8 +141,25 @@ function updateBalleur() {
   });
 }
 
-function deleteBailleur(deleteid) {
-  $("#PopupModalDelete").modal("show");
+function confirmDataDelete(id) {
+  // $("#PopupModalDelete").modal("show");
+  $("#deleteId").val(id);
+  // alert(id);
+  $.post(
+    "bailleurs-requette.php",
+    { id: id, action: "DATADELETE" },
+    function (data) {
+      var userid = JSON.parse(data);
+      $("#deleteName").val(userid.nom);
+      // $("#updateDuree").val(userid.duree);
+      // $("#updateMontant").val(userid.montant);
+    }
+  );
+}
+
+function deleteBailleur() {
+  // $("#deleteId").val(deleteid);
+  var deleteid = $("#deleteId").val();
   $.ajax({
     url: "bailleurs-requette.php",
     type: "POST",
@@ -151,6 +168,7 @@ function deleteBailleur(deleteid) {
       action: "DELETE",
     },
     success: function (response) {
+      $("#PopupModalDelete .close").click();
       $(`#bailleur-${deleteid}`).remove();
     },
     error: function () {
@@ -240,7 +258,20 @@ function updatePlafondFmi() {
   });
 }
 
-function deletePlafondFmi(id) {
+function confirmDataDeleteFmi(id) {
+  // $("#PopupModalDelete").modal("show");
+  $("#deleteIdFmi").val(id);
+  // alert(id);
+  $.post("fmi-requette.php", { id: id, action: "DATADELETE" }, function (data) {
+    var userid = JSON.parse(data);
+    $("#deleteNameFmi").val(userid.date_debut);
+    // $("#updateDuree").val(userid.duree);
+    // $("#updateMontant").val(userid.montant);
+  });
+}
+
+function deletePlafondFmi() {
+  var id = $("#deleteIdFmi").val();
   $.ajax({
     url: "fmi-requette.php",
     type: "POST",
@@ -249,6 +280,7 @@ function deletePlafondFmi(id) {
       action: "DELETE",
     },
     success: function (response) {
+      $("#PopupModalDeleteFMI .close").click();
       $(`#plafond-${id}`).remove();
     },
     error: function () {

@@ -55,7 +55,7 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">ajout plafond fmi</h4>
+                    <h4 class="modal-title">modifier plafond fmi</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
@@ -83,13 +83,39 @@
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-success" onclick="updatePlafondFmi()">ajouter</button>
+                    <button type="submit" class="btn btn-success" onclick="updatePlafondFmi()">modifier</button>
                 </div>
 
             </div>
         </div>
     </div>
-
+    <!-- Modal confirm before delete -->
+    <div class="modal fade" id="PopupModalDeleteFMI">
+        <div class="modal-dialog modal-confirmPop">
+            <div class="modal-content">
+                <div class="modal-header flex-column">
+                    <div class="icon-box">
+                        <i class="material-icons">&#xE5CD;</i>
+                    </div>
+                    <h4 class="modal-title w-100">Êtes-vous sûr de vouloir supprimer?</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="deleteIdFmi" id="deleteIdFmi">
+                    <div class="form-group">
+                        <label for="deleteNameFmi">plafond</label>
+                        <input type="date" class="form-control" id="deleteNameFmi" name="deleteNameFmi">
+                        <!-- <p id="deleteName" name="deleteName"></p> -->
+                    </div>
+                    <p>Voulez-vous vraiment supprimer ces enregistrements ? Ce processus ne peut pas être annulé.</p>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-danger" onclick="deletePlafondFmi()">Effacer</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <table class="table table-dark" id="table-plafond-FMI">
         <thead>
             <tr>

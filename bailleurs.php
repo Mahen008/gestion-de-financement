@@ -233,22 +233,28 @@
             </div>
         </div>
         <!-- Modal confirm before delete -->
-        <div id="PopupModalDelete" class="modal fade">
+        <div class="modal fade" id="PopupModalDelete">
             <div class="modal-dialog modal-confirmPop">
                 <div class="modal-content">
                     <div class="modal-header flex-column">
                         <div class="icon-box">
                             <i class="material-icons">&#xE5CD;</i>
                         </div>
-                        <h4 class="modal-title w-100">Êtes-vous sûr?</h4>
+                        <h4 class="modal-title w-100">Êtes-vous sûr de vouloir supprimer?</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div class="modal-body">
+                        <input type="hidden" name="deleteId" id="deleteId">
+                        <div class="form-group">
+                            <label for="deleteName">bailleur</label>
+                            <input type="text" class="form-control" id="deleteName" name="deleteName">
+                            <!-- <p id="deleteName" name="deleteName"></p> -->
+                        </div>
                         <p>Voulez-vous vraiment supprimer ces enregistrements ? Ce processus ne peut pas être annulé.</p>
                     </div>
                     <div class="modal-footer justify-content-center">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                        <button type="button" class="btn btn-danger">Effacer</button>
+                        <button type="button" class="btn btn-danger" onclick="deleteBailleur()">Effacer</button>
                     </div>
                 </div>
             </div>
