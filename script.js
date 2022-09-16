@@ -1,6 +1,7 @@
 $(document).ready(function () {
   displayBailleur();
   displayPlafondFmi();
+  displaypret();
 });
 
 // =============== gestion users ===============
@@ -290,3 +291,20 @@ function deletePlafondFmi() {
 }
 
 // =============== end gestion plafond fmi ===============
+// =============== gestion prêt ===============
+
+function displaypret() {
+  // var displayBailleur = true;
+  $.ajax({
+    url: "pret-requette.php",
+    type: "POST",
+    data: {
+      action: "READ",
+    },
+    success: function (data) {
+      $("#pret").html(data);
+    },
+  });
+}
+
+// =============== end gestion prêt ===============
