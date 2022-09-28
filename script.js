@@ -307,4 +307,24 @@ function displaypret() {
   });
 }
 
+function voirPrevisionPret(id) {
+  // alert(id);
+  $.post(
+    "pret-requette.php",
+    { id: id, action: "PREVISION_PRET" },
+    function (data) {
+      var userid = JSON.parse(data);
+      $("#completeNomProjet").val(userid.nom_projet_sub);
+      $("#completeBailleur").val(userid.nom);
+      $("#completeModeDeRemboursement").val(
+        userid.mode_remboursement_principal
+      );
+      $("#completeMontant").val(userid.montant);
+      $("#completePeriodisiteDeRemboursement").val(
+        userid.periodisite_de_remboursement
+      );
+      $("#periode-remboursement").html(userid.tbody_table);
+    }
+  );
+}
 // =============== end gestion prêt ===============

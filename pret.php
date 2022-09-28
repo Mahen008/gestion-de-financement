@@ -10,34 +10,87 @@
                 <table border="1" class="table table-striped" id="table-bailleur" data-toggle="table">
                     <thead>
                         <tr>
-                            <th data-sortable="true" data-field="id">#</th>
-                            <th data-sortable="true" data-field="nom">nom</th>
-                            <!-- <th data-sortable="true" data-field="secteur_intervation">secteur d'intervation</th> -->
-                            <!-- <th data-sortable="true" data-field="type_definancement">type definancement</th> -->
-                            <th data-sortable="true" data-field="libelle">libelle</th>
-                            <th data-sortable="true" data-field="maturite">maturité</th>
-                            <th data-sortable="true" data-field="periode_de_grace">période de grace</th>
-                            <!-- <th data-sortable="true" data-field="taux_interet">taux d'intéret</th> -->
-                            <!-- <th data-sortable="true" data-field="differenciel_interet">differenciel intéret</th> -->
-                            <!-- <th data-sortable="true" data-field="frais_de_gestion">frais de gestion</th> -->
-                            <!-- <th data-sortable="true" data-field="comission_engagement">comission d'engagement</th> -->
-                            <!-- <th data-sortable="true" data-field="comission_service">comission de service</th> -->
-                            <!-- <th data-sortable="true" data-field="comission_initiale">comission initiale</th> -->
-                            <!-- <th data-sortable="true" data-field="commission_arragement">commission d'arragement</th> -->
-                            <!-- <th data-sortable="true" data-field="frais_exposition">frais d'exposition</th> -->
-                            <!-- <th data-sortable="true" data-field="commission_agent">commission d'agent</th> -->
-                            <!-- <th data-sortable="true" data-field="maturite_de_lettre_de_credit">maturité de lettre de crédit</th> -->
-                            <!-- <th data-sortable="true" data-field="frais_ref_lettre_credit">frais ref lettre crédit</th> -->
-                            <!-- <th data-sortable="true" data-field="frais_de_rebours">frais de rebours</th> -->
-                            <!-- <th data-sortable="true" data-field="prime_assurence_frais_garantie">prime d'assurence frais garantie</th> -->
-                            <!-- <th data-sortable="true" data-field="prime_attenuation_risque_de_crédit">prime attenuation risque de crédit</th> -->
-                            <!-- <th data-sortable="true" data-field="frais_lies_mep_lettre_credit">frais liés mep lettre crédit</th> -->
+                            <th data-sortable="true" data-field="">#</th>
+                            <th data-sortable="true" data-field="">projet à subventionne</th>
+                            <th data-sortable="true" data-field="">montant prêt</th>
+                            <th data-sortable="true" data-field="">statut</th>
+                            <th data-sortable="true" data-field="">nom de bailleur</th>
+                            <th data-sortable="true" data-field="">maturité</th>
+                            <th data-sortable="true" data-field="">période de grace</th>
+                            <th data-sortable="true" data-field="">mode de remboursement principal</th>
+                            <th data-sortable="true" data-field="">periodisité de remboursement</th>
+                            <th data-sortable="true" data-field="">taux intérêt</th>
+                            <th data-sortable="true" data-field="">frais de gestion</th>
+                            <th data-sortable="true" data-field="">commission initiale</th>
+                            <th data-sortable="true" data-field="">commission agent</th>
+                            <th data-sortable="true" data-field="">concessionalité</th>
                             <th class="fixed">Action</th>
                         </tr>
                     </thead>
                     <tbody id="pret">
                     </tbody>
                 </table>
+            </div>
+        </div>
+        <!-- prevision pret Modal -->
+        <div class="modal fade" id="prevision-pret-modal">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">prévision de la dette</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="row d-flex flex-wrap justify-content-around p-3">
+                            <div class="form-group">
+                                <label for="completeNomProjet">nom du projet à subventionné</label>
+                                <input type="text" class="form-control" id="completeNomProjet" name="completeNomProjet">
+                            </div>
+                            <div class="form-group">
+                                <label for="completeBailleur">bailleur</label>
+                                <input type="text" class="form-control" id="completeBailleur" name="completeBailleur">
+                            </div>
+                        </div>
+                        <div class="row d-flex flex-wrap justify-content-around p-3">
+                            <div class="form-group">
+                                <label for="completeModeDeRemboursement">mode de remboursement</label>
+                                <input type="text" class="form-control" id="completeModeDeRemboursement" name="completeModeDeRemboursement">
+                            </div>
+                            <div class="form-group">
+                                <label for="completeMontant">montant</label>
+                                <input type="number" class="form-control" id="completeMontant" name="completeMontant">
+                            </div>
+                            <div class="form-group">
+                                <label for="completePeriodisiteDeRemboursement">périodisité de remboursement</label>
+                                <input type="text" class="form-control" id="completePeriodisiteDeRemboursement" name="completePeriodisiteDeRemboursement">
+                            </div>
+                        </div>
+                        <table class="table table-dark" id="table-plafond-FMI">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">intérêt</th>
+                                    <th scope="col">principal</th>
+                                    <th scope="col">commission de gestion</th>
+                                    <th scope="col">encours</th>
+                                </tr>
+                            </thead>
+                            <tbody id="periode-remboursement">
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <!-- <button type="submit" class="btn btn-success" onclick="updatePlafondFmi()">modifier</button> -->
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
