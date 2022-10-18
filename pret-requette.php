@@ -85,10 +85,14 @@ if ($action == 'READ') {
     $mode_remboursement_principal = $response['mode_remboursement_principal'];
     $annee_remboursement = $response['annee_signature'];
     $ENCt_1 = $response['montant'];
-    $PPt = 0;
+    // $PPt = 0;
+    $PPt = $ENCt_1 / ($maturite - $periode_grace);
     $ENCt = 0;
+    $c_ENC_t = 0;
     $interet = $response['taux_interet'];
     $PP_avec_periode_grace = 0;
+    $c_ENC = array();
+    $i = 0;
 
     if ($mode_remboursement_principal == 'remboursement constant') {
         if ($periodisite_de_remboursement == 'annuelle') {
@@ -101,36 +105,40 @@ if ($action == 'READ') {
                 $maturite > $periode_grace
             ) {
                 for ($ligne = 0; $ligne < $maturite; $ligne++) {
-                    // for ($ligne_periode_grace = 0; $ligne_periode_grace < $periode_grace; $ligne_periode_grace++) {
                     while ($periode_grace > 0) {
                         $table .= '<tr>
                             <td>' . $annee_remboursement . '</td>
                             <td>' . ($ENCt_1 + $ENCt / 2) * $interet . '</td>
                             <td>' . $PP_avec_periode_grace . '</td>
                             <td>commission de gestion</td>
-                            <td>' . $ENCt_1 - $PPt . '</td>
+                            <td>' . $c_ENC[] = $ENCt_1 . '</td>
                         </tr>';
                         $periode_grace--;
                         $maturite--;
                         $annee_remboursement++;
+                        $i++;
                     }
-                    if ($periode_grace == 0 && $ligne == 0) {
-                        $PPt = $response['montant'];
-                    }
-                    // if ($ligne !=0) {
-                    //     $ENCt_1 = ;
-                    // }
+                    // $i--;
+                    // echo $c_ENC[$i];
+                    // echo $c_ENC_t;
+                    // print_r($c_ENC);
+                    // die();
+                    $c_ENC[] = (int)$c_ENC[$i - 1] - $PPt;
+
                     $table .= '<tr>
                             <td>' . $annee_remboursement . '</td>
-                            <td>' . ($ENCt_1 + $ENCt / 2) * $interet . '</td>
-                            <td>' . $PPt / ($maturite) . '</td>
+                            <td>' . (((int)$c_ENC[$i - 1] + (int)end($c_ENC)) / 2) * $interet . '</td>
+                            <td>' . $PPt . '</td>
                             <td>f</td>
-                            <td>' .  $ENCt_1 - $PPt . '</td>
+                            <td>' . end($c_ENC)  . '</td> 
                         </tr>';
                     $annee_remboursement++;
+                    // echo 'encours t-1' . $c_ENC[$i];
+                    // echo "\n";
+                    // echo 'encours t' . end($c_ENC);
+                    // echo "\n";
 
-                    // $ENCt = $ENCt_1;
-                    // $PPt = $PPt / ($maturite - $periode_grace);
+                    $i++;
                 }
             } else {
                 $table .= '<tr>
