@@ -3,51 +3,88 @@ require_once 'config.php';
 
 global $conn;
 extract($_POST);
+// print_r($action);
 
 if ($action == 'READ') {
 
-    $pret = mysqli_query($conn, "SELECT 
-                                    projet_sub.id AS id,
-                                    nom_projet_sub, 
-                                    montant, 
-                                    statut, 
-                                    nom, 
-                                    maturite, 
-                                    periode_grace, 
-                                    mode_remboursement_principal, 
-                                    periodisite_de_remboursement, 
-                                    taux_interet, 
-                                    frais_gestion, 
-                                    commission_initiale, 
-                                    commission_agent 
-                                FROM projet_sub 
+    $pret = mysqli_query($conn, "SELECT * 
+                                FROM pret 
                                 INNER JOIN bailleurs 
-                                ON projet_sub.id_bailleurs = bailleurs.id;");
+                                ON pret.id_bailleurs = bailleurs.id 
+                                INNER JOIN projet_sub 
+                                ON pret.id_projet = projet_sub.id;");
     $i = 1;
     $table =  "";
     foreach ($pret as $row) {
         $table .= '<tr id=projet_sub-' . $row["id"] . '>
-                    <td>' . $i++ . '</td>
-                    <td>' . $row["nom_projet_sub"] . '</td>
-                    <td>' . $row["montant"] . '</td>
-                    <td>' . $row["statut"] . '</td>
-                    <td>' . $row["nom"] . '</td>
-                    <td>' . $row["maturite"] . '</td>
-                    <td>' . $row["periode_grace"] . '</td>
-                    <td>' . $row["mode_remboursement_principal"] . '</td>
-                    <td>' . $row["periodisite_de_remboursement"] . '</td>
-                    <td>' . $row["taux_interet"] . '</td>
-                    <td>' . $row["frais_gestion"] . '</td>
-                    <td>' . $row["commission_initiale"] . '</td> 
-                    <td>' . $row["commission_agent"] . '</td> 
-                    <td></td> 
-                    
-                    <td>
-                        <button class="btn btn-dark" onclick="voirPrevisionPret(' . $row['id'] . ')" data-toggle="modal" data-target="#prevision-pret-modal">voir prévision prêt</button>
-                    </td>
-                </tr>';
+                        <td>' . $i++ . '</td>
+                        <td>' . $row["nom_projet_sub"] . '</td>
+                        <td>' . $row["nom"] . '</td>
+                        <td>' . $row["montant"] . '</td>';
+        echo $row["status"];
+        if ($row["status"] == "en cours d'etude") {
+            $table .= '<td><span class="custom-badge status-red">' . $row["status"] . '</span></td>';
+        } elseif ($row["status"] == "Requette envoyée") {
+            $table .= '<td><span class="custom-badge status-blue">' . $row["status"] . '</span></td>';
+        } elseif ($row["status"] == "En cours de négociation") {
+            $table .= '<td><span class="custom-badge status-grey">' . $row["status"] . '</span></td>';
+        } elseif ($row["status"] == "En cours de signature") {
+            $table .= '<td><span class="custom-badge status-purple">' . $row["status"] . '</span></td>';
+        } else {
+            $table .= '<td><span class="custom-badge status-green">' . $row["status"] . '</span></td>';
+        }
+
+        $table .=  '<td>' . $row["maturite"] . '</td>
+                        <td>' . $row["periode_grace"] . '</td>
+                        <td>' . $row["mode_remboursement_principal"] . '</td>
+                        <td>' . $row["periodisite_de_remboursement"] . '</td>
+                        <td>' . $row["taux_interet"] . '</td>
+                        <td>' . $row["frais_gestion"] . '</td>
+                        
+                        <td class="text-right">
+                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="edit-department.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_department"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                <a class="dropdown-item" onclick="voirPrevisionPret(' . $row['id'] . ')" data-toggle="modal" data-target="#prevision-pret-modal"><i class="fa fa-trash-o m-r-5"></i> voir prévision prêt</a>
+                            </div>
+                        </td>
+                    </tr>';
     };
     echo $table;
+} elseif ($action == "DATA_DROWP") {
+    $dataBailleur = mysqli_query($conn, "SELECT * 
+                                FROM bailleurs;");
+    $drowpBailleurs =  "";
+    foreach ($dataBailleur as $row) {
+        $drowpBailleurs .= '<option value="' . $row["id"] . '">' . $row["nom"] . '</option>';
+    };
+    // echo $drowpBailleurs;
+    $drowpdata = array();
+    $drowpdata['drowpBailleurs'] = $drowpBailleurs;
+
+    $dataProjet = mysqli_query($conn, "SELECT * 
+                                       FROM `pret` 
+                                       RIGHT JOIN projet_sub 
+                                       ON pret.id_projet = projet_sub.id 
+                                       WHERE pret.id IS NULL;");
+    $drowpPret =  "";
+    foreach ($dataProjet as $row) {
+        $drowpPret .= '<option value="' . $row["id"] . '">' . $row["nom_projet_sub"] . '</option>';
+    };
+    // echo $drowpPret;
+    $drowpdata['drowpPret'] = $drowpPret;
+    // print_r($drowpdata);
+    echo json_encode($drowpdata);
+    // print_r($drowpdata);
+} elseif ($action == "CREATE") {
+    $query = "INSERT INTO pret SET
+    id= '',
+    status = '$completeStatus',
+    id_bailleurs = '$completeIdBailleurs',
+    id_projet = '$completeIdProjet'";
+
+    mysqli_query($conn, $query);
 } elseif ($action == "PREVISION_PRET") {
     $id = $_POST['id'];
     $query = "SELECT 

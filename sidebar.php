@@ -16,7 +16,7 @@
                     <a href="projet.php"><i class="fa fa-calendar"></i> <span>Projet</span></a>
                 </li>
                 <li>
-                    <a href="previsionPret.php"><i class="fa fa-hospital-o"></i> <span>Prévision prêt</span></a>
+                    <a href="previsionPret.php"><i class="fa fa-hospital-o"></i> <span>prêt</span></a>
                 </li>
                 <li>
                     <a href="concessionnalite.php"><i class="fa fa-calendar-check-o"></i> <span>Concessionnalité de prêt</span></a>

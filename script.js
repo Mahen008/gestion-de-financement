@@ -7,6 +7,7 @@ $(document).ready(function ($) {
   displayBailleur();
   displayPlafondFmi();
   displaypret();
+  // dataDrowp();
 
   // Sidebar
   var Sidemenu = function () {
@@ -357,7 +358,11 @@ function editBailleur(editId) {
       $("#updateMaturite").val(userid.maturite);
       $("#updatePeriodeGrace").val(userid.periode_grace);
       $("#updateTauxInteret").val(userid.taux_interet);
-      $("#mahenina").val(userid.mode_remboursement_principal);
+      $("#test").val(userid.mode_remboursement_principal);
+
+      document
+        .getElementById("mahenina")
+        .val(userid.mode_remboursement_principal);
       $("#updatePeriodisitedeRemboursement").val(
         userid.periodisite_de_remboursement
       );
@@ -564,6 +569,53 @@ function displaypret() {
     },
     success: function (data) {
       $("#pret").html(data);
+    },
+  });
+}
+// $("#enregistrerPret").on("click", function () {
+function dataDrowp() {
+  // alert("mande eto");
+  $.ajax({
+    type: "POST",
+    url: "pret-requette.php",
+    data: {
+      action: "DATA_DROWP",
+    },
+    success: function (data) {
+      // console.log(data);
+      // var userid = JSON.parse(data);
+      // $("#hidden-update-id-bailleur").val(userid.id);
+      var datadrowpdown = JSON.parse(data);
+      // console.log(datadrowpdown.drowpBailleurs);
+      $("#completeIdBailleurs").html(datadrowpdown.drowpBailleurs);
+      $("#completeIdProjet").html(datadrowpdown.drowpPret);
+    },
+  });
+}
+
+function addPret() {
+  var formdataPret = $("#formPret").serializeArray();
+  var action = {
+    name: "action",
+    value: "CREATE",
+  };
+  formdataPret.push(action);
+  // console.log(formdatafmi);
+
+  $.ajax({
+    type: "POST",
+    url: "pret-requette.php",
+    data: formdataPret,
+    success: function (response) {
+      if (response == "") {
+        $("#pret-add-modal .close").click();
+        displaypret();
+      } else {
+        // alert("error");
+      }
+    },
+    error: function () {
+      alert("Error");
     },
   });
 }

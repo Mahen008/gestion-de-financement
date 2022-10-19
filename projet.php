@@ -1,24 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-
-<!-- provident-fund23:27-->
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
-    <title>Preclinic - Medical & Hospital - Bootstrap 4 Admin Template</title>
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/select2.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-    <!--[if lt IE 9]>
-		<script src="assets/js/html5shiv.min.js"></script>
-		<script src="assets/js/respond.min.js"></script>
-	<![endif]-->
-</head>
+<?php include('header.php'); ?>
 
 <body>
     <div class="main-wrapper">
@@ -28,10 +8,10 @@
             <div class="content">
                 <div class="row">
                     <div class="col-sm-5 col-4">
-                        <h4 class="page-title">Provident Fund</h4>
+                        <h4 class="page-title">Projet</h4>
                     </div>
                     <div class="col-sm-7 col-8 text-right m-b-30">
-                        <a href="add-provident-fund.html" class="btn btn-primary btn-rounded"><i class="fa fa-plus"></i> Add Provident Fund</a>
+                        <a href="add-provident-fund.html" class="btn btn-primary btn-rounded"><i class="fa fa-plus"></i> Add Projet</a>
                     </div>
                 </div>
                 <div class="row">
