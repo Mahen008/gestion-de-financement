@@ -608,11 +608,82 @@ function addPret() {
     data: formdataPret,
     success: function (response) {
       if (response == "") {
-        $("#pret-add-modal .close").click();
+        $("#pret-modal .close").click();
         displaypret();
       } else {
         // alert("error");
       }
+    },
+    error: function () {
+      alert("Error");
+    },
+  });
+}
+
+function confirmDataDeletePret(id) {
+  // $("#PopupModalDelete").modal("show");
+  $("#deleteIdPret").val(id);
+  // alert(id);
+  $.post(
+    "pret-requette.php",
+    { id: id, action: "DATADELETE" },
+    function (data) {
+      var userid = JSON.parse(data);
+      // $("#deleteNameFmi").val(userid.date_debut);
+      // $("#updateDuree").val(userid.duree);
+      // $("#updateMontant").val(userid.montant);
+    }
+  );
+}
+
+function editPret(id) {
+  $("#hidden-update-id-pret").val(id);
+  $.post("pret-requette.php", { id: id, action: "EDIT" }, function (data) {
+    var dataEditPret = JSON.parse(data);
+    $("#updateStatus").val(dataEditPret.status);
+    $("#updateIdBailleurs").val(dataEditPret.id_bailleurs);
+    $("#updateIdProjet").val(dataEditPret.id_projet);
+  });
+}
+
+function updatePret() {
+  var formupdataPret = $("#formupPret").serializeArray();
+  var hiddendataid = {
+    name: "id",
+    value: $("#hidden-update-id-Pret").val(),
+  };
+  var action = {
+    name: "action",
+    value: "UPDATE",
+  };
+  formupdatafmi.push(hiddendataid);
+  formupdatafmi.push(action);
+  $.ajax({
+    type: "POST",
+    url: "pret-requette.php",
+    data: formupdataPret,
+    success: function () {
+      $("#pret-update-modal .close").click();
+      displaypret();
+    },
+    error: function () {
+      alert("Error");
+    },
+  });
+}
+
+function deletePret() {
+  var id = $("#deleteIdPret").val();
+  $.ajax({
+    url: "pret-requette.php",
+    type: "POST",
+    data: {
+      id: id,
+      action: "DELETE",
+    },
+    success: function (response) {
+      $("#PopupModalDeletePret .close").click();
+      $(`#pret-${id}`).remove();
     },
     error: function () {
       alert("Error");

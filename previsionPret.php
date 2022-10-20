@@ -76,6 +76,7 @@
                             <th>Mode de remboursement</th>
                             <th>Taux d'intérêt</th>
                             <th>Frais de gestion</th>
+                            <th>Concessionnalité de prêt</th>
                             <th class="text-right">Action</th>
                         </tr>
                     </thead>
@@ -86,6 +87,145 @@
             </div>
         </div>
     </div>
-</div>
+</div> <!-- Edit Modal -->
+<div class="modal fade" id="pret-update-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">modification pret</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="POST" id="formupPret">
+                    <div class="row d-flex flex-wrap justify-content-around p-3">
+                        <div class="form-group p-2">
+                            <label for="updateStatus">status</label>
+                            <div>
+                                <select name="updateStatus" id="updateStatus" class="select">
+                                    <option value="En cours d'etude">En cours d'etude</option>
+                                    <option value="Requette envoyée">Requette envoyée</option>
+                                    <option value="En cours de négociation">En cours de négociation</option>
+                                    <option value="En cours de signature">En cours de signature</option>
+                                    <option value="Signé">Signé</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="updateIdBailleurs">Bailleur de fond</label>
+                            <div>
+                                <select name="updateIdBailleurs" id="updateIdBailleurs" class="select"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="updateIdProjet">Projet</label>
+                            <div>
+                                <select name="updateIdProjet" id="updateIdProjet" class="select"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="hidden-update-id-fmi">
+                </form>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-secondary" onclick="updatePret()">modifier</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Modal confirm before delete -->
+<div class="modal fade" id="PopupModalDeletePret">
+    <div class="modal-dialog modal-confirmPop">
+        <div class="modal-content">
+            <div class="modal-header flex-column">
+                <div class="icon-box">
+                    <i class="material-icons">&#xE5CD;</i>
+                </div>
+                <h4 class="modal-title w-100">Êtes-vous sûr de vouloir supprimer?</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" name="deleteIdPret" id="deleteIdPret">
+                <div class="form-group">
+                    <label for="deletePret">pret</label>
+                    <!-- <input type="date" class="form-control" id="deletePret" name="deletePret"> -->
+                    <!-- <p id="deleteName" name="deleteName"></p> -->
+                </div>
+                <p>Voulez-vous vraiment supprimer ces enregistrements ? Ce processus ne peut pas être annulé.</p>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-danger" onclick="deletePret()">Effacer</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- prevision pret Modal -->
+<div class="modal fade" id="prevision-pret-modal">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">prévision de la dette</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row d-flex flex-wrap justify-content-around p-3">
+                    <div class="form-group">
+                        <label for="completeNomProjet">nom du projet à subventionné</label>
+                        <input type="text" class="form-control" id="completeNomProjet" name="completeNomProjet">
+                    </div>
+                    <div class="form-group">
+                        <label for="completeBailleur">bailleur</label>
+                        <input type="text" class="form-control" id="completeBailleur" name="completeBailleur">
+                    </div>
+                </div>
+                <div class="row d-flex flex-wrap justify-content-around p-3">
+                    <div class="form-group">
+                        <label for="completeModeDeRemboursement">mode de remboursement</label>
+                        <input type="text" class="form-control" id="completeModeDeRemboursement" name="completeModeDeRemboursement">
+                    </div>
+                    <div class="form-group">
+                        <label for="completeMontant">montant</label>
+                        <input type="number" class="form-control" id="completeMontant" name="completeMontant">
+                    </div>
+                    <div class="form-group">
+                        <label for="completePeriodisiteDeRemboursement">périodisité de remboursement</label>
+                        <input type="text" class="form-control" id="completePeriodisiteDeRemboursement" name="completePeriodisiteDeRemboursement">
+                    </div>
+                </div>
+                <table class="table table-dark" id="table-plafond-FMI">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">intérêt</th>
+                            <th scope="col">principal</th>
+                            <th scope="col">commission de gestion</th>
+                            <th scope="col">encours</th>
+                        </tr>
+                    </thead>
+                    <tbody id="periode-remboursement">
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <!-- <button type="submit" class="btn btn-success" onclick="updatePlafondFmi()">modifier</button> -->
+            </div>
+
+        </div>
+    </div>
+</div>
 <?php include('footer.php'); ?>

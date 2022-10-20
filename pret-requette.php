@@ -7,7 +7,32 @@ extract($_POST);
 
 if ($action == 'READ') {
 
-    $pret = mysqli_query($conn, "SELECT * 
+    $pret = mysqli_query($conn, "SELECT pret.id AS id_pret, 
+                                        `status`, 
+                                        `id_bailleurs`, 
+                                        `id_projet`, 
+                                        bailleurs.id AS id_bailleur, 
+                                        `nom`, 
+                                        `secteur_intervation`, 
+                                        `maturite`, 
+                                        `periode_grace`, 
+                                        `taux_interet`, 
+                                        `mode_remboursement_principal`, 
+                                        `periodisite_de_remboursement`, 
+                                        `differenciel_interet`, 
+                                        `frais_gestion`, 
+                                        `commission_engagement`, 
+                                        `commission_service`, 
+                                        `commission_initiale`, 
+                                        `commission_arragement`, 
+                                        `commission_agent`, 
+                                        `frais_rebours`, 
+                                        `prime_assurance`,
+                                        projet_sub.id AS id_projet, 
+                                        `nom_projet_sub`, 
+                                        `montant`, 
+                                        `statut`, 
+                                        `date_signature` 
                                 FROM pret 
                                 INNER JOIN bailleurs 
                                 ON pret.id_bailleurs = bailleurs.id 
@@ -16,12 +41,12 @@ if ($action == 'READ') {
     $i = 1;
     $table =  "";
     foreach ($pret as $row) {
-        $table .= '<tr id=projet_sub-' . $row["id"] . '>
+        $table .= '<tr id=pret-' . $row["id_pret"] . '>
                         <td>' . $i++ . '</td>
                         <td>' . $row["nom_projet_sub"] . '</td>
                         <td>' . $row["nom"] . '</td>
                         <td>' . $row["montant"] . '</td>';
-        echo $row["status"];
+        // echo $row["status"];
         if ($row["status"] == "en cours d'etude") {
             $table .= '<td><span class="custom-badge status-red">' . $row["status"] . '</span></td>';
         } elseif ($row["status"] == "Requette envoyée") {
@@ -39,14 +64,17 @@ if ($action == 'READ') {
                         <td>' . $row["mode_remboursement_principal"] . '</td>
                         <td>' . $row["periodisite_de_remboursement"] . '</td>
                         <td>' . $row["taux_interet"] . '</td>
-                        <td>' . $row["frais_gestion"] . '</td>
-                        
-                        <td class="text-right">
+                        <td>' . $row["frais_gestion"] . '</td>';
+        // calcule de valeur actuelle (VA)
+        // formule VA= SD1/(1+r)+ SD1/(1+r)²+ ... + SDn/(1+r)^n
+
+        // fin VA 
+        $table .=  '<td class="text-right">
                             <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="edit-department.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_department"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                <a class="dropdown-item" onclick="voirPrevisionPret(' . $row['id'] . ')" data-toggle="modal" data-target="#prevision-pret-modal"><i class="fa fa-trash-o m-r-5"></i> voir prévision prêt</a>
+                                <a class="dropdown-item" onclick="editPret(' . $row['id_pret'] . ')" data-toggle="modal" data-target="#pret-update-modal"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                <a class="dropdown-item" onclick="confirmDataDeletePret(' . $row['id_pret'] . ')" data-toggle="modal" data-target="#PopupModalDeletePret"><i class="fa fa-trash-o m-r-5"></i> Supprimer</a>
+                                <a class="dropdown-item" onclick="voirPrevisionPret(' . $row['id_pret'] . ')" data-toggle="modal" data-target="#prevision-pret-modal"><i class="fa fa-trash-o m-r-5"></i> voir prévision prêt</a>
                             </div>
                         </td>
                     </tr>';
@@ -77,6 +105,22 @@ if ($action == 'READ') {
     // print_r($drowpdata);
     echo json_encode($drowpdata);
     // print_r($drowpdata);
+} elseif ($action == 'EDIT') {
+    $id = $_POST['id'];
+    $query = "SELECT * FROM pret WHERE id = $id LIMIT 1";
+    $resultat = mysqli_query($conn, $query);
+    $response = array();
+    while ($row = mysqli_fetch_assoc($resultat)) {
+        $response = $row;
+    }
+    echo json_encode($response);
+} elseif ($action == 'UPDATE') {
+    $query = "UPDATE pret SET
+                status = '$updateStatus', 
+                id_bailleurs = '$updateIdBailleurs', 
+                id_projet = '$updateIdProjet'
+            WHERE id = '$id'";
+    mysqli_query($conn, $query);
 } elseif ($action == "CREATE") {
     $query = "INSERT INTO pret SET
     id= '',
@@ -85,27 +129,55 @@ if ($action == 'READ') {
     id_projet = '$completeIdProjet'";
 
     mysqli_query($conn, $query);
+} elseif ($action == 'DELETE') {
+    $id = $_POST['id'];
+    echo $id;
+    $query = "DELETE FROM pret WHERE id = $id";
+    mysqli_query($conn, $query);
+} elseif ($action == "DATADELETE") {
+    $id = $_POST['id'];
+    $query = "SELECT * FROM pret WHERE id = $id LIMIT 1";
+    $resultat = mysqli_query($conn, $query);
+    $response = array();
+    while ($row = mysqli_fetch_assoc($resultat)) {
+        $response = $row;
+    }
+    echo json_encode($response);
 } elseif ($action == "PREVISION_PRET") {
     $id = $_POST['id'];
-    $query = "SELECT 
-                projet_sub.id,
-                nom_projet_sub, 
-                YEAR(date_signature) AS annee_signature,
-                montant, 
-                statut, 
-                nom, 
-                maturite, 
-                periode_grace, 
-                mode_remboursement_principal, 
-                periodisite_de_remboursement, 
-                taux_interet, 
-                frais_gestion, 
-                commission_initiale, 
-                commission_agent 
-            FROM projet_sub 
+    // echo $id;
+    $query = "SELECT pret.id AS id_pret, 
+                    `status`, 
+                    `id_bailleurs`, 
+                    `id_projet`, 
+                    bailleurs.id AS id_bailleur, 
+                    `nom`, 
+                    `secteur_intervation`, 
+                    `maturite`, 
+                    `periode_grace`, 
+                    `taux_interet`, 
+                    `mode_remboursement_principal`, 
+                    `periodisite_de_remboursement`, 
+                    `differenciel_interet`, 
+                    `frais_gestion`, 
+                    `commission_engagement`, 
+                    `commission_service`, 
+                    `commission_initiale`, 
+                    `commission_arragement`, 
+                    `commission_agent`, 
+                    `frais_rebours`, 
+                    `prime_assurance`,
+                    projet_sub.id AS id_projet, 
+                    `nom_projet_sub`, 
+                    `montant`, 
+                    `statut`, 
+                    YEAR(date_signature) AS annee_signature
+            FROM `pret` 
+            INNER JOIN projet_sub 
+            ON pret.id_projet = projet_sub.id 
             INNER JOIN bailleurs 
-            ON projet_sub.id_bailleurs = bailleurs.id 
-            WHERE projet_sub.id = $id 
+            ON pret.id_bailleurs = bailleurs.id
+            WHERE pret.id = $id 
             LIMIT 1";
 
     $resultat = mysqli_query($conn, $query);
@@ -115,7 +187,7 @@ if ($action == 'READ') {
     }
     $table = "";
     // print_r($montant);
-    // print_r($response['']);
+    // echo ($response);
     $maturite = $response['maturite'];
     $periode_grace = $response['periode_grace'];
     $periodisite_de_remboursement = $response['periodisite_de_remboursement'];

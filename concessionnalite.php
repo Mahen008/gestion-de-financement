@@ -39,14 +39,16 @@
                             <table class="table table-striped custom-table">
                                 <thead>
                                     <tr>
-                                        <th>Appointment ID</th>
-                                        <th>Patient Name</th>
-                                        <th>Age</th>
-                                        <th>Doctor Name</th>
-                                        <th>Department</th>
-                                        <th>Appointment Date</th>
-                                        <th>Appointment Time</th>
-                                        <th>Status</th>
+                                        <th>#</th>
+                                        <th>nom projet</th>
+                                        <th>nom bailleur</th>
+                                        <th>Montant</th>
+                                        <th>Maturité</th>
+                                        <th>Période de grâce</th>
+                                        <th>Taux d'intérêt</th>
+                                        <th>Mode de remboursement</th>
+                                        <th>Commission d'engagement</th>
+                                        <th>Commission de service</th>
                                         <th class="text-right">Action</th>
                                     </tr>
                                 </thead>
