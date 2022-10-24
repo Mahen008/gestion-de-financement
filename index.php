@@ -30,7 +30,4 @@
     </table>
     <br>
     <a href="adduser.php">Add User</a>
-    <?php require 'script.js'; ?>
-</body>
-
-</html>
+    <?php include("footer.php"); ?>

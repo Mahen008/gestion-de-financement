@@ -7,6 +7,7 @@ $(document).ready(function ($) {
   displayBailleur();
   displayPlafondFmi();
   displaypret();
+  displayProjet();
   // dataDrowp();
 
   // Sidebar
@@ -712,3 +713,190 @@ function voirPrevisionPret(id) {
   );
 }
 // =============== end gestion prêt ===============
+// =============== gestion projet ===============
+
+function addProjet() {
+  var formdataProjet = $("#formProjet").serializeArray();
+  var action = {
+    name: "action",
+    value: "CREATE",
+  };
+  formdataProjet.push(action);
+
+  $.ajax({
+    type: "POST",
+    url: "projet-requette.php",
+    data: formdataProjet,
+    success: function (response) {
+      if (response == "") {
+        $("#projet-modal .close").click();
+        displayProjet();
+      } else {
+        // alert("error");
+      }
+    },
+    error: function () {
+      alert("Error");
+    },
+  });
+}
+
+function displayProjet() {
+  // alert("actualiser");
+  $.ajax({
+    url: "projet-requette.php",
+    type: "POST",
+    data: {
+      action: "READ",
+    },
+    success: function (data) {
+      $("#projet").html(data);
+    },
+  });
+}
+
+function editProjet(id) {
+  $("#hidden-update-id-projet").val(id);
+  $.post("projet-requette.php", { id: id, action: "EDIT" }, function (data) {
+    var projetid = JSON.parse(data);
+    $("#updateName").val(projetid.nom_projet_sub);
+    $("#updateMontant").val(projetid.montant);
+  });
+}
+
+function updateProjet() {
+  var formupdataProjet = $("#formUpdateProjet").serializeArray();
+  var hiddendataid = {
+    name: "id",
+    value: $("#hidden-update-id-projet").val(),
+  };
+  var action = {
+    name: "action",
+    value: "UPDATE",
+  };
+  formupdataProjet.push(hiddendataid);
+  formupdataProjet.push(action);
+  $.ajax({
+    type: "POST",
+    url: "projet-requette.php",
+    data: formupdataProjet,
+    success: function () {
+      $("#projet-update-modal .close").click();
+      displayProjet();
+    },
+    error: function () {
+      alert("Error");
+    },
+  });
+}
+
+function confirmDataDeleteProjet(id) {
+  // $("#PopupModalDelete").modal("show");
+  $("#deleteId").val(id);
+  // alert(id);
+  $.post(
+    "projet-requette.php",
+    { id: id, action: "DATADELETE" },
+    function (data) {
+      var projetid = JSON.parse(data);
+      $("#deleteName").val(projetid.nom_projet_sub);
+      // $("#updateDuree").val(userid.duree);
+      // $("#updateMontant").val(userid.montant);
+    }
+  );
+}
+
+function deleteProjet() {
+  var id = $("#deleteId").val();
+  $.ajax({
+    url: "projet-requette.php",
+    type: "POST",
+    data: {
+      id: id,
+      action: "DELETE",
+    },
+    success: function (response) {
+      $("#PopupModalDelete .close").click();
+      $(`#projet-${id}`).remove();
+    },
+    error: function () {
+      alert("Error");
+    },
+  });
+}
+// =============== end gestion projet ===============
+// =============== gestion Utilisateur ===============
+
+// $("#formUser").submit(function(e){
+//   e.preventDefault();
+
+// })
+function addUser() {
+  // var formdataUser = $("#formUser").serializeArray();
+  // var formdataUser = new FormData("#formUser");
+  // formUser.onsubmit = async (e) => {
+  //   e.preventDefault();
+  //   let response = await fetch("", {
+  //     method: "POST",
+  //     body: new FormData(formUser),
+  //   });
+  //   let result = await response.json();
+
+  //   alert(result.message);
+  // };
+  const formUsers = document.querySelector("#formUser");
+  const formData = new FormData(formUsers);
+  const completeName = formData.get("completeName");
+  const completeEmail = formData.get("completeEmail");
+  const completeFonction = formData.get("completeFonction");
+  const completeService = formData.get("completeService");
+  const completePdp = formData.get("completePdp");
+  const completeGenre = formData.get("completeGenre");
+  const completeRole = formData.get("completeRole");
+
+  // var action = {
+  //   name: "action",
+  //   value: "CREATE",
+  // };
+  // formdataUser.push(action);
+  formData.append("action", "CREATE");
+  console.log(formData.get("completePdp"));
+  console.log(formData.get("action"));
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", "user-requette.php", true);
+  // xhr.send(data);
+
+  $.ajax({
+    url: "user-requette.php",
+    cache: false,
+    contentType: "false",
+    processData: false,
+    type: "POST",
+    data: {
+      completeName: completeName,
+      completeEmail: completeEmail,
+      completeFonction: completeFonction,
+      completeService: completeService,
+      completePdp: completePdp,
+      completeGenre: completeGenre,
+      completeRole: completeRole,
+    },
+    success: function (response) {
+      if (response == "") {
+        $("#user-modal .close").click();
+        displayUser();
+      } else {
+        // alert("error");
+      }
+    },
+    error: function () {
+      alert("Error");
+    },
+  });
+}
+
+function displayUser() {
+  alert("affichage liste users");
+}
+
+// =============== end gestion Utilisateur ===============

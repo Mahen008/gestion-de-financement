@@ -1,6 +1,32 @@
 <?php
 require_once 'config.php';
 
+function init_php_session(): bool
+{
+  if (!session_id()) {
+    session_start();
+    session_regenerate_id();
+    return true;
+  }
+  return false;
+}
+
+function clean_php_session(): void
+{
+  session_unset();
+  session_destroy();
+}
+
+function is_logged(): bool
+{
+  return true; 
+}
+
+function is_admin(): bool
+{
+  return true;
+}
+
 if (isset($_POST["action"])) {
   if ($_POST["action"] == "insert") {
     insert();
@@ -48,3 +74,17 @@ function delete()
   mysqli_query($conn, $query);
   echo "Deleted Successfully";
 }
+
+function calcul_commission_de_gestion()
+{
+  // return 
+}
+
+// function commission_de_gestion($frais_gestion)
+// {
+//   if (condition) {
+//     # code...
+//   } elseif (condition) {
+//     # code...
+//   }
+// }

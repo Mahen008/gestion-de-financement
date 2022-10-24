@@ -26,10 +26,15 @@ if ($action == 'CREATE') {
                     <td>' . $row["duree"] . '</td>
                     <td>' . $row["montant"] . '</td>
                     
-                    <td>
-                        <button class="btn btn-dark" onclick="editPlafondFmi(' . $row['id'] . ')" data-toggle="modal" data-target="#fmi-update-modal">Editer</button>
-                        <button class="btn btn-danger" onclick="confirmDataDeleteFmi(' . $row['id'] . ')" data-toggle="modal" data-target="#PopupModalDeleteFMI">Supprimer</button>
-                    </td>
+                    <td class="text-right">
+                            <div class="dropdown dropdown-action">
+                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a  onclick="editPlafondFmi(' . $row['id'] . ')" data-toggle="modal" data-target="#fmi-update-modal" class="dropdown-item"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                    <a class="dropdown-item" onclick="confirmDataDeleteFmi(' . $row['id'] . ')" data-toggle="modal" data-target="#PopupModalDeleteFMI"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                </div>
+                            </div>
+                        </td>
                 </tr>';
     };
     echo $table;

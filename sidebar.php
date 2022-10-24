@@ -10,6 +10,9 @@
                     <a href="users.php"><i class="fa fa-user"></i> <span>Utilisateur</span></a>
                 </li>
                 <li>
+                    <a href="fmi-plafond.php"><i class="fa fa-globe"></i> <span>Plafond fmi</span></a>
+                </li>
+                <li>
                     <a href="bailleurs.php"><i class="fa fa-money"></i> <span>Bailleurs</span></a>
                 </li>
                 <li>

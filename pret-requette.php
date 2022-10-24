@@ -31,45 +31,102 @@ if ($action == 'READ') {
                                         projet_sub.id AS id_projet, 
                                         `nom_projet_sub`, 
                                         `montant`, 
-                                        `statut`, 
-                                        `date_signature` 
+                                        YEAR(date_signature) AS annee_signature
                                 FROM pret 
                                 INNER JOIN bailleurs 
                                 ON pret.id_bailleurs = bailleurs.id 
                                 INNER JOIN projet_sub 
-                                ON pret.id_projet = projet_sub.id;");
-    $i = 1;
+                                ON pret.id_projet = projet_sub.id");
+
+    $a = 1;
     $table =  "";
-    foreach ($pret as $row) {
-        $table .= '<tr id=pret-' . $row["id_pret"] . '>
-                        <td>' . $i++ . '</td>
+    if (is_array($pret) || is_object($pret)) {
+        foreach ($pret as $row) {
+            $table .= '<tr id=pret-' . $row["id_pret"] . '>
+                        <td>' . $a++ . '</td>
                         <td>' . $row["nom_projet_sub"] . '</td>
                         <td>' . $row["nom"] . '</td>
                         <td>' . $row["montant"] . '</td>';
-        // echo $row["status"];
-        if ($row["status"] == "en cours d'etude") {
-            $table .= '<td><span class="custom-badge status-red">' . $row["status"] . '</span></td>';
-        } elseif ($row["status"] == "Requette envoyée") {
-            $table .= '<td><span class="custom-badge status-blue">' . $row["status"] . '</span></td>';
-        } elseif ($row["status"] == "En cours de négociation") {
-            $table .= '<td><span class="custom-badge status-grey">' . $row["status"] . '</span></td>';
-        } elseif ($row["status"] == "En cours de signature") {
-            $table .= '<td><span class="custom-badge status-purple">' . $row["status"] . '</span></td>';
-        } else {
-            $table .= '<td><span class="custom-badge status-green">' . $row["status"] . '</span></td>';
-        }
+            // echo $row["status"];
+            if ($row["status"] == "en cours d'etude") {
+                $table .= '<td><span class="custom-badge status-red">' . $row["status"] . '</span></td>';
+            } elseif ($row["status"] == "Requette envoyée") {
+                $table .= '<td><span class="custom-badge status-blue">' . $row["status"] . '</span></td>';
+            } elseif ($row["status"] == "En cours de négociation") {
+                $table .= '<td><span class="custom-badge status-grey">' . $row["status"] . '</span></td>';
+            } elseif ($row["status"] == "En cours de signature") {
+                $table .= '<td><span class="custom-badge status-purple">' . $row["status"] . '</span></td>';
+            } else {
+                $table .= '<td><span class="custom-badge status-green">' . $row["status"] . '</span></td>';
+            }
 
-        $table .=  '<td>' . $row["maturite"] . '</td>
+            $table .=  '<td>' . $row["maturite"] . '</td>
                         <td>' . $row["periode_grace"] . '</td>
                         <td>' . $row["mode_remboursement_principal"] . '</td>
                         <td>' . $row["periodisite_de_remboursement"] . '</td>
-                        <td>' . $row["taux_interet"] . '</td>
-                        <td>' . $row["frais_gestion"] . '</td>';
-        // calcule de valeur actuelle (VA)
-        // formule VA= SD1/(1+r)+ SD1/(1+r)²+ ... + SDn/(1+r)^n
+                        <td>' . $row["taux_interet"] . '</td>';
+            $maturite = $row['maturite'];
+            $periode_grace = $row['periode_grace'];
+            $frais_gestion = (int)$row['frais_gestion'];
+            $periodisite_de_remboursement = $row['periodisite_de_remboursement'];
+            $mode_remboursement_principal = $row['mode_remboursement_principal'];
+            $annee_remboursement = $row['annee_signature'];
+            $ENCt_1 = $row['montant'];
+            // $PPt = 0;
+            $PPt = $ENCt_1 / ($maturite - $periode_grace);
+            $ENCt = 0;
+            $c_ENC_t = 0;
+            $interet = $row['taux_interet'];
+            $PP_avec_periode_grace = 0;
+            $c_ENC = array();
+            $i = 0;
+            $commission_de_gestion =  $frais_gestion / $maturite;
+            $SDi = array();
+            $element_don;
+            // const taux_actualisation = 0.05;
+            if ($mode_remboursement_principal == 'remboursement constant') {
+                if ($periodisite_de_remboursement == 'annuelle') {
+                    if (
+                        isset($row['montant']) &&
+                        isset($maturite) &&
+                        isset($row['taux_interet']) &&
+                        $row['montant'] > 0 &&
+                        $row['maturite'] > 0 &&
+                        $maturite > $periode_grace
+                    ) {
+                        for ($ligne = 0; $ligne < $maturite; $ligne++) {
+                            while ($periode_grace > 0) {
+                                $SDi[] = ((($ENCt_1 + $ENCt / 2) * $interet) + $PP_avec_periode_grace + $commission_de_gestion) / pow(1.05, $i + 1);
+                                var_dump($SDi);
+                                $c_ENC[] = $ENCt_1;
+                                $periode_grace--;
+                                $maturite--;
+                                // $annee_remboursement++;
+                                $i++;
+                            }
+                            $c_ENC[] = (int)$c_ENC[$i - 1] - $PPt;
+                            $SDi[] = (((((int)$c_ENC[$i - 1] + (int)end($c_ENC)) / 2) * $interet) + $PPt + $commission_de_gestion) / pow(1.05, $i + 1);
+                            end($c_ENC);
+                            var_dump($SDi);
+                            // $annee_remboursement++;
+                            $i++;
+                        }
+                        // foreach($SDi as $val){
+                        $element_don = array_sum($SDi);
+                        // }
+                    } else {
+                    }
+                } elseif ($periodisite_de_remboursement == 'semestrielle') {
+                } elseif ($periodisite_de_remboursement == 'trimestrielle') {
+                } elseif ($periodisite_de_remboursement == 'mensuelle') {
+                }
+            }
+            $table .= '<td>' . $element_don . '</td>';
+            // calcule de valeur actuelle (VA)
+            // formule VA= SD1/(1+r)+ SD1/(1+r)²+ ... + SDn/(1+r)^n
 
-        // fin VA 
-        $table .=  '<td class="text-right">
+            // fin VA 
+            $table .=  '<td class="">
                             <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" onclick="editPret(' . $row['id_pret'] . ')" data-toggle="modal" data-target="#pret-update-modal"><i class="fa fa-pencil m-r-5"></i> Edit</a>
@@ -78,7 +135,8 @@ if ($action == 'READ') {
                             </div>
                         </td>
                     </tr>';
-    };
+        };
+    }
     echo $table;
 } elseif ($action == "DATA_DROWP") {
     $dataBailleur = mysqli_query($conn, "SELECT * 
@@ -190,6 +248,7 @@ if ($action == 'READ') {
     // echo ($response);
     $maturite = $response['maturite'];
     $periode_grace = $response['periode_grace'];
+    $frais_gestion = (int)$response['frais_gestion'];
     $periodisite_de_remboursement = $response['periodisite_de_remboursement'];
     $mode_remboursement_principal = $response['mode_remboursement_principal'];
     $annee_remboursement = $response['annee_signature'];
@@ -202,7 +261,7 @@ if ($action == 'READ') {
     $PP_avec_periode_grace = 0;
     $c_ENC = array();
     $i = 0;
-
+    $commission_de_gestion =  $frais_gestion / $maturite;
     if ($mode_remboursement_principal == 'remboursement constant') {
         if ($periodisite_de_remboursement == 'annuelle') {
             if (
@@ -219,7 +278,7 @@ if ($action == 'READ') {
                             <td>' . $annee_remboursement . '</td>
                             <td>' . ($ENCt_1 + $ENCt / 2) * $interet . '</td>
                             <td>' . $PP_avec_periode_grace . '</td>
-                            <td>commission de gestion</td>
+                            <td>' . $commission_de_gestion . '</td>
                             <td>' . $c_ENC[] = $ENCt_1 . '</td>
                         </tr>';
                         $periode_grace--;
@@ -238,7 +297,7 @@ if ($action == 'READ') {
                             <td>' . $annee_remboursement . '</td>
                             <td>' . (((int)$c_ENC[$i - 1] + (int)end($c_ENC)) / 2) * $interet . '</td>
                             <td>' . $PPt . '</td>
-                            <td>f</td>
+                            <td>' . $commission_de_gestion . '</td>
                             <td>' . end($c_ENC)  . '</td> 
                         </tr>';
                     $annee_remboursement++;
