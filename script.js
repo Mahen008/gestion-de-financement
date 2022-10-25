@@ -831,66 +831,142 @@ function deleteProjet() {
 //   e.preventDefault();
 
 // })
+// function addUser() {
+// var formdataUser = $("#formUser").serializeArray();
+// var formdataUser = [];
+// formUser.onsubmit = async (e) => {
+//   e.preventDefault();
+//   let response = await fetch("", {
+//     method: "POST",
+//     body: new FormData(formUser),
+//   });
+//   let result = await response.json();
+
+//   alert(result.message);
+// };
+// const formUsers = document.querySelector("#formUser");
+// const formData = new FormData(formUsers);
+
+// const completeName = {
+//   name: "completeName",
+//   value: formData.get("completeName"),
+// };
+// const completeEmail = {
+//   name: "completeEmail",
+//   value: formData.get("completeEmail"),
+// };
+// const completeFonction = {
+//   name: "completeFonction",
+//   value: formData.get("completeFonction"),
+// };
+// const completeService = {
+//   name: "completeService",
+//   value: formData.get("completeService"),
+// };
+// const completePdp = {
+//   name: "completePdp",
+//   value: formData.get("completePdp"),
+// };
+// const completeGenre = {
+//   name: "completeGenre",
+//   value: formData.get("completeGenre"),
+// };
+// const completeRole = {
+//   name: "completeRole",
+//   value: formData.get("completeRole"),
+// };
+// var action = {
+//   name: "action",
+//   value: "CREATE",
+// };
+
+// formdataUser.push(completeName);
+// formdataUser.push(completeEmail);
+// formdataUser.push(completeFonction);
+// formdataUser.push(completeService);
+// formdataUser.push(completePdp);
+// formdataUser.push(completeGenre);
+// formdataUser.push(completeRole);
+// formdataUser.push(action);
+// formData.append("action", "CREATE");
+// console.log(formData.get("completePdp"));
+// console.log(formData.get("action"));
+// const xhr = new XMLHttpRequest();
+// xhr.open("POST", "user-requette.php", true);
+// xhr.send(data);
+
+// console.log(formdataUser);
+
+// $.ajax({
+//   url: "user-requette.php",
+//   cache: false,
+//   contentType: "false",
+//   processData: false,
+//   type: "POST",
+// data: {
+//   completeName: completeName,
+//   completeEmail: completeEmail,
+//   completeFonction: completeFonction,
+//   completeService: completeService,
+//   completePdp: completePdp,
+//   completeGenre: completeGenre,
+//   completeRole: completeRole,
+// },
+//   data: formdataUser,
+//   success: function (response) {
+//     if (response == "") {
+//       $("#user-modal .close").click();
+//       displayUser();
+//     } else {
+// alert("error");
+//     }
+//   },
+//   error: function () {
+//     alert("Error");
+//   },
+// });
+// }
+
+// $("#formUser").click(function () {
+//   let formData = new formData();
+//   let file = $("#file")[0].files[0];
+//   formData.append("file", file);
+
+//   $.ajax({
+//     url: "users-requette.php",
+//     type: "POST",
+//     data: formData,
+//     contentType: false,
+//     processData: false,
+//     success: function (data) {
+//       if (data != 0) {
+//         alert("succesful jQuery file upload to:" + data);
+//       } else {
+//         alert("jQuery file upload error.");
+//       }
+//     },
+//   });
+// });
+
 function addUser() {
-  // var formdataUser = $("#formUser").serializeArray();
-  // var formdataUser = new FormData("#formUser");
-  // formUser.onsubmit = async (e) => {
-  //   e.preventDefault();
-  //   let response = await fetch("", {
-  //     method: "POST",
-  //     body: new FormData(formUser),
-  //   });
-  //   let result = await response.json();
-
-  //   alert(result.message);
-  // };
-  const formUsers = document.querySelector("#formUser");
-  const formData = new FormData(formUsers);
-  const completeName = formData.get("completeName");
-  const completeEmail = formData.get("completeEmail");
-  const completeFonction = formData.get("completeFonction");
-  const completeService = formData.get("completeService");
-  const completePdp = formData.get("completePdp");
-  const completeGenre = formData.get("completeGenre");
-  const completeRole = formData.get("completeRole");
-
-  // var action = {
-  //   name: "action",
-  //   value: "CREATE",
-  // };
-  // formdataUser.push(action);
-  formData.append("action", "CREATE");
-  console.log(formData.get("completePdp"));
-  console.log(formData.get("action"));
-  const xhr = new XMLHttpRequest();
-  xhr.open("POST", "user-requette.php", true);
-  // xhr.send(data);
+  // var filename = $("#filename").val();
+  var file_data = $(".fileToUpload").prop("files")[0];
+  var form_data = new FormData();
+  form_data.append("file", file_data);
+  // form_data.append("filename", filename);
+  form_data.append("action", "CREATE");
 
   $.ajax({
-    url: "user-requette.php",
-    cache: false,
-    contentType: "false",
-    processData: false,
+    url: "load.php",
     type: "POST",
-    data: {
-      completeName: completeName,
-      completeEmail: completeEmail,
-      completeFonction: completeFonction,
-      completeService: completeService,
-      completePdp: completePdp,
-      completeGenre: completeGenre,
-      completeRole: completeRole,
-    },
-    success: function (response) {
-      if (response == "") {
-        $("#user-modal .close").click();
-        displayUser();
-      } else {
-        // alert("error");
-      }
-    },
-    error: function () {
-      alert("Error");
+    dataType: "JSON",
+    Cache: false,
+    contentType: false,
+    processData: false,
+    data: form_data,
+
+    success: function (data) {
+      alert(data.output);
     },
   });
 }

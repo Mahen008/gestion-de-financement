@@ -52,8 +52,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group p-2">
-                                    <label for="completePdp">photos de prôfile</label>
-                                    <input type="file" id="completePdp" name="completePdp" class="form-control-file">
+                                    <!-- <label for="completePdp">photos de prôfile</label> -->
+                                    <input id="" type="file" name="" class="fileToUpload form-control-file">
+                                    <!-- <input id="filename" type="text" placeholder="file name" class="form-control"> -->
                                 </div>
                                 <div class="form-group p-2">
                                     <div class="form-check">
@@ -129,7 +130,7 @@
                     <div class="dropdown profile-action">
                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="edit-doctor.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                            <a class="dropdown-item" href=""><i class="fa fa-pencil m-r-5"></i> Edit</a>
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_doctor"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                         </div>
                     </div>
@@ -224,7 +225,7 @@
                     <div class="dropdown profile-action">
                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="edit-doctor.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                            <a class="dropdown-item" href=""><i class="fa fa-pencil m-r-5"></i> Edit</a>
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_doctor"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                         </div>
                     </div>

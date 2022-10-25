@@ -227,8 +227,7 @@ if ($action == 'READ') {
                     `prime_assurance`,
                     projet_sub.id AS id_projet, 
                     `nom_projet_sub`, 
-                    `montant`, 
-                    `statut`, 
+                    `montant`,
                     YEAR(date_signature) AS annee_signature
             FROM `pret` 
             INNER JOIN projet_sub 

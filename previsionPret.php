@@ -204,15 +204,31 @@
                         <input type="text" class="form-control" id="completePeriodisiteDeRemboursement" name="completePeriodisiteDeRemboursement">
                     </div>
                 </div>
-            </div>
 
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                <!-- <button type="submit" class="btn btn-success" onclick="updatePlafondFmi()">modifier</button> -->
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">intérêt</th>
+                            <th scope="col">principal</th>
+                            <th scope="col">commission de gestion</th>
+                            <th scope="col">encours</th>
+                        </tr>
+                    </thead>
+                    <tbody id="periode-remboursement">
+                    </tbody>
+                </table>
             </div>
 
         </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            <!-- <button type="submit" class="btn btn-success" onclick="updatePlafondFmi()">modifier</button> -->
+        </div>
+
     </div>
+</div>
 </div>
 <?php include('footer.php'); ?>

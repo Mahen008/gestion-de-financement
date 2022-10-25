@@ -2,11 +2,14 @@
 require_once 'config.php';
 
 global $conn;
-// extract($_POST);
+extract($_POST);
 // $form = $_POST['completeRole'];
 // $id = $_POST["completeRole"];
 // echo $completeRole;
-print_r($_POST);
+// echo "<pre>";
+// print_r($_POST['formdataUser']);
+// echo "</pre>";
+$formdataUser = $_POST['formdataUser'];
 
 // echo $action;
 // $completePdpName = $_FILES['completePdp']['name'];
@@ -17,7 +20,7 @@ print_r($_POST);
 // print_r($_FILES['completePdp']);
 // print_r($form);
 // echo "</pre>";
-if ($action == 'CREATE') {
+if ($formdataUser['action'] == 'CREATE') {
 
     // if($completePdpError == 0)
     $query = "INSERT INTO users SET 
