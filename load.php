@@ -8,7 +8,11 @@ global $conn;
 // $target_file = $target_directory . basename($_FILES['file']['name']);
 // $filetype = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 // $newfilename = $target_directory . "." . $filetype;
+// $filetarget = "\\img\\" . $_FILES['file']['name'];
+// $destination_path = getcwd() . DIRECTORY_SEPARATOR;
 $file = $_FILES['file']['name'];
+$file_destination = 'assets/img/' . $file;
+// $target_path = $destination_path . basename($file);
 // $action = $_POST['action'];
 // echo $action;
 
@@ -26,7 +30,7 @@ $res = mysqli_query($conn, $query);
 // else echo 0;
 // basename("$_FILES['file']['tmp_name']", "")
 if ($res) {
-    move_uploaded_file($_FILES['file']['tmp_name'], $file);
+    move_uploaded_file($_FILES['file']['tmp_name'], $file_destination);
     $output = "done";
 } else {
     $output = "failed";
