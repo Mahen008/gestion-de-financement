@@ -7,7 +7,7 @@ extract($_POST);
 if ($action == 'CREATE') {
 
     $query = "INSERT INTO bailleurs SET
-    id= '',
+    id_bai= '',
     nom= '$competeName',
     secteur_intervation = '$competeSecteurIntervation',
     maturite = '$competeMaturite',
@@ -33,7 +33,7 @@ if ($action == 'CREATE') {
     $table =  "";
     foreach ($bailleurs as $row) {
 
-        $table .= '<tr id=bailleur-' . $row["id"] . '>
+        $table .= '<tr id=bailleur-' . $row["id_bai"] . '>
                         <td>
                             <a href="#" class="avatar">' . $i++ . '</a>
                         </td>
@@ -49,8 +49,8 @@ if ($action == 'CREATE') {
                             <div class="dropdown dropdown-action">
                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a  onclick="editBailleur(' . $row['id'] . ')" data-toggle="modal" data-target="#bailleur-update-modal" class="dropdown-item"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                    <a class="dropdown-item" onclick="confirmDataDelete(' . $row['id'] . ')" data-toggle="modal" data-target="#PopupModalDelete"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                    <a  onclick="editBailleur(' . $row['id_bai'] . ')" data-toggle="modal" data-target="#bailleur-update-modal" class="dropdown-item"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                    <a class="dropdown-item" onclick="confirmDataDelete(' . $row['id_bai'] . ')" data-toggle="modal" data-target="#PopupModalDelete"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                 </div>
                             </div>
                         </td>
@@ -60,7 +60,7 @@ if ($action == 'CREATE') {
 } elseif ($action == 'EDIT') {
 
     $id = $_POST['editId'];
-    $query = "SELECT * FROM bailleurs WHERE id = $id LIMIT 1";
+    $query = "SELECT * FROM bailleurs WHERE id_bai = $id LIMIT 1";
     $resultat = mysqli_query($conn, $query);
     $response = array();
     while ($row = mysqli_fetch_assoc($resultat)) {
@@ -75,8 +75,8 @@ if ($action == 'CREATE') {
     maturite = '$updateMaturite',
     periode_grace = '$updatePeriodeGrace',
     taux_interet = '$updateTauxInteret',
-    taux_interet = '$updateTauxInteret',
     mode_remboursement_principal = '$updateModeRemboursementPrincipal',
+    periodisite_de_remboursement = '$updatePeriodisteDeRemboursement',
     differenciel_interet = '$updateDifferencielInteret',
     frais_gestion = '$updateFraisDeGestion',
     commission_engagement= '$updateComissionEngagement',
@@ -86,11 +86,11 @@ if ($action == 'CREATE') {
     commission_agent = '$updateCommissionAgent',
     frais_rebours = '$updateFraisDeRebours',
     prime_assurance = '$updatePrimeAssurenceFraisGarantie'
-    WHERE id = '$id'";
+    WHERE id_bai = '$id'";
     mysqli_query($conn, $query);
 } elseif ($action == 'DATADELETE') {
     $id = $_POST['id'];
-    $query = "SELECT * FROM bailleurs WHERE id = $id LIMIT 1";
+    $query = "SELECT * FROM bailleurs WHERE id_bai = $id LIMIT 1";
     $resultat = mysqli_query($conn, $query);
     $response = array();
     while ($row = mysqli_fetch_assoc($resultat)) {
@@ -101,7 +101,7 @@ if ($action == 'CREATE') {
 
     $unique = $_POST['deleteid'];
     echo $unique;
-    $query = "DELETE FROM bailleurs WHERE id = $unique";
+    $query = "DELETE FROM bailleurs WHERE id_bai = $unique";
     mysqli_query($conn, $query);
     echo "Error: ";
 } else {

@@ -9,7 +9,7 @@ extract($_POST);
 // echo "<pre>";
 // print_r($_POST['formdataUser']);
 // echo "</pre>";
-$formdataUser = $_POST['formdataUser'];
+// $formdataUser = $_POST['formdataUser'];
 
 // echo $action;
 // $completePdpName = $_FILES['completePdp']['name'];
@@ -20,11 +20,11 @@ $formdataUser = $_POST['formdataUser'];
 // print_r($_FILES['completePdp']);
 // print_r($form);
 // echo "</pre>";
-if ($formdataUser['action'] == 'CREATE') {
+if ($action == 'CREATE') {
 
     // if($completePdpError == 0)
     $query = "INSERT INTO users SET 
-      id= '', 
+      id_users = '', 
       name = '$completeName', 
       email = '$completeEmail', 
       gender = '$completeGenre', 
@@ -39,7 +39,7 @@ if ($formdataUser['action'] == 'CREATE') {
     $projet = mysqli_query($conn, "SELECT * FROM users");
     $table =  "";
     foreach ($projet as $row) {
-        $table .= '<tr id=projet-' . $row["id"] . '>
+        $table .= '<tr id=projet-' . $row["id_users"] . '>
                     <td>
                         <a class="avatar">A</a>
                         <h2>' . $row["nom_projet_sub"] . '</h2>
@@ -50,8 +50,8 @@ if ($formdataUser['action'] == 'CREATE') {
                     <td class="text-right">
                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" onclick="editProjet(' . $row['id'] . ')" data-toggle="modal" data-target="#projet-update-modal"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                            <a class="dropdown-item" onclick="confirmDataDeleteProjet(' . $row['id'] . ')" data-toggle="modal" data-target="#PopupModalDelete"><i class="fa fa-trash-o m-r-5"></i> Supprimer</a>
+                            <a class="dropdown-item" onclick="editProjet(' . $row['id_users'] . ')" data-toggle="modal" data-target="#projet-update-modal"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                            <a class="dropdown-item" onclick="confirmDataDeleteProjet(' . $row['id_users'] . ')" data-toggle="modal" data-target="#PopupModalDelete"><i class="fa fa-trash-o m-r-5"></i> Supprimer</a>
                         </div>
                     </td>
                 </tr>';
@@ -59,7 +59,7 @@ if ($formdataUser['action'] == 'CREATE') {
     echo $table;
 } elseif ($action == 'EDIT') {
     $id = $_POST['id'];
-    $query = "SELECT * FROM projet_sub WHERE id = $id LIMIT 1";
+    $query = "SELECT * FROM projet_sub WHERE id_users = $id LIMIT 1";
     $resultat = mysqli_query($conn, $query);
     $response = array();
     while ($row = mysqli_fetch_assoc($resultat)) {
@@ -70,11 +70,11 @@ if ($formdataUser['action'] == 'CREATE') {
     $query = "UPDATE projet_sub SET
                 nom_projet_sub= '$updateName', 
                 montant = '$updateMontant'
-            WHERE id = '$id'";
+            WHERE id_users = '$id'";
     mysqli_query($conn, $query);
 } elseif ($action == 'DATADELETE') {
     $id = $_POST['id'];
-    $query = "SELECT * FROM projet_sub WHERE id = $id LIMIT 1";
+    $query = "SELECT * FROM projet_sub WHERE id_users = $id LIMIT 1";
     $resultat = mysqli_query($conn, $query);
     $response = array();
     while ($row = mysqli_fetch_assoc($resultat)) {
@@ -84,7 +84,7 @@ if ($formdataUser['action'] == 'CREATE') {
 } elseif ($action == 'DELETE') {
     $id = $_POST['id'];
     echo $id;
-    $query = "DELETE FROM projet_sub WHERE id = $id";
+    $query = "DELETE FROM projet_sub WHERE id_users = $id";
     mysqli_query($conn, $query);
 } else {
     echo "erreur de la requette";

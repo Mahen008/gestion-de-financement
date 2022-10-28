@@ -8,9 +8,9 @@ extract($_POST);
 if ($action == 'CREATE') {
 
     $query = "INSERT INTO projet_sub SET 
-      id= '', 
+      id_projet_sub= '', 
       nom_projet_sub= '$competeName', 
-      montant = '$competeMontant', 
+      montant_projet_sub = '$competeMontant', 
       date_signature = NOW()";
 
     mysqli_query($conn, $query);
@@ -19,19 +19,19 @@ if ($action == 'CREATE') {
     $projet = mysqli_query($conn, "SELECT * FROM projet_sub");
     $table =  "";
     foreach ($projet as $row) {
-        $table .= '<tr id=projet-' . $row["id"] . '>
+        $table .= '<tr id=projet-' . $row["id_projet_sub"] . '>
                     <td>
                         <a class="avatar">A</a>
                         <h2>' . $row["nom_projet_sub"] . '</h2>
                     </td>
-                    <td>' . $row["montant"] . '</td>
+                    <td>' . $row["montant_projet_sub"] . '</td>
                     <td>' . $row["date_signature"] . '</td>
 
                     <td class="text-right">
                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" onclick="editProjet(' . $row['id'] . ')" data-toggle="modal" data-target="#projet-update-modal"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                            <a class="dropdown-item" onclick="confirmDataDeleteProjet(' . $row['id'] . ')" data-toggle="modal" data-target="#PopupModalDelete"><i class="fa fa-trash-o m-r-5"></i> Supprimer</a>
+                            <a class="dropdown-item" onclick="editProjet(' . $row['id_projet_sub'] . ')" data-toggle="modal" data-target="#projet-update-modal"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                            <a class="dropdown-item" onclick="confirmDataDeleteProjet(' . $row['id_projet_sub'] . ')" data-toggle="modal" data-target="#PopupModalDelete"><i class="fa fa-trash-o m-r-5"></i> Supprimer</a>
                         </div>
                     </td>
                 </tr>';
@@ -39,7 +39,7 @@ if ($action == 'CREATE') {
     echo $table;
 } elseif ($action == 'EDIT') {
     $id = $_POST['id'];
-    $query = "SELECT * FROM projet_sub WHERE id = $id LIMIT 1";
+    $query = "SELECT * FROM projet_sub WHERE id_projet_sub = $id LIMIT 1";
     $resultat = mysqli_query($conn, $query);
     $response = array();
     while ($row = mysqli_fetch_assoc($resultat)) {
@@ -49,12 +49,12 @@ if ($action == 'CREATE') {
 } elseif ($action == 'UPDATE') {
     $query = "UPDATE projet_sub SET
                 nom_projet_sub= '$updateName', 
-                montant = '$updateMontant'
-            WHERE id = '$id'";
+                montant_projet_sub = '$updateMontant'
+            WHERE id_projet_sub = '$id'";
     mysqli_query($conn, $query);
 } elseif ($action == 'DATADELETE') {
     $id = $_POST['id'];
-    $query = "SELECT * FROM projet_sub WHERE id = $id LIMIT 1";
+    $query = "SELECT * FROM projet_sub WHERE id_projet_sub = $id LIMIT 1";
     $resultat = mysqli_query($conn, $query);
     $response = array();
     while ($row = mysqli_fetch_assoc($resultat)) {
@@ -64,7 +64,7 @@ if ($action == 'CREATE') {
 } elseif ($action == 'DELETE') {
     $id = $_POST['id'];
     echo $id;
-    $query = "DELETE FROM projet_sub WHERE id = $id";
+    $query = "DELETE FROM projet_sub WHERE id_projet_sub = $id";
     mysqli_query($conn, $query);
 } else {
     echo "erreur de la requette";

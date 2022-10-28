@@ -4,6 +4,9 @@
 <div class="page-wrapper">
     <div class="content">
         <div class="row">
+            <img class="logoRepoblikaMada mx-auto" src="assets/img/Logo_hd_MEF-PETIT-2.png" alt="">
+        </div>
+        <div class="row">
             <div class="col-sm-5 col-4">
                 <h4 class="page-title">Bailleurs de fond</h4>
             </div>
@@ -151,14 +154,13 @@
                                 </div>
                                 <div class="form-group p-2">
                                     <label for="updateTauxInteret">taux d'intéret</label>
-                                    <input type="text" class="form-control" id="updateTauxInteret" name="updateTauxInteret" placeholder="Entrer le taux d'intéret">
+                                    <input type="" class="form-control" id="updateTauxInteret" name="updateTauxInteret" placeholder="Entrer le taux d'intéret">
                                 </div>
                                 <div class="form-group p-2">
                                     <label for="updateModeRemboursementPrincipal">mode de remboursement</label>
-                                    <!-- <input type="text" id="mahenina"> -->
                                     <div>
                                         <select id="updateModeRemboursementPrincipal" name="updateModeRemboursementPrincipal" class="select">
-                                            <option id="test"></option>
+                                            <option id="editModeRemboursementPrincipal"></option>
                                             <option value="Remboursement constant du principal">Remboursement constant du principal</option>
                                             <option value="Annuité">Annuité</option>
                                             <option value="Remboursement principal en fin">Remboursement principal en fin</option>
@@ -171,7 +173,7 @@
                                     <label for="updatePeriodisteDeRemboursement">périodistité de remboursement</label>
                                     <div>
                                         <select name="updatePeriodisteDeRemboursement" id="updatePeriodisteDeRemboursement" class="select">
-                                            <option>Select</option>
+                                            <option id="editPeriodisteDeRemboursement"></option>
                                             <option value="Annuelle">Annuelle</option>
                                             <option value="Semestrielle">Semestrielle</option>
                                             <option value="Trimestrielle">Trimestrielle</option>
@@ -204,10 +206,6 @@
                                     <input type="text" class="form-control" id="updateCommissionArragement" name="updateCommissionArragement" placeholder="Entrer le frais d'exposition">
                                 </div>
                                 <div class="form-group p-2">
-                                    <label for="updateFraisExposition">frais d'exposition</label>
-                                    <input type="text" class="form-control" id="updateFraisExposition" name="updateFraisExposition" placeholder="Entrer le frais d'exposition">
-                                </div>
-                                <div class="form-group p-2">
                                     <label for="updateCommissionAgent">commission d'agent</label>
                                     <input type="text" class="form-control" id="updateCommissionAgent" name="updateCommissionAgent" placeholder="Entrer le commission d'agent">
                                 </div>
@@ -216,8 +214,8 @@
                                     <input type="text" class="form-control" id="updateFraisDeRebours" name="updateFraisDeRebours" placeholder="Entrer le frais de rebours">
                                 </div>
                                 <div class="form-group p-2">
-                                    <label for="updatePrimeAssurenceFraisGarantie">prime d'assurence frais garantie</label>
-                                    <input type="text" class="form-control" id="updatePrimeAssurenceFraisGarantie" name="updatePrimeAssurenceFraisGarantie" placeholder="Entrer le prime d'assurence frais ganratie">
+                                    <label for="updatePrimeAssurenceFraisGarantie">prime d'assurence</label>
+                                    <input type="text" class="form-control" id="updatePrimeAssurenceFraisGarantie" name="updatePrimeAssurenceFraisGarantie" placeholder="Entrer le prime d'assurence">
                                 </div>
                             </div>
                             <input type="hidden" name="" id="hidden-update-id-bailleur">

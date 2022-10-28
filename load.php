@@ -2,6 +2,7 @@
 require_once 'config.php';
 
 global $conn;
+extract($_POST);
 // $filename = $_FILES['filename'];
 // $target_directory = __DIR__ . "\\img\\";
 // $target_directory = "img\\";
@@ -20,7 +21,7 @@ $file_destination = 'assets/img/' . $file;
 $output = "";
 // if($completePdpError == 0)
 $query = "INSERT INTO users SET 
-      id= '', 
+      id_users = '', 
       profile = '$file'";
 
 $res = mysqli_query($conn, $query);

@@ -1039,7 +1039,7 @@ textarea.form-control {
   transition: all 0.4s ease;
 }
 .page-wrapper > .content {
-  padding: 30px;
+  padding-inline: 30px;
 }
 
 /*-----------------
@@ -4944,4 +4944,9 @@ blockquote p {
     margin: 0 auto;
     margin-bottom: 10px;
   }
+}
+
+.logoRepoblikaMada {
+  width: 179px;
+  height: 100px;
 }

@@ -11,7 +11,7 @@ if ($action == 'READ') {
                                         `status`, 
                                         `id_bailleurs`, 
                                         `id_projet`, 
-                                        bailleurs.id AS id_bailleur, 
+                                        `id_bai`, 
                                         `nom`, 
                                         `secteur_intervation`, 
                                         `maturite`, 
@@ -28,15 +28,15 @@ if ($action == 'READ') {
                                         `commission_agent`, 
                                         `frais_rebours`, 
                                         `prime_assurance`,
-                                        projet_sub.id AS id_projet, 
+                                        `id_projet_sub`, 
                                         `nom_projet_sub`, 
-                                        `montant`, 
+                                        `montant_projet_sub`, 
                                         YEAR(date_signature) AS annee_signature
                                 FROM pret 
                                 INNER JOIN bailleurs 
-                                ON pret.id_bailleurs = bailleurs.id 
+                                ON pret.id_bailleurs = bailleurs.id_bai
                                 INNER JOIN projet_sub 
-                                ON pret.id_projet = projet_sub.id");
+                                ON pret.id_projet = projet_sub.id_projet_sub");
 
     $a = 1;
     $table =  "";
@@ -46,15 +46,15 @@ if ($action == 'READ') {
                         <td>' . $a++ . '</td>
                         <td>' . $row["nom_projet_sub"] . '</td>
                         <td>' . $row["nom"] . '</td>
-                        <td>' . $row["montant"] . '</td>';
+                        <td>' . $row["montant_projet_sub"] . '</td>';
             // echo $row["status"];
             if ($row["status"] == "en cours d'etude") {
                 $table .= '<td><span class="custom-badge status-red">' . $row["status"] . '</span></td>';
-            } elseif ($row["status"] == "Requette envoyée") {
+            } elseif ($row["status"] == "requette envoyée") {
                 $table .= '<td><span class="custom-badge status-blue">' . $row["status"] . '</span></td>';
-            } elseif ($row["status"] == "En cours de négociation") {
+            } elseif ($row["status"] == "en cours de négociation") {
                 $table .= '<td><span class="custom-badge status-grey">' . $row["status"] . '</span></td>';
-            } elseif ($row["status"] == "En cours de signature") {
+            } elseif ($row["status"] == "en cours de signature") {
                 $table .= '<td><span class="custom-badge status-purple">' . $row["status"] . '</span></td>';
             } else {
                 $table .= '<td><span class="custom-badge status-green">' . $row["status"] . '</span></td>';
@@ -71,7 +71,7 @@ if ($action == 'READ') {
             $periodisite_de_remboursement = $row['periodisite_de_remboursement'];
             $mode_remboursement_principal = $row['mode_remboursement_principal'];
             $annee_remboursement = $row['annee_signature'];
-            $ENCt_1 = $row['montant'];
+            $ENCt_1 = $row['montant_projet_sub'];
             // $PPt = 0;
             $PPt = $ENCt_1 / ($maturite - $periode_grace);
             $ENCt = 0;
@@ -82,22 +82,23 @@ if ($action == 'READ') {
             $i = 0;
             $commission_de_gestion =  $frais_gestion / $maturite;
             $SDi = array();
-            $element_don;
+            // $element_don = 0.001;
+            $element_don_pret;
             // const taux_actualisation = 0.05;
-            if ($mode_remboursement_principal == 'remboursement constant') {
-                if ($periodisite_de_remboursement == 'annuelle') {
+            if ($mode_remboursement_principal == 'Remboursement constant du principal') {
+                if ($periodisite_de_remboursement == 'Annuelle') {
                     if (
-                        isset($row['montant']) &&
+                        isset($row['montant_projet_sub']) &&
                         isset($maturite) &&
                         isset($row['taux_interet']) &&
-                        $row['montant'] > 0 &&
+                        $row['montant_projet_sub'] > 0 &&
                         $row['maturite'] > 0 &&
                         $maturite > $periode_grace
                     ) {
                         for ($ligne = 0; $ligne < $maturite; $ligne++) {
                             while ($periode_grace > 0) {
                                 $SDi[] = ((($ENCt_1 + $ENCt / 2) * $interet) + $PP_avec_periode_grace + $commission_de_gestion) / pow(1.05, $i + 1);
-                                var_dump($SDi);
+                                // var_dump($SDi);
                                 $c_ENC[] = $ENCt_1;
                                 $periode_grace--;
                                 $maturite--;
@@ -107,7 +108,7 @@ if ($action == 'READ') {
                             $c_ENC[] = (int)$c_ENC[$i - 1] - $PPt;
                             $SDi[] = (((((int)$c_ENC[$i - 1] + (int)end($c_ENC)) / 2) * $interet) + $PPt + $commission_de_gestion) / pow(1.05, $i + 1);
                             end($c_ENC);
-                            var_dump($SDi);
+                            // var_dump($SDi);
                             // $annee_remboursement++;
                             $i++;
                         }
@@ -121,7 +122,25 @@ if ($action == 'READ') {
                 } elseif ($periodisite_de_remboursement == 'mensuelle') {
                 }
             }
-            $table .= '<td>' . $element_don . '</td>';
+            $element_don_pret = (($row["montant_projet_sub"] - $element_don) / $row["montant_projet_sub"]) * 100;
+            // echo '<pre>';
+            // echo $element_don_pret;
+            // echo '</pre>';
+            if (isset($element_don) && isset($element_don_pret)) {
+                // $table .= '<td>' . (($row["montant_projet_sub"] - $element_don) / $row["montant_projet_sub"]) * 100 . '</td>';
+                if ($element_don_pret > 35 || $element_don_pret == 35) {
+                    $table .= '<td><span class="custom-badge status-green">concessionnel</span></td>';
+                    // $table .= '<td>' . $element_don_pret . '<span class="custom-badge status-green">concessionnel</span></td>';
+                } elseif (($element_don_pret > 20 || $element_don_pret == 20) && $element_don_pret < 35) {
+                    $table .= '<td><span class="custom-badge status-orange">semi-concessionnel</span></td>';
+                    // $table .= '<td>' . $element_don_pret . '<span class="custom-badge status-orange">semi-concessionnel</span></td>';
+                } else {
+                    $table .= '<td><span class="custom-badge status-red">non-concessionnel</span></td>';
+                    // $table .= '<td>' . $element_don_pret . '<span class="custom-badge status-red">non-concessionnel</span></td>';
+                }
+            } else {
+                $table .= '<td>not found</td>';
+            }
             // calcule de valeur actuelle (VA)
             // formule VA= SD1/(1+r)+ SD1/(1+r)²+ ... + SDn/(1+r)^n
 
@@ -143,7 +162,7 @@ if ($action == 'READ') {
                                 FROM bailleurs;");
     $drowpBailleurs =  "";
     foreach ($dataBailleur as $row) {
-        $drowpBailleurs .= '<option value="' . $row["id"] . '">' . $row["nom"] . '</option>';
+        $drowpBailleurs .= '<option value="' . $row["id_bai"] . '">' . $row["nom"] . '</option>';
     };
     // echo $drowpBailleurs;
     $drowpdata = array();
@@ -152,11 +171,11 @@ if ($action == 'READ') {
     $dataProjet = mysqli_query($conn, "SELECT * 
                                        FROM `pret` 
                                        RIGHT JOIN projet_sub 
-                                       ON pret.id_projet = projet_sub.id 
+                                       ON pret.id_projet = projet_sub.id_projet_sub 
                                        WHERE pret.id IS NULL;");
     $drowpPret =  "";
     foreach ($dataProjet as $row) {
-        $drowpPret .= '<option value="' . $row["id"] . '">' . $row["nom_projet_sub"] . '</option>';
+        $drowpPret .= '<option value="' . $row["id_projet_sub"] . '">' . $row["nom_projet_sub"] . '</option>';
     };
     // echo $drowpPret;
     $drowpdata['drowpPret'] = $drowpPret;
@@ -180,13 +199,20 @@ if ($action == 'READ') {
             WHERE id = '$id'";
     mysqli_query($conn, $query);
 } elseif ($action == "CREATE") {
+    // if (isset($completeIdBailleurs) && isset($completeIdProjet)) {
+    echo $completeStatus;
+    echo $completeIdBailleurs;
+    echo $completeIdProjet;
+
     $query = "INSERT INTO pret SET
-    id= '',
-    status = '$completeStatus',
-    id_bailleurs = '$completeIdBailleurs',
-    id_projet = '$completeIdProjet'";
+        id= '',
+        status = '$completeStatus',
+        id_bailleurs = '$completeIdBailleurs',
+        id_projet = '$completeIdProjet'";
 
     mysqli_query($conn, $query);
+    // }
+    echo "problème de requette sql";
 } elseif ($action == 'DELETE') {
     $id = $_POST['id'];
     echo $id;
@@ -208,7 +234,7 @@ if ($action == 'READ') {
                     `status`, 
                     `id_bailleurs`, 
                     `id_projet`, 
-                    bailleurs.id AS id_bailleur, 
+                    `id_bai`, 
                     `nom`, 
                     `secteur_intervation`, 
                     `maturite`, 
@@ -225,15 +251,15 @@ if ($action == 'READ') {
                     `commission_agent`, 
                     `frais_rebours`, 
                     `prime_assurance`,
-                    projet_sub.id AS id_projet, 
+                    `id_projet_sub`, 
                     `nom_projet_sub`, 
-                    `montant`,
+                    `montant_projet_sub`,
                     YEAR(date_signature) AS annee_signature
             FROM `pret` 
             INNER JOIN projet_sub 
-            ON pret.id_projet = projet_sub.id 
+            ON pret.id_projet = projet_sub.id_projet_sub 
             INNER JOIN bailleurs 
-            ON pret.id_bailleurs = bailleurs.id
+            ON pret.id_bailleurs = bailleurs.id_bai
             WHERE pret.id = $id 
             LIMIT 1";
 
@@ -251,7 +277,7 @@ if ($action == 'READ') {
     $periodisite_de_remboursement = $response['periodisite_de_remboursement'];
     $mode_remboursement_principal = $response['mode_remboursement_principal'];
     $annee_remboursement = $response['annee_signature'];
-    $ENCt_1 = $response['montant'];
+    $ENCt_1 = $response['montant_projet_sub'];
     // $PPt = 0;
     $PPt = $ENCt_1 / ($maturite - $periode_grace);
     $ENCt = 0;
@@ -261,13 +287,13 @@ if ($action == 'READ') {
     $c_ENC = array();
     $i = 0;
     $commission_de_gestion =  $frais_gestion / $maturite;
-    if ($mode_remboursement_principal == 'remboursement constant') {
-        if ($periodisite_de_remboursement == 'annuelle') {
+    if ($mode_remboursement_principal == 'Remboursement constant du principal') {
+        if ($periodisite_de_remboursement == 'Annuelle') {
             if (
-                isset($response['montant']) &&
+                isset($response['montant_projet_sub']) &&
                 isset($maturite) &&
                 isset($response['taux_interet']) &&
-                $response['montant'] > 0 &&
+                $response['montant_projet_sub'] > 0 &&
                 $response['maturite'] > 0 &&
                 $maturite > $periode_grace
             ) {
@@ -320,6 +346,14 @@ if ($action == 'READ') {
         } elseif ($periodisite_de_remboursement == 'trimestrielle') {
         } elseif ($periodisite_de_remboursement == 'mensuelle') {
         }
+    } elseif ($mode_remboursement_principal == 'Annuité') {
+        echo "annuité";
+    } elseif ($mode_remboursement_principal == 'Remboursement principal en fin') {
+        echo "Remboursement principal en fin";
+    } elseif ($mode_remboursement_principal == 'Lamp Sum principal & intérêt simple') {
+        # code...
+    } elseif ($mode_remboursement_principal == 'Lamp Sum principal & intérêt composée') {
+        # code...
     }
 
     $response['tbody_table'] = $table;

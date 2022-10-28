@@ -8,7 +8,7 @@ extract($_POST);
 if ($action == 'CREATE') {
 
     $query = "INSERT INTO plafond_fmi SET 
-      id= '', 
+      id_plafond= '', 
       date_debut= '$completeDateDebut', 
       duree = '$completeDuree', 
       montant = '$completeMontant'";
@@ -20,7 +20,7 @@ if ($action == 'CREATE') {
     $i = 1;
     $table =  "";
     foreach ($plafond as $row) {
-        $table .= '<tr id=plafond-' . $row["id"] . '>
+        $table .= '<tr id=plafond-' . $row["id_plafond"] . '>
                     <td>' . $i++ . '</td>
                     <td>' . $row["date_debut"] . '</td>
                     <td>' . $row["duree"] . '</td>
@@ -30,8 +30,8 @@ if ($action == 'CREATE') {
                             <div class="dropdown dropdown-action">
                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a  onclick="editPlafondFmi(' . $row['id'] . ')" data-toggle="modal" data-target="#fmi-update-modal" class="dropdown-item"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                    <a class="dropdown-item" onclick="confirmDataDeleteFmi(' . $row['id'] . ')" data-toggle="modal" data-target="#PopupModalDeleteFMI"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                    <a  onclick="editPlafondFmi(' . $row['id_plafond'] . ')" data-toggle="modal" data-target="#fmi-update-modal" class="dropdown-item"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                    <a class="dropdown-item" onclick="confirmDataDeleteFmi(' . $row['id_plafond'] . ')" data-toggle="modal" data-target="#PopupModalDeleteFMI"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                 </div>
                             </div>
                         </td>
@@ -40,7 +40,7 @@ if ($action == 'CREATE') {
     echo $table;
 } elseif ($action == 'EDIT') {
     $id = $_POST['id'];
-    $query = "SELECT * FROM plafond_fmi WHERE id = $id LIMIT 1";
+    $query = "SELECT * FROM plafond_fmi WHERE id_plafond = $id LIMIT 1";
     $resultat = mysqli_query($conn, $query);
     $response = array();
     while ($row = mysqli_fetch_assoc($resultat)) {
@@ -52,11 +52,11 @@ if ($action == 'CREATE') {
                 date_debut= '$updateDateDebut', 
                 duree = '$updateDuree', 
                 montant = '$updateMontant'
-            WHERE id = '$id'";
+            WHERE id_plafond = '$id'";
     mysqli_query($conn, $query);
 } elseif ($action == 'DATADELETE') {
     $id = $_POST['id'];
-    $query = "SELECT * FROM plafond_fmi WHERE id = $id LIMIT 1";
+    $query = "SELECT * FROM plafond_fmi WHERE id_plafond = $id LIMIT 1";
     $resultat = mysqli_query($conn, $query);
     $response = array();
     while ($row = mysqli_fetch_assoc($resultat)) {
@@ -66,7 +66,7 @@ if ($action == 'CREATE') {
 } elseif ($action == 'DELETE') {
     $id = $_POST['id'];
     echo $id;
-    $query = "DELETE FROM plafond_fmi WHERE id = $id";
+    $query = "DELETE FROM plafond_fmi WHERE id_plafond = $id";
     mysqli_query($conn, $query);
 } else {
     echo "erreur de la requette";

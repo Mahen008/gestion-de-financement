@@ -353,7 +353,7 @@ function editBailleur(editId) {
     { editId: editId, action: "EDIT" },
     function (data, status) {
       var userid = JSON.parse(data);
-      $("#hidden-update-id-bailleur").val(userid.id);
+      $("#hidden-update-id-bailleur").val(userid.id_bai);
       $("#updateName").val(userid.nom);
       $("#updateSecteurIntervation").val(userid.secteur_intervation);
       $("#updateMaturite").val(userid.maturite);
@@ -361,9 +361,6 @@ function editBailleur(editId) {
       $("#updateTauxInteret").val(userid.taux_interet);
       $("#test").val(userid.mode_remboursement_principal);
 
-      document
-        .getElementById("mahenina")
-        .val(userid.mode_remboursement_principal);
       $("#updatePeriodisitedeRemboursement").val(
         userid.periodisite_de_remboursement
       );
@@ -601,19 +598,20 @@ function addPret() {
     value: "CREATE",
   };
   formdataPret.push(action);
-  // console.log(formdatafmi);
+  console.log(formdataPret);
 
   $.ajax({
     type: "POST",
     url: "pret-requette.php",
     data: formdataPret,
     success: function (response) {
-      if (response == "") {
+      if (response) {
         $("#pret-modal .close").click();
         displaypret();
-      } else {
-        // alert("error");
       }
+      // else {
+      // alert("request not send");
+      // }
     },
     error: function () {
       alert("Error");
@@ -704,7 +702,7 @@ function voirPrevisionPret(id) {
       $("#completeModeDeRemboursement").val(
         userid.mode_remboursement_principal
       );
-      $("#completeMontant").val(userid.montant);
+      $("#completeMontant").val(userid.montant_projet_sub);
       $("#completePeriodisiteDeRemboursement").val(
         userid.periodisite_de_remboursement
       );
@@ -760,7 +758,7 @@ function editProjet(id) {
   $.post("projet-requette.php", { id: id, action: "EDIT" }, function (data) {
     var projetid = JSON.parse(data);
     $("#updateName").val(projetid.nom_projet_sub);
-    $("#updateMontant").val(projetid.montant);
+    $("#updateMontant").val(projetid.montant_projet_sub);
   });
 }
 

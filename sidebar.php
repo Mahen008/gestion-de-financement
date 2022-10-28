@@ -2,12 +2,12 @@
     <div class="sidebar-inner slimscroll">
         <div id="sidebar-menu" class="sidebar-menu">
             <ul>
-                <li class="menu-title">Main</li>
+                <li class="menu-title">Menu</li>
                 <li class="active">
-                    <a href="index-2.php"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+                    <a href="index-2.php"><i class="fa fa-dashboard"></i> <span>Acceuil</span></a>
                 </li>
                 <li>
-                    <a href="users.php"><i class="fa fa-user"></i> <span>Utilisateur</span></a>
+                    <a href="users.php"><i class="fa fa-user"></i> <span>Utilisateurs</span></a>
                 </li>
                 <li>
                     <a href="fmi-plafond.php"><i class="fa fa-globe"></i> <span>Plafond fmi</span></a>
@@ -21,9 +21,9 @@
                 <li>
                     <a href="previsionPret.php"><i class="fa fa-hospital-o"></i> <span>prêt</span></a>
                 </li>
-                <li>
+                <!-- <li>
                     <a href="concessionnalite.php"><i class="fa fa-calendar-check-o"></i> <span>Concessionnalité de prêt</span></a>
-                </li>
+                </li> -->
             </ul>
         </div>
     </div>

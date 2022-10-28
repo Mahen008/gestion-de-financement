@@ -4,6 +4,10 @@
 
 <div class="page-wrapper">
     <div class="content">
+
+        <div class="row">
+            <img class="logoRepoblikaMada mx-auto" src="assets/img/Logo_hd_MEF-PETIT-2.png" alt="">
+        </div>
         <div class="row">
             <div class="col-sm-5 col-4">
                 <h4 class="page-title">Projet</h4>
@@ -15,7 +19,7 @@
         </div>
         <!-- Modal projet-->
         <div class="modal fade" role="dialog" id="projet-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable modal-xl">
+            <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Enregistrement projet</h5>
@@ -47,7 +51,7 @@
 
         <!-- Modal update -->
         <div class="modal fade" role="dialog" id="projet-update-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable modal-xl">
+            <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Modification projet</h5>

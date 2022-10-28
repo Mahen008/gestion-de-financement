@@ -4,6 +4,9 @@
 <div class="page-wrapper">
     <div class="content">
         <div class="row">
+            <img class="logoRepoblikaMada mx-auto" src="assets/img/Logo_hd_MEF-PETIT-2.png" alt="">
+        </div>
+        <div class="row">
             <div class="col-sm-5 col-4">
                 <h4 class="page-title">Plafond fmi</h4>
             </div>

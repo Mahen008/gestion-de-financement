@@ -2,10 +2,11 @@
 <?php include('navbar.php'); ?>
 <?php include('sidebar.php'); ?>
 <div class="main-wrapper">
-    <?php include('navbar.php'); ?>
-    <?php include('sidebar.php'); ?>
     <div class="page-wrapper">
         <div class="content">
+            <div class="row">
+                <img class="logoRepoblikaMada mx-auto" src="assets/img/Logo_hd_MEF-PETIT-2.png" alt="">
+            </div>
             <div class="row">
                 <div class="col-sm-4 col-3">
                     <h4 class="page-title">Utilisateur</h4>
@@ -87,7 +88,7 @@
             <div class="col-md-4 col-sm-4  col-lg-3">
                 <div class="profile-widget">
                     <div class="doctor-img">
-                        <a class="avatar" href="profile.html"><img alt="" src="assets/img/doctor-thumb-03.jpg"></a>
+                        <a class="avatar" href="profile.html"><img alt="" src="assets/img/image.jpeg"></a>
                     </div>
                     <div class="dropdown profile-action">
                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
@@ -96,17 +97,17 @@
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_doctor"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                         </div>
                     </div>
-                    <h4 class="doctor-name text-ellipsis"><a href="profile.html">Cristina Groves</a></h4>
-                    <div class="doc-prof">Gynecologist</div>
+                    <h4 class="doctor-name text-ellipsis"><a href="profile.html">Patrice Mahen</a></h4>
+                    <div class="doc-prof">Administrateur</div>
                     <div class="user-country">
-                        <i class="fa fa-map-marker"></i> United States, San Francisco
+                        <i class="fa fa-map-marker"></i> Direction de la Dette Publique
                     </div>
                 </div>
             </div>
             <div class="col-md-4 col-sm-4  col-lg-3">
                 <div class="profile-widget">
                     <div class="doctor-img">
-                        <a class="avatar" href="profile.html"><img alt="" src="assets/img/doctor-thumb-07.jpg"></a>
+                        <a class="avatar" href="profile.html"><img alt="" src="assets/img/user.jpg"></a>
                     </div>
                     <div class="dropdown profile-action">
                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
@@ -115,17 +116,17 @@
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_doctor"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                         </div>
                     </div>
-                    <h4 class="doctor-name text-ellipsis"><a href="profile.html">Marie Wells</a></h4>
-                    <div class="doc-prof">Psychiatrist</div>
+                    <h4 class="doctor-name text-ellipsis"><a href="profile.html">Roger Christian</a></h4>
+                    <div class="doc-prof">Administrateur</div>
                     <div class="user-country">
-                        <i class="fa fa-map-marker"></i> United States, San Francisco
+                        <i class="fa fa-map-marker"></i> Direction de la Dette Publique
                     </div>
                 </div>
             </div>
             <div class="col-md-4 col-sm-4  col-lg-3">
                 <div class="profile-widget">
                     <div class="doctor-img">
-                        <a class="avatar" href="profile.html"><img alt="" src="assets/img/doctor-thumb-04.jpg"></a>
+                        <a class="avatar" href="profile.html"><img alt="" src="assets/img/images.jpg"></a>
                     </div>
                     <div class="dropdown profile-action">
                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
@@ -135,16 +136,16 @@
                         </div>
                     </div>
                     <h4 class="doctor-name text-ellipsis"><a href="profile.html">Henry Daniels</a></h4>
-                    <div class="doc-prof">Cardiologist</div>
+                    <div class="doc-prof">Utilisateur</div>
                     <div class="user-country">
-                        <i class="fa fa-map-marker"></i> United States, San Francisco
+                        <i class="fa fa-map-marker"></i> Direction de la Dette Publique
                     </div>
                 </div>
             </div>
             <div class="col-md-4 col-sm-4  col-lg-3">
                 <div class="profile-widget">
                     <div class="doctor-img">
-                        <a class="avatar" href="profile.html"><img alt="" src="assets/img/doctor-thumb-11.jpg"></a>
+                        <a class="avatar" href="profile.html"><img alt="" src="assets/img/user-03.jpg"></a>
                     </div>
                     <div class="dropdown profile-action">
                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
@@ -154,16 +155,16 @@
                         </div>
                     </div>
                     <h4 class="doctor-name text-ellipsis"><a href="profile.html">Mark Hunter</a></h4>
-                    <div class="doc-prof">Urologist</div>
+                    <div class="doc-prof">Utilisateur</div>
                     <div class="user-country">
-                        <i class="fa fa-map-marker"></i> United States, San Francisco
+                        <i class="fa fa-map-marker"></i> Direction de la Dette Publique
                     </div>
                 </div>
             </div>
             <div class="col-md-4 col-sm-4  col-lg-3">
                 <div class="profile-widget">
                     <div class="doctor-img">
-                        <a class="avatar" href="#"><img alt="" src="assets/img/doctor-thumb-12.jpg"></a>
+                        <a class="avatar" href="#"><img alt="" src="assets/img/user-06.jpg"></a>
                     </div>
                     <div class="dropdown profile-action">
                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
@@ -173,16 +174,16 @@
                         </div>
                     </div>
                     <h4 class="doctor-name text-ellipsis"><a href="profile.html">Michael Sullivan</a></h4>
-                    <div class="doc-prof">Ophthalmologist</div>
+                    <div class="doc-prof">Utilisateur</div>
                     <div class="user-country">
-                        <i class="fa fa-map-marker"></i> United States, San Francisco
+                        <i class="fa fa-map-marker"></i> Direction de la Dette Publique
                     </div>
                 </div>
             </div>
             <div class="col-md-4 col-sm-4  col-lg-3">
                 <div class="profile-widget">
                     <div class="doctor-img">
-                        <a class="avatar" href="profile.html"><img alt="" src="assets/img/doctor-thumb-02.jpg"></a>
+                        <a class="avatar" href="profile.html"><img alt="" src="assets/img/127715041.jpg"></a>
                     </div>
                     <div class="dropdown profile-action">
                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
@@ -192,16 +193,16 @@
                         </div>
                     </div>
                     <h4 class="doctor-name text-ellipsis"><a href="profile.html">Linda Barrett</a></h4>
-                    <div class="doc-prof">Dentist</div>
+                    <div class="doc-prof">Utilisateur</div>
                     <div class="user-country">
-                        <i class="fa fa-map-marker"></i> United States, San Francisco
+                        <i class="fa fa-map-marker"></i> Direction de la Dette Publique
                     </div>
                 </div>
             </div>
             <div class="col-md-4 col-sm-4  col-lg-3">
                 <div class="profile-widget">
                     <div class="doctor-img">
-                        <a class="avatar" href="profile.html"><img alt="" src="assets/img/doctor-thumb-09.jpg"></a>
+                        <a class="avatar" href="profile.html"><img alt="" src="assets/img/user-02.jpg"></a>
                     </div>
                     <div class="dropdown profile-action">
                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
@@ -210,17 +211,17 @@
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_doctor"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                         </div>
                     </div>
-                    <h4 class="doctor-name text-ellipsis"><a href="profile.html">Ronald Jacobs</a></h4>
-                    <div class="doc-prof">Oncologist</div>
+                    <h4 class="doctor-name text-ellipsis"><a href="profile.html">Ronald Annéa</a></h4>
+                    <div class="doc-prof">Utilisateur</div>
                     <div class="user-country">
-                        <i class="fa fa-map-marker"></i> United States, San Francisco
+                        <i class="fa fa-map-marker"></i> Direction de la Dette Publique
                     </div>
                 </div>
             </div>
             <div class="col-md-4 col-sm-4  col-lg-3">
                 <div class="profile-widget">
                     <div class="doctor-img">
-                        <a class="avatar" href="profile.html"><img alt="" src="assets/img/doctor-thumb-01.jpg"></a>
+                        <a class="avatar" href="profile.html"><img alt="" src="assets/img/user-04.jpg"></a>
                     </div>
                     <div class="dropdown profile-action">
                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
@@ -230,16 +231,16 @@
                         </div>
                     </div>
                     <h4 class="doctor-name text-ellipsis"><a href="profile.html">Albert Sandoval</a></h4>
-                    <div class="doc-prof">Neurologist</div>
+                    <div class="doc-prof">Administrateur</div>
                     <div class="user-country">
-                        <i class="fa fa-map-marker"></i> United States, San Francisco
+                        <i class="fa fa-map-marker"></i> Direction de la Dette Publique
                     </div>
                 </div>
             </div>
             <div class="col-md-4 col-sm-4  col-lg-3">
                 <div class="profile-widget">
                     <div class="doctor-img">
-                        <a class="avatar" href="profile.html"><img alt="" src="assets/img/doctor-thumb-05.jpg"></a>
+                        <a class="avatar" href="profile.html"><img alt="" src="assets/img/user-05.jpg"></a>
                     </div>
                     <div class="dropdown profile-action">
                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
@@ -249,16 +250,16 @@
                         </div>
                     </div>
                     <h4 class="doctor-name text-ellipsis"><a href="profile.html">Diana Bailey</a></h4>
-                    <div class="doc-prof">General Surgery</div>
+                    <div class="doc-prof">Utilisateur</div>
                     <div class="user-country">
-                        <i class="fa fa-map-marker"></i> United States, San Francisco
+                        <i class="fa fa-map-marker"></i> Direction de la Dette Publique
                     </div>
                 </div>
             </div>
             <div class="col-md-4 col-sm-4  col-lg-3">
                 <div class="profile-widget">
                     <div class="doctor-img">
-                        <a class="avatar" href="profile.html"><img alt="" src="assets/img/doctor-thumb-10.jpg"></a>
+                        <a class="avatar" href="profile.html"><img alt="" src="assets/img/user-13.jpg"></a>
                     </div>
                     <div class="dropdown profile-action">
                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
@@ -268,16 +269,16 @@
                         </div>
                     </div>
                     <h4 class="doctor-name text-ellipsis"><a href="profile.html">Shirley Willis</a></h4>
-                    <div class="doc-prof">Radiologist</div>
+                    <div class="doc-prof">Utilisateur</div>
                     <div class="user-country">
-                        <i class="fa fa-map-marker"></i> United States, San Francisco
+                        <i class="fa fa-map-marker"></i> Direction de la Dette Publique
                     </div>
                 </div>
             </div>
             <div class="col-md-4 col-sm-4  col-lg-3">
                 <div class="profile-widget">
                     <div class="doctor-img">
-                        <a class="avatar" href="profile.html"><img alt="" src="assets/img/doctor-thumb-08.jpg"></a>
+                        <a class="avatar" href="profile.html"><img alt="" src="assets/img/user-14.jpg"></a>
                     </div>
                     <div class="dropdown profile-action">
                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
@@ -287,16 +288,16 @@
                         </div>
                     </div>
                     <h4 class="doctor-name text-ellipsis"><a href="profile.html">Pamela Curtis</a></h4>
-                    <div class="doc-prof">Pediatrics</div>
+                    <div class="doc-prof">Administrateur</div>
                     <div class="user-country">
-                        <i class="fa fa-map-marker"></i> United States, San Francisco
+                        <i class="fa fa-map-marker"></i> Direction de la Dette Publique
                     </div>
                 </div>
             </div>
             <div class="col-md-4 col-sm-4  col-lg-3">
                 <div class="profile-widget">
                     <div class="doctor-img">
-                        <a class="avatar" href="profile.html"><img alt="" src="assets/img/doctor-thumb-06.jpg"></a>
+                        <a class="avatar" href="profile.html"><img alt="" src="assets/img/test.webp"></a>
                     </div>
                     <div class="dropdown profile-action">
                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
@@ -306,9 +307,9 @@
                         </div>
                     </div>
                     <h4 class="doctor-name text-ellipsis"><a href="profile.html">Justin Parker</a></h4>
-                    <div class="doc-prof">Physical Therapist</div>
+                    <div class="doc-prof">Administrateur</div>
                     <div class="user-country">
-                        <i class="fa fa-map-marker"></i> United States, San Francisco
+                        <i class="fa fa-map-marker"></i> Direction de la Dette Publique
                     </div>
                 </div>
             </div>

@@ -4,6 +4,9 @@
 <div class="page-wrapper">
     <div class="content">
         <div class="row">
+            <img class="logoRepoblikaMada mx-auto" src="assets/img/Logo_hd_MEF-PETIT-2.png" alt="">
+        </div>
+        <div class="row">
             <div class="col-sm-5 col-5">
                 <h4 class="page-title">Prêt</h4>
             </div>
@@ -29,11 +32,11 @@
                                     <label for="completeStatus">status</label>
                                     <div>
                                         <select name="completeStatus" id="completeStatus" class="select">
-                                            <option value="En cours d'etude">En cours d'etude</option>
-                                            <option value="Requette envoyée">Requette envoyée</option>
-                                            <option value="En cours de négociation">En cours de négociation</option>
-                                            <option value="En cours de signature">En cours de signature</option>
-                                            <option value="Signé">Signé</option>
+                                            <option value="en cours d\'etude">En cours d'etude</option>
+                                            <option value="requette envoyée">Requette envoyée</option>
+                                            <option value="en cours de négociation">En cours de négociation</option>
+                                            <option value="en cours de signature">En cours de signature</option>
+                                            <option value="signé">Signé</option>
                                         </select>
                                     </div>
                                 </div>
@@ -73,8 +76,8 @@
                                 <th>Maturité</th>
                                 <th>Période de grâce</th>
                                 <th>Mode de remboursement</th>
+                                <th>Périodisité de remboursement</th>
                                 <th>Taux d'intérêt</th>
-                                <th>Frais de gestion</th>
                                 <th>Concessionnalité de prêt</th>
                                 <th class="text-right">Action</th>
                             </tr>
@@ -205,7 +208,7 @@
                     </div>
                 </div>
 
-                <table class="table table-dark">
+                <table class="table table">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
