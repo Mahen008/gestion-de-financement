@@ -8,6 +8,7 @@ $(document).ready(function ($) {
   displayPlafondFmi();
   displaypret();
   displayProjet();
+  displayUser();
   // dataDrowp();
 
   // Sidebar
@@ -948,14 +949,27 @@ function deleteProjet() {
 
 function addUser() {
   // var filename = $("#filename").val();
+  // var Name = $("#completeName").val();
+  // var Email = $("#completeEmail").val();
+  // var Fonction = $("#completeFonction").val();
+  // var Service = $("#completeService").val();
+  // var Genre = $("#completeGenre").val();
+
   var file_data = $(".fileToUpload").prop("files")[0];
   var form_data = new FormData();
   form_data.append("file", file_data);
   // form_data.append("filename", filename);
+  form_data.append("completeName", $("#completeName").val());
+  form_data.append("completeEmail", $("#completeEmail").val());
+  form_data.append("completePassword", $("#completePassword").val());
+  form_data.append("completeService", $("#completeService").val());
+  form_data.append("completeGenre", $("#completeGenre").val());
+  form_data.append("completeRole", $("#completeRole").val());
   form_data.append("action", "CREATE");
 
   $.ajax({
-    url: "load.php",
+    url: "user-requette.php",
+    // url: "load.php",
     type: "POST",
     dataType: "JSON",
     Cache: false,
@@ -964,13 +978,72 @@ function addUser() {
     data: form_data,
 
     success: function (data) {
-      alert(data.output);
+      // alert(data.output);
+      $("#user-modal .close").click();
+      displayUser();
     },
   });
 }
 
 function displayUser() {
-  alert("affichage liste users");
+  $.ajax({
+    url: "user-requette.php",
+    type: "POST",
+    data: {
+      action: "READ",
+    },
+    success: function (data) {
+      $("#listUser").html(data);
+    },
+  });
 }
 
+function confirmDataDeleteUser(id) {
+  // $("#PopupModalDelete").modal("show");
+  $("#deleteIdUser").val(id);
+  // alert(id);
+  $.post(
+    "user-requette.php",
+    { id: id, action: "DATADELETE" },
+    function (data) {
+      var userid = JSON.parse(data);
+      $("#deleteUserName").val(userid.name);
+      // $("#updateDuree").val(userid.duree);
+      // $("#updateMontant").val(userid.montant);
+    }
+  );
+}
+
+function deleteUser() {
+  var id = $("#deleteIdUser").val();
+  $.ajax({
+    url: "user-requette.php",
+    type: "POST",
+    data: {
+      id: id,
+      action: "DELETE",
+    },
+    success: function (response) {
+      $("#PopupModalDeleteUser .close").click();
+      $(`#user-${id}`).remove();
+    },
+    error: function () {
+      alert("Error");
+    },
+  });
+}
+
+function editUser(id) {
+  $.post("user-requette.php", { id: id, action: "EDIT" }, function (data) {
+    $("#editUser").html(data);
+    // var user = JSON.parse(data);
+    // $("#updateName").val(user.name);
+    // $("#updateEmail").val(user.email);
+    // $("#updateMontant").val(user.gender);
+    // $("#updateMontant").val(user.role);
+    // $("#updateMontant").val(user.fonction);
+    // $("#updateMontant").val(user.service);
+    // $("#updateMontant").val(user.profile);
+  });
+}
 // =============== end gestion Utilisateur ===============

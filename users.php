@@ -21,7 +21,7 @@
             <div class="modal-dialog modal-dialog-scrollable modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Enregistrement Utilisateur</h5>
+                        <h4 class="modal-title" id="exampleModalLabel">Enregistrement Utilisateur</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -29,49 +29,87 @@
                     <div class="modal-body">
                         <form method="post" id="formUser" enctype="multipart/form-data">
                             <div class="row d-flex flex-wrap justify-content-around p-3">
-                                <div class="form-group p-2">
-                                    <label for="completeName">nom</label>
-                                    <input type="text" class="form-control" id="completeName" name="completeName" placeholder="Entrer le nom du projet">
-                                </div>
-                                <div class="form-group p-2">
-                                    <label for="completeEmail">e-mail</label>
-                                    <input type="email" class="form-control" id="completeEmail" name="completeEmail" placeholder="Entrer le montant du prêt">
-                                </div>
-                                <div class="form-group p-2">
-                                    <label for="completeFonction">fonction</label>
-                                    <input type="text" class="form-control" id="completeFonction" name="completeFonction" placeholder="Entrer le montant du prêt">
-                                </div>
-                                <div class="form-group p-2">
-                                    <label for="completeService">service</label>
-                                    <div>
-                                        <select name="completeService" id="completeService" class="select">
-                                            <option value="Service des Analyses et des Statistiques de la Dette">Service des Analyses et des Statistiques de la Dette</option>
-                                            <option value="Service du Suivi des Projets">Service du Suivi des Projets</option>
-                                            <option value="Service des Aides et de la Dette extérieures">Service des Aides et de la Dette extérieures</option>
-                                            <option value="Service de la Trésorerie et de la Dette intérieure">Service de la Trésorerie et de la Dette intérieure</option>
-                                        </select>
+                                <div class="col-md-12">
+                                    <!-- <div class="profile-img-wrap">
+                                        <img class="inline-block" src="assets/img/user.jpg" alt="user">
+                                        <div class="fileupload btn">
+                                            <span class="btn-text">ajout</span>
+                                            <input class="upload" type="file">
+                                        </div>
+                                    </div> -->
+                                    <!-- <div class="profile-basic"> -->
+                                    <div class="row d-flex flex-wrap justify-content-around">
+                                        <div class="form-group form-focus select-focus">
+                                            <label class="focus-label" for="completeName">nom</label>
+                                            <input type="text" required class="form-control" id="completeName" name="completeName" placeholder="Entrer le nom du projet">
+                                        </div>
+                                        <div class="form-group form-focus select-focus">
+                                            <label class="focus-label" for="completeEmail">e-mail</label>
+                                            <input type="email" required class="form-control" id="completeEmail" name="completeEmail" placeholder="Entrer le montant du prêt">
+                                        </div>
+
                                     </div>
-                                </div>
-                                <div class="form-group p-2">
-                                    <!-- <label for="completePdp">photos de prôfile</label> -->
-                                    <input id="" type="file" name="" class="fileToUpload form-control-file">
-                                    <!-- <input id="filename" type="text" placeholder="file name" class="form-control"> -->
-                                </div>
-                                <div class="form-group p-2">
-                                    <div class="form-check">
-                                        <input type="radio" class="form-check-input" id="completeGenre" name="completeGenre" value="Homme" checked>Homme
-                                        <label class="form-check-label" for="completeGenre"></label>
+                                    <div class="row d-flex flex-wrap justify-content-around">
+                                        <div class="form-group form-focus select-focus">
+                                            <label class="focus-label" for="completePassword">mots de passe</label>
+                                            <input type="password" required class="form-control" id="completePassword" name="completePassword" placeholder="Entrer le montant du prêt">
+                                        </div>
+                                        <div class="form-group form-focus select-focus">
+                                            <label class="focus-label" for="completePassword2">confirmer mots de passe</label>
+                                            <input type="password" class="form-control" id="completePassword2" name="completePassword2" placeholder="Entrer le montant du prêt">
+                                        </div>
                                     </div>
-                                    <div class="form-check">
-                                        <input type="radio" class="form-check-input" id="completeGenre" name="completeGenre" value="Femme">Femme
-                                        <label class="form-check-label" for="completeGenre"></label>
+                                    <!-- </div> -->
+                                    <div class="row d-flex flex-wrap justify-content-around">
+                                        <div class="form-group form-focus select-focus">
+                                            <label class="focus-label" for="completeService">service</label>
+                                            <div>
+                                                <select name="completeService" id="completeService" class="select">
+                                                    <option value="Service du Suivi des Projets">Service du Suivi des Projets</option>
+                                                    <option value="Service des Analyses et des Statistiques de la Dette">Service des Analyses et des Statistiques de la Dette</option>
+                                                    <option value="Service des Aides et de la Dette extérieures">Service des Aides et de la Dette extérieures</option>
+                                                    <option value="Service de la Trésorerie et de la Dette intérieure">Service de la Trésorerie et de la Dette intérieure</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <!-- </div>
+                                    <div class="row d-flex flex-wrap justify-content-around"> -->
+
+                                        <div class="form-group form-focus select-focus">
+                                            <label class="focus-label" for="completeGenre">Genre</label>
+                                            <select class="select form-control floating" id="completeGenre" name="completeGenre">
+                                                <option value="Homme">Homme</option>
+                                                <option value="Femme">Femme</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group form-focus select-focus">
+                                            <label class="focus-label" for="completeRole">Genre</label>
+                                            <select class="select form-control floating" id="completeRole" name="completeRole">
+                                                <option value="Administrateur">Administrateur</option>
+                                                <option value="Utilisateur">Utilisateur</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group p-2">
-                                    <br>
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="completeRole" name="completeRole" value="1">
-                                        <label class="form-check-label" for="completeRole">admin</label>
+                                    <!-- <div class="form-group form-focus">
+                                            <label class="focus-label" for="">Date de naissance</label>
+                                            <div class="cal-icon">
+                                                <input class="form-control floating datetimepicker" id="" name="" type="text" value="05/06/1985">
+                                            </div>
+                                        </div> -->
+                                    <!-- </div> -->
+                                    <div class="row d-flex flex-wrap justify-content-around">
+                                        <div class="form-group">
+                                            <!-- <label>Avatar</label> -->
+                                            <div class="profile-upload">
+                                                <div class="upload-img">
+                                                    <img alt="" src="assets/img/user.jpg">
+                                                </div>
+                                                <div class="upload-input">
+                                                    <input type="file" class="fileToUpload form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -84,8 +122,65 @@
                 </div>
             </div>
         </div>
-        <div class="row doctor-grid">
-            <div class="col-md-4 col-sm-4  col-lg-3">
+        <!-- Edit Modal -->
+        <div class="modal fade" id="user-update-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Edit user</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <form action="POST" id="formupUser">
+                            <div class="row" id="editUser">
+
+                            </div>
+                            <input type="hidden" id="hidden-update-id-fmi">
+                        </form>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-secondary" onclick="updatePret()">modifier</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- Modal confirm before delete -->
+        <div class="modal fade" id="PopupModalDeleteUser">
+            <div class="modal-dialog modal-confirmPop">
+                <div class="modal-content">
+                    <div class="modal-header flex-column">
+                        <div class="icon-box">
+                            <i class="material-icons">&#xE5CD;</i>
+                        </div>
+                        <h4 class="modal-title w-100">Êtes-vous sûr de vouloir supprimer?</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="deleteIdUser" id="deleteIdUser">
+                        <div class="form-group">
+                            <label for="deleteUserName">nom d'Utilisateur</label>
+                            <input type="text" class="form-control" id="deleteUserName" name="deleteUserName">
+                            <!-- <p id="deleteName" name="deleteName"></p> -->
+                        </div>
+                        <p>Voulez-vous vraiment supprimer ces enregistrements ? Ce processus ne peut pas être annulé.</p>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                        <button type="button" class="btn btn-danger" onclick="deleteUser()">Effacer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row doctor-grid" id="listUser">
+            <!-- <div class="col-md-4 col-sm-4  col-lg-3">
                 <div class="profile-widget">
                     <div class="doctor-img">
                         <a class="avatar" href="profile.html"><img alt="" src="assets/img/image.jpeg"></a>
@@ -312,7 +407,7 @@
                         <i class="fa fa-map-marker"></i> Direction de la Dette Publique
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
         <div class="row">
             <div class="col-sm-12">
@@ -322,215 +417,7 @@
             </div>
         </div>
     </div>
-    <div class="notification-box">
-        <div class="msg-sidebar notifications msg-noti">
-            <div class="topnav-dropdown-header">
-                <span>Messages</span>
-            </div>
-            <div class="drop-scroll msg-list-scroll" id="msg_list">
-                <ul class="list-box">
-                    <li>
-                        <a href="chat.html">
-                            <div class="list-item">
-                                <div class="list-left">
-                                    <span class="avatar">R</span>
-                                </div>
-                                <div class="list-body">
-                                    <span class="message-author">Richard Miles </span>
-                                    <span class="message-time">12:28 AM</span>
-                                    <div class="clearfix"></div>
-                                    <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="chat.html">
-                            <div class="list-item new-message">
-                                <div class="list-left">
-                                    <span class="avatar">J</span>
-                                </div>
-                                <div class="list-body">
-                                    <span class="message-author">John Doe</span>
-                                    <span class="message-time">1 Aug</span>
-                                    <div class="clearfix"></div>
-                                    <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="chat.html">
-                            <div class="list-item">
-                                <div class="list-left">
-                                    <span class="avatar">T</span>
-                                </div>
-                                <div class="list-body">
-                                    <span class="message-author"> Tarah Shropshire </span>
-                                    <span class="message-time">12:28 AM</span>
-                                    <div class="clearfix"></div>
-                                    <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="chat.html">
-                            <div class="list-item">
-                                <div class="list-left">
-                                    <span class="avatar">M</span>
-                                </div>
-                                <div class="list-body">
-                                    <span class="message-author">Mike Litorus</span>
-                                    <span class="message-time">12:28 AM</span>
-                                    <div class="clearfix"></div>
-                                    <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="chat.html">
-                            <div class="list-item">
-                                <div class="list-left">
-                                    <span class="avatar">C</span>
-                                </div>
-                                <div class="list-body">
-                                    <span class="message-author"> Catherine Manseau </span>
-                                    <span class="message-time">12:28 AM</span>
-                                    <div class="clearfix"></div>
-                                    <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="chat.html">
-                            <div class="list-item">
-                                <div class="list-left">
-                                    <span class="avatar">D</span>
-                                </div>
-                                <div class="list-body">
-                                    <span class="message-author"> Domenic Houston </span>
-                                    <span class="message-time">12:28 AM</span>
-                                    <div class="clearfix"></div>
-                                    <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="chat.html">
-                            <div class="list-item">
-                                <div class="list-left">
-                                    <span class="avatar">B</span>
-                                </div>
-                                <div class="list-body">
-                                    <span class="message-author"> Buster Wigton </span>
-                                    <span class="message-time">12:28 AM</span>
-                                    <div class="clearfix"></div>
-                                    <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="chat.html">
-                            <div class="list-item">
-                                <div class="list-left">
-                                    <span class="avatar">R</span>
-                                </div>
-                                <div class="list-body">
-                                    <span class="message-author"> Rolland Webber </span>
-                                    <span class="message-time">12:28 AM</span>
-                                    <div class="clearfix"></div>
-                                    <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="chat.html">
-                            <div class="list-item">
-                                <div class="list-left">
-                                    <span class="avatar">C</span>
-                                </div>
-                                <div class="list-body">
-                                    <span class="message-author"> Claire Mapes </span>
-                                    <span class="message-time">12:28 AM</span>
-                                    <div class="clearfix"></div>
-                                    <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="chat.html">
-                            <div class="list-item">
-                                <div class="list-left">
-                                    <span class="avatar">M</span>
-                                </div>
-                                <div class="list-body">
-                                    <span class="message-author">Melita Faucher</span>
-                                    <span class="message-time">12:28 AM</span>
-                                    <div class="clearfix"></div>
-                                    <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="chat.html">
-                            <div class="list-item">
-                                <div class="list-left">
-                                    <span class="avatar">J</span>
-                                </div>
-                                <div class="list-body">
-                                    <span class="message-author">Jeffery Lalor</span>
-                                    <span class="message-time">12:28 AM</span>
-                                    <div class="clearfix"></div>
-                                    <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="chat.html">
-                            <div class="list-item">
-                                <div class="list-left">
-                                    <span class="avatar">L</span>
-                                </div>
-                                <div class="list-body">
-                                    <span class="message-author">Loren Gatlin</span>
-                                    <span class="message-time">12:28 AM</span>
-                                    <div class="clearfix"></div>
-                                    <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="chat.html">
-                            <div class="list-item">
-                                <div class="list-left">
-                                    <span class="avatar">T</span>
-                                </div>
-                                <div class="list-body">
-                                    <span class="message-author">Tarah Shropshire</span>
-                                    <span class="message-time">12:28 AM</span>
-                                    <div class="clearfix"></div>
-                                    <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="topnav-dropdown-footer">
-                <a href="chat.html">See all messages</a>
-            </div>
-        </div>
-    </div>
+
 </div>
 <div id="delete_doctor" class="modal fade delete-modal" role="dialog">
     <div class="modal-dialog modal-dialog-centered">
