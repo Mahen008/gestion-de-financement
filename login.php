@@ -1,4 +1,5 @@
 <?php
+// include('function.php');
 include('header.php');
 
 // $pass = 'passe';
@@ -523,8 +524,17 @@ include('header.php');
                 url: "login-requette.php",
                 data: formDataLogin,
                 success: function(data) {
+                    console.log(data);
                     var userId = JSON.parse(data);
+                    console.log(userId.output);
+
                     if (userId.output) {
+                        // $.session.set("role", userId.role);
+                        // $.session.set("profile", userId.profile);
+
+                        // console.log($.session.get("role"));
+                        // console.log($.session.get("profile"));
+                        // console.log(userId.session_profile);
                         window.location.href = "http://localhost:8000/index-2.php";
                     } else {
                         alert(userId.output);
@@ -534,7 +544,6 @@ include('header.php');
                     alert("Error");
                 },
             });
-            b
         });
 
         //reset previously results and hide all message on .keyup()

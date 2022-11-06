@@ -19,23 +19,33 @@ function clean_php_session(): void
 
 function is_logged(): bool
 {
-  return true; 
+  if (isset($_SESSION['rank'])) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 function is_admin(): bool
 {
-  return true;
-}
-
-if (isset($_POST["action"])) {
-  if ($_POST["action"] == "insert") {
-    insert();
-  } else if ($_POST["action"] == "edit") {
-    edit();
+  if (is_logged()) {
+    if (isset($_SESSION['rank']) && $_SESSION['rank'] == "Administrateur") {
+      return true;
+    }
   } else {
-    delete();
+    return false;
   }
 }
+
+// if (isset($_POST["action"])) {
+//   if ($_POST["action"] == "insert") {
+//     insert();
+//   } else if ($_POST["action"] == "edit") {
+//     edit();
+//   } else {
+//     delete();
+//   }
+// }
 
 function insert()
 {
@@ -64,16 +74,16 @@ function edit()
   echo "Updated Successfully";
 }
 
-function delete()
-{
-  global $conn;
+// function delete()
+// {
+//   global $conn;
 
-  $id = $_POST["action"];
+//   $id = $_POST["action"];
 
-  $query = "DELETE FROM users WHERE id = $id";
-  mysqli_query($conn, $query);
-  echo "Deleted Successfully";
-}
+//   $query = "DELETE FROM users WHERE id = $id";
+//   mysqli_query($conn, $query);
+//   echo "Deleted Successfully";
+// }
 
 function calcul_commission_de_gestion()
 {
