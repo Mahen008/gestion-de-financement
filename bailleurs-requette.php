@@ -1,5 +1,6 @@
 <?php
 require_once 'config.php';
+session_start();
 
 global $conn;
 extract($_POST);
@@ -43,9 +44,9 @@ if ($action == 'CREATE') {
                         <td>' . $row["periode_grace"] . '</td>
                         <td>' . $row["taux_interet"] . '</td>
                         <td>' . $row["mode_remboursement_principal"] . '</td>
-                        <td>' . $row["periodisite_de_remboursement"] . '</td>
-
-                        <td class="text-right">
+                        <td>' . $row["periodisite_de_remboursement"] . '</td>';
+        if ($_SESSION['role'] == "Utilisateur") {
+            $table .= '<td class="text-right">
                             <div class="dropdown dropdown-action">
                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                                 <div class="dropdown-menu dropdown-menu-right">
@@ -53,8 +54,9 @@ if ($action == 'CREATE') {
                                     <a class="dropdown-item" onclick="confirmDataDelete(' . $row['id_bai'] . ')" data-toggle="modal" data-target="#PopupModalDelete"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                 </div>
                             </div>
-                        </td>
-                    </tr>';
+                        </td>';
+        }
+        $table .= '</tr>';
     };
     echo $table;
 } elseif ($action == 'EDIT') {

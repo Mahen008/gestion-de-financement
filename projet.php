@@ -1,7 +1,9 @@
 <?php include('header.php'); ?>
 <?php include('navbar.php'); ?>
 <?php include('sidebar.php'); ?>
-
+<?php
+session_start();
+?>
 <div class="page-wrapper">
     <div class="content">
 
@@ -12,10 +14,12 @@
             <div class="col-sm-5 col-4">
                 <h4 class="page-title">Projet</h4>
             </div>
-            <!-- Button modal ajout projet-->
-            <div class="col-sm-7 col-8 text-right m-b-30">
-                <a data-toggle="modal" data-target="#projet-modal" class="btn btn-primary btn-rounded"><i class="fa fa-plus"></i> Add Projet</a>
-            </div>
+            <?php if ($_SESSION['role'] == "Utilisateur") { ?>
+                <!-- Button modal ajout projet-->
+                <div class="col-sm-7 col-8 text-right m-b-30">
+                    <a data-toggle="modal" data-target="#projet-modal" class="btn btn-primary btn-rounded"><i class="fa fa-plus"></i> Add Projet</a>
+                </div>
+            <?php } ?>
         </div>
         <!-- Modal projet-->
         <div class="modal fade" role="dialog" id="projet-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -109,17 +113,27 @@
                 </div>
             </div>
         </div>
-
+        <div class="row">
+            <div class="col-sm-12 col-md-6">
+                <div id="test_filter" class="dataTables_filter">
+                    <label>Rechercher:
+                        <input type="search" class="form-control form-control-sm" placeholder="" aria-controls="test">
+                    </label>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="table-responsive">
-                    <table class="table table-striped custom-table datatable mb-0">
+                    <table class="table table-striped custom-table mb-0" id="test">
                         <thead>
                             <tr>
-                                <th>Nom du projet</th>
+                                <th class="col-md-5">Nom du projet</th>
                                 <th>Montant du prêt</th>
                                 <th>Date d'ajout</th>
-                                <th class="text-right">Actions</th>
+                                <?php if ($_SESSION['role'] == "Utilisateur") { ?>
+                                    <th class="text-right">Actions</th>
+                                <?php } ?>
                             </tr>
                         </thead>
                         <tbody id="projet"></tbody>

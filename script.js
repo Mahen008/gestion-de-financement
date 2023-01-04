@@ -9,7 +9,72 @@ $(document).ready(function ($) {
   displaypret();
   displayProjet();
   displayUser();
+  // $("#test").DataTable();
+  // $("#datatableBailleur").dataTable({
+  //   ajax: "data",
+  // });
   // dataDrowp();
+
+  // AdminLTe 3.0.x
+  /** add active class and stay opened when selected */
+  // var url = window.location;
+
+  // for sidebar menu entirely but not cover treeview
+  // $("ul.#sidebar-menu a")
+  //   .filter(function () {
+  //     return this.href == url;
+  //   })
+  //   .addClass("active");
+
+  // for treeview
+  // $("ul.nav-treeview a")
+  //   .filter(function () {
+  //     return this.href == url;
+  //   })
+  //   .parentsUntil(".#sidebar-menu > .nav-treeview")
+  //   .addClass("menu-open")
+  //   .prev("a")
+  //   .addClass("active");
+
+  // $("ul li a").click(function () {
+  //   $("li a").removeClass("active");
+  //   $(this).addClass("active");
+  // });
+  // var url = window.location;
+  // console.log(url);
+  // $("#sidebar-menu a[href=]");
+  // $('#sidebar-menu li[href="' + url + '"]').addClass("active");
+  // $(document).ready(function () {
+  //   $("#formBailleur").validate({
+  //     rules: {
+  //       competeName: {
+  //         minlength: 2,
+  //         required: true,
+  //       },
+  //       competeSecteurIntervation: {
+  //         required: true,
+  //       },
+  //       competeMaturite: {
+  //         minlength: 2,
+  //         required: true,
+  //       },
+  //     },
+  //     highlight: function (element) {
+  //       $(element)
+  //         .closest(".control-group")
+  //         .removeClass("success")
+  //         .addClass("error");
+  //     },
+  //     success: function (element) {
+  //       element
+  //         .text("OK!")
+  //         .addClass("valid")
+  //         .closest(".control-group")
+  //         .removeClass("error")
+  //         .addClass("success");
+  //     },
+  //   });
+  // });
 
   // Sidebar
   var Sidemenu = function () {
@@ -707,6 +772,7 @@ function voirPrevisionPret(id) {
       $("#completePeriodisiteDeRemboursement").val(
         userid.periodisite_de_remboursement
       );
+      $("#pretable-prevision").html(userid.pre_table);
       $("#periode-remboursement").html(userid.tbody_table);
     }
   );
@@ -1047,3 +1113,15 @@ function editUser(id) {
   });
 }
 // =============== end gestion Utilisateur ===============
+// $(document).ready(function () {
+//   $("ul li a").click(function () {
+//     $("li a").removeClass("active");
+//     $(this).addClass("active");
+//   });
+//   $("#sidebar-menu li").click(function (Event) {
+//     Event.preventDefault();
+//     console.log($(this));
+//     $("li").removeClass("active");
+//     $(this).addClass("active");
+//   });
+// });

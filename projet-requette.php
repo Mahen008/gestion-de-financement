@@ -1,6 +1,6 @@
 <?php
 require_once 'config.php';
-
+session_start();
 global $conn;
 extract($_POST);
 // echo $action;
@@ -18,23 +18,25 @@ if ($action == 'CREATE') {
 
     $projet = mysqli_query($conn, "SELECT * FROM projet_sub");
     $table =  "";
+    $i = 1;
     foreach ($projet as $row) {
         $table .= '<tr id=projet-' . $row["id_projet_sub"] . '>
                     <td>
-                        <a class="avatar">A</a>
+                        <a class="avatar">' . $i++ . '</a>
                         <h2>' . $row["nom_projet_sub"] . '</h2>
                     </td>
                     <td>' . $row["montant_projet_sub"] . '</td>
-                    <td>' . $row["date_signature"] . '</td>
-
-                    <td class="text-right">
+                    <td>' . $row["date_signature"] . '</td>';
+        if ($_SESSION['role'] == "Utilisateur") {
+            $table .= '<td class="text-right">
                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item" onclick="editProjet(' . $row['id_projet_sub'] . ')" data-toggle="modal" data-target="#projet-update-modal"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                             <a class="dropdown-item" onclick="confirmDataDeleteProjet(' . $row['id_projet_sub'] . ')" data-toggle="modal" data-target="#PopupModalDelete"><i class="fa fa-trash-o m-r-5"></i> Supprimer</a>
                         </div>
-                    </td>
-                </tr>';
+                    </td>';
+        }
+        $table .= '</tr>';
     };
     echo $table;
 } elseif ($action == 'EDIT') {

@@ -1,6 +1,9 @@
 <?php include('header.php'); ?>
 <?php include('navbar.php'); ?>
 <?php include('sidebar.php'); ?>
+<?php
+session_start();
+?>
 <div class="page-wrapper">
     <div class="content">
         <div class="row">
@@ -10,10 +13,12 @@
             <div class="col-sm-5 col-5">
                 <h4 class="page-title">Prêt</h4>
             </div>
-            <!-- Button modal ajout prêt-->
-            <div class="col-sm-7 col-7 text-right m-b-30">
-                <a data-toggle="modal" data-target="#pret-modal" class="btn btn-primary btn-rounded" onclick="dataDrowp()"><i class="fa fa-plus"></i> Add prêt</a>
-            </div>
+            <?php if ($_SESSION['role'] == "Utilisateur") { ?>
+                <!-- Button modal ajout prêt-->
+                <div class="col-sm-7 col-7 text-right m-b-30">
+                    <a data-toggle="modal" data-target="#pret-modal" class="btn btn-primary btn-rounded" onclick="dataDrowp()"><i class="fa fa-plus"></i> Add prêt</a>
+                </div>
+            <?php } ?>
         </div>
         <!-- Modal prêt-->
         <div class="modal fade" role="dialog" id="pret-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -27,9 +32,9 @@
                     </div>
                     <div class="modal-body">
                         <form method="post" id="formPret">
-                            <div class="row d-flex flex-wrap justify-content-around p-3">
-                                <div class="form-group p-2">
-                                    <label for="completeStatus">status</label>
+                            <div class="row d-flex flex-wrap justify-content-around">
+                                <div class="form-group form-focus select-focus">
+                                    <label class="focus-label" for="completeStatus">status</label>
                                     <div>
                                         <select name="completeStatus" id="completeStatus" class="select">
                                             <option value="en cours d\'etude">En cours d'etude</option>
@@ -40,14 +45,14 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="completeIdBailleurs">Bailleur de fond</label>
+                                <div class="form-group form-focus select-focus">
+                                    <label class="focus-label" for="completeIdBailleurs">Bailleur de fond</label>
                                     <div>
                                         <select name="completeIdBailleurs" id="completeIdBailleurs" class="select"></select>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="completeIdProjet">Projet</label>
+                                <div class="form-group form-focus select-focus">
+                                    <label class="focus-label" for="completeIdProjet">Projet</label>
                                     <div>
                                         <select name="completeIdProjet" id="completeIdProjet" class="select"></select>
                                     </div>
@@ -63,9 +68,18 @@
             </div>
         </div>
         <div class="row">
+            <div class="col-sm-12 col-md-6">
+                <div id="test_filter" class="dataTables_filter">
+                    <label>Rechercher:
+                        <input type="search" class="form-control form-control-sm" placeholder="" aria-controls="test">
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-12">
                 <div class="table-responsive">
-                    <table class="table table-striped custom-table mb-0 datatable">
+                    <table class="table table-striped mb-0">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -183,39 +197,20 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <div class="row d-flex flex-wrap justify-content-around p-3">
-                    <div class="form-group">
-                        <label for="completeNomProjet">nom du projet à subventionné</label>
-                        <input type="text" class="form-control" id="completeNomProjet" name="completeNomProjet">
-                    </div>
-                    <div class="form-group">
-                        <label for="completeBailleur">bailleur</label>
-                        <input type="text" class="form-control" id="completeBailleur" name="completeBailleur">
+                <div class="card-box profile-header">
+                    <div class="row" id="pretable-prevision">
                     </div>
                 </div>
-                <div class="row d-flex flex-wrap justify-content-around p-3">
-                    <div class="form-group">
-                        <label for="completeModeDeRemboursement">mode de remboursement</label>
-                        <input type="text" class="form-control" id="completeModeDeRemboursement" name="completeModeDeRemboursement">
-                    </div>
-                    <div class="form-group">
-                        <label for="completeMontant">montant</label>
-                        <input type="number" class="form-control" id="completeMontant" name="completeMontant">
-                    </div>
-                    <div class="form-group">
-                        <label for="completePeriodisiteDeRemboursement">périodisité de remboursement</label>
-                        <input type="text" class="form-control" id="completePeriodisiteDeRemboursement" name="completePeriodisiteDeRemboursement">
-                    </div>
-                </div>
-
-                <table class="table table">
+                <table class="table table-striped mb-0">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
+                            <th scope="col">nombre de remboursement</th>
+                            <th scope="col">période de remboursement</th>
                             <th scope="col">intérêt</th>
                             <th scope="col">principal</th>
                             <th scope="col">commission de gestion</th>
                             <th scope="col">encours</th>
+                            <th scope="col">total de paiement par période</th>
                         </tr>
                     </thead>
                     <tbody id="periode-remboursement">

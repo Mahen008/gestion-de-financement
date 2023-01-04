@@ -41,7 +41,7 @@
                                     <div class="row d-flex flex-wrap justify-content-around">
                                         <div class="form-group form-focus select-focus">
                                             <label class="focus-label" for="completeName">nom</label>
-                                            <input type="text" required class="form-control" id="completeName" name="completeName" placeholder="Entrer le nom du projet">
+                                            <input type="text" required class="form-control" id="completeName" name="completeName" placeholder="Entrer le nom du projet" required>
                                         </div>
                                         <div class="form-group form-focus select-focus">
                                             <label class="focus-label" for="completeEmail">e-mail</label>
@@ -62,7 +62,7 @@
                                     <!-- </div> -->
                                     <div class="row d-flex flex-wrap justify-content-around">
                                         <div class="form-group form-focus select-focus">
-                                            <label class="focus-label" for="completeService">service</label>
+                                            <label class="focus-label" for="completeService">Département</label>
                                             <div>
                                                 <select name="completeService" id="completeService" class="select">
                                                     <option value="Service du Suivi des Projets">Service du Suivi des Projets</option>
@@ -78,12 +78,12 @@
                                         <div class="form-group form-focus select-focus">
                                             <label class="focus-label" for="completeGenre">Genre</label>
                                             <select class="select form-control floating" id="completeGenre" name="completeGenre">
-                                                <option value="Homme">Homme</option>
-                                                <option value="Femme">Femme</option>
+                                                <option value="Homme">Masculin</option>
+                                                <option value="Femme">Féminin</option>
                                             </select>
                                         </div>
                                         <div class="form-group form-focus select-focus">
-                                            <label class="focus-label" for="completeRole">Genre</label>
+                                            <label class="focus-label" for="completeRole">Rôle</label>
                                             <select class="select form-control floating" id="completeRole" name="completeRole">
                                                 <option value="Administrateur">Administrateur</option>
                                                 <option value="Utilisateur">Utilisateur</option>

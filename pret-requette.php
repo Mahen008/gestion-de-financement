@@ -1,6 +1,6 @@
 <?php
 require_once 'config.php';
-
+session_start();
 global $conn;
 extract($_POST);
 // print_r($action);
@@ -145,15 +145,25 @@ if ($action == 'READ') {
             // formule VA= SD1/(1+r)+ SD1/(1+r)²+ ... + SDn/(1+r)^n
 
             // fin VA 
-            $table .=  '<td class="">
+            if ($_SESSION['role'] == "Utilisateur") {
+                $table .=  '<td class="">
                             <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" onclick="editPret(' . $row['id_pret'] . ')" data-toggle="modal" data-target="#pret-update-modal"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                                 <a class="dropdown-item" onclick="confirmDataDeletePret(' . $row['id_pret'] . ')" data-toggle="modal" data-target="#PopupModalDeletePret"><i class="fa fa-trash-o m-r-5"></i> Supprimer</a>
+                                <a class="dropdown-item" onclick="voirPrevisionPret(' . $row['id_pret'] . ')" data-toggle="modal" data-target="#prevision-pret-modal"><i class="fa fa-eye m-r-5"></i> voir prévision prêt</a>
+                            </div>
+                        </td>
+                    </tr>';
+            } elseif ($_SESSION['role'] == "Administrateur") {
+                $table .=  '<td class="">
+                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                            <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" onclick="voirPrevisionPret(' . $row['id_pret'] . ')" data-toggle="modal" data-target="#prevision-pret-modal"><i class="fa fa-trash-o m-r-5"></i> voir prévision prêt</a>
                             </div>
                         </td>
                     </tr>';
+            }
         };
     }
     echo $table;
@@ -268,7 +278,45 @@ if ($action == 'READ') {
     while ($row = mysqli_fetch_assoc($resultat)) {
         $response = $row;
     }
+    $somme_upfront = $response['frais_rebours'] + $response['commission_arragement'] + $response['commission_initiale'] + $response['commission_service'] + $response['commission_engagement'] + $response['differenciel_interet'] + $response['commission_agent'];
     $table = "";
+    $pre_table = '<div class="col-md-12">
+    <div class="profile-view">
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-info-left">
+                    <h3 class="user-name m-t-0 mb-0">' . $response['nom_projet_sub'] . '</h3>
+                    <small class="text-muted">' . $response['secteur_intervation'] . '</small>
+                    <div class="staff-id">Upfront commission</div>
+                    <div class="staff-msg"><a>' . $somme_upfront . '</a></div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <ul class="personal-info">
+                    <li>
+                        <span class="title">Bailleur:</span>
+                        <span class="text">' . $response['nom'] . '</span>
+                    </li>
+                    <li>
+                        <span class="title">mode de remboursement:</span>
+                        <span class="text">' . $response['mode_remboursement_principal'] . '</span>
+                    </li>
+                    <br>
+                    <li>
+                        <span class="title">periodisité de remboursement:</span>
+                        <span class="text">' . $response['periodisite_de_remboursement'] . '</span>
+                    </li>
+                    <br>
+                    <li>
+                        <span class="title">montant de prêt:</span>
+                        <span class="text">' . $response['montant_projet_sub'] . '</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>';
     // print_r($montant);
     // echo ($response);
     $maturite = $response['maturite'];
@@ -286,6 +334,7 @@ if ($action == 'READ') {
     $PP_avec_periode_grace = 0;
     $c_ENC = array();
     $i = 0;
+    $nb_paiement = 1;
     $commission_de_gestion =  $frais_gestion / $maturite;
     if ($mode_remboursement_principal == 'Remboursement constant du principal') {
         if ($periodisite_de_remboursement == 'Annuelle') {
@@ -299,12 +348,18 @@ if ($action == 'READ') {
             ) {
                 for ($ligne = 0; $ligne < $maturite; $ligne++) {
                     while ($periode_grace > 0) {
+                        $arrondiInteretAvecPG = ($ENCt_1 + $ENCt / 2) * $interet;
+                        $arrondiTotalPaiementParPeriodeAvecPG = $arrondiInteretAvecPG + $commission_de_gestion + $ENCt_1;
                         $table .= '<tr>
+                            <td>
+                                <a href="#" class="avatar">' . $nb_paiement++ . '</a>
+                            </td>
                             <td>' . $annee_remboursement . '</td>
-                            <td>' . ($ENCt_1 + $ENCt / 2) * $interet . '</td>
+                            <td>' . round($arrondiInteretAvecPG, 2) . '</td>
                             <td>' . $PP_avec_periode_grace . '</td>
                             <td>' . $commission_de_gestion . '</td>
                             <td>' . $c_ENC[] = $ENCt_1 . '</td>
+                            <td>' . round($arrondiTotalPaiementParPeriodeAvecPG, 2) . '</td>
                         </tr>';
                         $periode_grace--;
                         $maturite--;
@@ -317,13 +372,22 @@ if ($action == 'READ') {
                     // print_r($c_ENC);
                     // die();
                     $c_ENC[] = (int)$c_ENC[$i - 1] - $PPt;
-
+                    $arrodiEndcENC = end($c_ENC);
+                    if ($arrodiEndcENC < 0) {
+                        $arrodiEndcENC = 0;
+                    }
+                    $arrondiInteret = (((int)$c_ENC[$i - 1] + (int)end($c_ENC)) / 2) * $interet;
+                    $arrondiTotalPaiementParPeriode = $arrondiInteret + $PPt + $commission_de_gestion + $arrodiEndcENC;
                     $table .= '<tr>
+                            <td>    
+                                <a href="#" class="avatar">' . $nb_paiement++ . '</a>
+                            </td>
                             <td>' . $annee_remboursement . '</td>
-                            <td>' . (((int)$c_ENC[$i - 1] + (int)end($c_ENC)) / 2) * $interet . '</td>
-                            <td>' . $PPt . '</td>
-                            <td>' . $commission_de_gestion . '</td>
-                            <td>' . end($c_ENC)  . '</td> 
+                            <td>' . round($arrondiInteret, 2) . '</td>
+                            <td>' . round($PPt, 2) . '</td>
+                            <td>' . round($commission_de_gestion, 2) . '</td>
+                            <td>' . round($arrodiEndcENC, 2)  . '</td> 
+                            <td>' . round($arrondiTotalPaiementParPeriode, 2) . '</td> 
                         </tr>';
                     $annee_remboursement++;
                     // echo 'encours t-1' . $c_ENC[$i];
@@ -357,6 +421,7 @@ if ($action == 'READ') {
     }
 
     $response['tbody_table'] = $table;
+    $response['pre_table'] = $pre_table;
     // print_r($response['tbody_table']);
     echo json_encode($response);
 }

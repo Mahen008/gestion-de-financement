@@ -1,5 +1,6 @@
 <?php
 require_once 'config.php';
+session_start();
 
 global $conn;
 extract($_POST);
@@ -24,18 +25,19 @@ if ($action == 'CREATE') {
                     <td>' . $i++ . '</td>
                     <td>' . $row["date_debut"] . '</td>
                     <td>' . $row["duree"] . '</td>
-                    <td>' . $row["montant"] . '</td>
-                    
-                    <td class="text-right">
-                            <div class="dropdown dropdown-action">
-                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a  onclick="editPlafondFmi(' . $row['id_plafond'] . ')" data-toggle="modal" data-target="#fmi-update-modal" class="dropdown-item"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                    <a class="dropdown-item" onclick="confirmDataDeleteFmi(' . $row['id_plafond'] . ')" data-toggle="modal" data-target="#PopupModalDeleteFMI"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                </div>
-                            </div>
-                        </td>
-                </tr>';
+                    <td>' . $row["montant"] . '</td>';
+        if ($_SESSION['role'] == "Utilisateur") {
+            $table .= '<td class="text-right">
+                                        <div class="dropdown dropdown-action">
+                                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a  onclick="editPlafondFmi(' . $row['id_plafond'] . ')" data-toggle="modal" data-target="#fmi-update-modal" class="dropdown-item"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                <a class="dropdown-item" onclick="confirmDataDeleteFmi(' . $row['id_plafond'] . ')" data-toggle="modal" data-target="#PopupModalDeleteFMI"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                            </div>
+                                        </div>
+                                    </td>';
+        }
+        $table .= '</tr>';
     };
     echo $table;
 } elseif ($action == 'EDIT') {

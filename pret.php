@@ -72,11 +72,13 @@
                         <table class="table table-dark" id="table-plafond-FMI">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
+                                    <th scope="col">nombre de remboursement</th>
+                                    <th scope="col">période de remboursement</th>
                                     <th scope="col">intérêt</th>
                                     <th scope="col">principal</th>
                                     <th scope="col">commission de gestion</th>
                                     <th scope="col">encours</th>
+                                    <th scope="col">total de paiement par période</th>
                                 </tr>
                             </thead>
                             <tbody id="periode-remboursement">

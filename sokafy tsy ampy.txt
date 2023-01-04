@@ -1,6 +1,5 @@
-gestion d'utilisateur - ajout utilisateur 
-authentification -connexion - récupérer data en SESSION
-                 -déconnexion - detruire session
+
+
 
 autre mode de remboursement
 modif bailleurs

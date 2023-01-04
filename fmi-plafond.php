@@ -1,6 +1,9 @@
 <?php include("header.php"); ?>
 <?php include("navbar.php"); ?>
 <?php include("sidebar.php"); ?>
+<?php
+session_start();
+?>
 <div class="page-wrapper">
     <div class="content">
         <div class="row">
@@ -11,9 +14,11 @@
                 <h4 class="page-title">Plafond fmi</h4>
             </div>
             <!-- Button modal ajout plafond-->
-            <div class="col-sm-7 col-8 text-right m-b-30">
-                <a data-toggle="modal" data-target="#fmi-add-modal" class="btn btn-primary btn-rounded"><i class="fa fa-plus"></i> Add Plafond</a>
-            </div>
+            <?php if ($_SESSION['role'] == "Utilisateur") { ?>
+                <div class="col-sm-7 col-8 text-right m-b-30">
+                    <a data-toggle="modal" data-target="#fmi-add-modal" class="btn btn-primary btn-rounded"><i class="fa fa-plus"></i> Add Plafond</a>
+                </div>
+            <?php } ?>
         </div>
 
         <!-- The Modal -->
@@ -137,7 +142,9 @@
                                 <th>date de début</th>
                                 <th>durée</th>
                                 <th>plafond fmi</th>
-                                <th class="text-right">Actions</th>
+                                <?php if ($_SESSION['role'] == "Utilisateur") { ?>
+                                    <th class="text-right">Actions</th>
+                                <?php } ?>
                             </tr>
                         </thead>
                         <tbody id="plafond-FMI">

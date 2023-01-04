@@ -175,6 +175,7 @@ textarea.form-control {
 .table {
   color: #000;
   border: 1px solid #f0f0f0;
+  width: 98% !important;
 }
 .table.table-white {
   background-color: #fff;
@@ -433,6 +434,7 @@ table.table td h2 span {
 .btn-primary {
   background-color: #024303;
   color: #fff !important;
+  border-color: #fff !important;
 }
 .btn-primary:hover,
 .btn-primary:focus,
@@ -440,7 +442,7 @@ table.table td h2 span {
 .btn-primary:active,
 .open > .dropdown-toggle.btn-primary {
   background-color: #024303;
-  border: 1px solid #009efb;
+  border: 1px solid #024303;
   color: #fff;
 }
 .btn-primary.active.focus,
@@ -452,14 +454,14 @@ table.table td h2 span {
 .open > .dropdown-toggle.btn-primary.focus,
 .open > .dropdown-toggle.btn-primary:focus,
 .open > .dropdown-toggle.btn-primary:hover {
-  background-color: #024303;
-  border: 1px solid #009efb;
+  background-color: #035705;
+  border: 1px solid #fff;
 }
 .btn-primary.active:not(:disabled):not(.disabled),
 .btn-primary:active:not(:disabled):not(.disabled),
 .show > .btn-primary.dropdown-toggle {
   background-color: #024303;
-  border-color: #009efb;
+  border-color: #fff;
   color: #fff;
 }
 .btn-outline-primary {
@@ -716,14 +718,14 @@ textarea.form-control {
   padding: 0 20px;
   position: relative;
   text-align: center;
-  width: 230px;
+  width: 130px;
   z-index: 1;
 }
 .logo {
   align-items: center;
   display: flex;
   height: 50px;
-  justify-content: center;
+  justify-content: left;
 }
 .logo span {
   color: #fff;
@@ -821,7 +823,7 @@ textarea.form-control {
 .sidebar {
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
   top: 50px;
-  width: 230px;
+  width: 170px;
   z-index: 1039;
   background-color: #fff;
   bottom: 0;
@@ -1038,7 +1040,7 @@ textarea.form-control {
   transition: all 0.4s ease;
 }
 .page-wrapper > .content {
-  padding-inline: 30px;
+  padding-inline: 0px;
 }
 
 /*-----------------

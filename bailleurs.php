@@ -1,6 +1,9 @@
 <?php include('header.php'); ?>
 <?php include('navbar.php'); ?>
 <?php include('sidebar.php'); ?>
+<?php
+session_start();
+?>
 <div class="page-wrapper">
     <div class="content">
         <div class="row">
@@ -10,17 +13,19 @@
             <div class="col-sm-5 col-4">
                 <h4 class="page-title">Bailleurs de fond</h4>
             </div>
-            <!-- Button modal ajout bailleur-->
-            <div class="col-sm-7 col-8 text-right m-b-30">
-                <a data-toggle="modal" data-target="#bailleur-modal" class="btn btn-primary btn-rounded"><i class="fa fa-plus"></i> Add Bailleur</a>
-            </div>
+            <?php if ($_SESSION['role'] == "Utilisateur") { ?>
+                <!-- Button modal ajout bailleur-->
+                <div class="col-sm-7 col-8 text-right m-b-30">
+                    <a data-toggle="modal" data-target="#bailleur-modal" class="btn btn-primary btn-rounded"><i class="fa fa-plus"></i> Add Bailleur</a>
+                </div>
+            <?php } ?>
         </div>
         <!-- Modal bailleur-->
         <div class="modal fade" role="dialog" id="bailleur-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Enregistrement bailleur</h5>
+                        <h4 class="modal-title" id="exampleModalLabel">Enregistrement bailleur</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -28,31 +33,30 @@
                     <div class="modal-body">
                         <form method="post" id="formBailleur">
                             <div class="row d-flex flex-wrap justify-content-around p-3">
-                                <div class="form-group p-2">
-                                    <label for="competeName">nom</label>
-                                    <input type="text" class="form-control" id="competeName" name="competeName" placeholder="Entrer le nom du bailleur">
+                                <div class="form-group form-focus select-focus p-2">
+                                    <label class="focus-label" for="competeName">nom</label>
+                                    <input type="text" class="form-control" id="competeName" name="competeName">
                                 </div>
-                                <div class="form-group p-2">
-                                    <label for="competeSecteurIntervation">secteur d'intervation</label>
-                                    <input type="text" class="form-control" id="competeSecteurIntervation" name="competeSecteurIntervation" placeholder="Entrer son secteur d'intervation">
+                                <div class="form-group form-focus select-focus p-2">
+                                    <label class="focus-label" for="competeSecteurIntervation">secteur d'intervation</label>
+                                    <input type="text" class="form-control" id="competeSecteurIntervation" name="competeSecteurIntervation">
                                 </div>
-                                <div class="form-group p-2">
-                                    <label for="competeMaturite">maturité</label>
-                                    <input type="text" class="form-control" id="competeMaturite" name="competeMaturite" placeholder="Entrer la maturité">
+                                <div class="form-group form-focus select-focus p-2">
+                                    <label class="focus-label" for="competeMaturite">maturité</label>
+                                    <input type="text" class="form-control" id="competeMaturite" name="competeMaturite">
                                 </div>
-                                <div class="form-group p-2">
-                                    <label for="competePeriodeGrace">période de grace</label>
-                                    <input type="text" class="form-control" id="competePeriodeGrace" name="competePeriodeGrace" placeholder="Entrer la période de grâce">
+                                <div class="form-group form-focus select-focus p-2">
+                                    <label class="focus-label" for="competePeriodeGrace">période de grace</label>
+                                    <input type="text" class="form-control" id="competePeriodeGrace" name="competePeriodeGrace">
                                 </div>
-                                <div class="form-group p-2">
-                                    <label for="competeTauxInteret">taux d'intéret</label>
-                                    <input type="text" class="form-control" id="competeTauxInteret" name="competeTauxInteret" placeholder="Entrer le taux d'intéret">
+                                <div class="form-group form-focus select-focus p-2">
+                                    <label class="focus-label" for="competeTauxInteret">taux d'intéret</label>
+                                    <input type="text" class="form-control" id="competeTauxInteret" name="competeTauxInteret">
                                 </div>
-                                <div class="form-group">
-                                    <label for="competeModeRemboursementPrincipal" class="col-form-label">mode de remboursement</label>
+                                <div class="form-group form-focus select-focus p-2">
+                                    <label class="focus-label" for="competeModeRemboursementPrincipal" class="col-form-label">mode de remboursement</label>
                                     <div>
                                         <select name="competeModeRemboursementPrincipal" id="competeModeRemboursementPrincipal" class="select">
-                                            <option>Select</option>
                                             <option value="Remboursement constant du principal">Remboursement constant du principal</option>
                                             <option value="Annuité">Annuité</option>
                                             <option value="Remboursement principal en fin">Remboursement principal en fin</option>
@@ -61,11 +65,10 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group p-2">
-                                    <label for="competePeriodisteDeRemboursement">périodistité de remboursement</label>
+                                <div class="form-group form-focus select-focus p-2">
+                                    <label class="focus-label" for="competePeriodisteDeRemboursement">périodistité</label>
                                     <div>
                                         <select name="competePeriodisteDeRemboursement" id="competePeriodisteDeRemboursement" class="select">
-                                            <option>Select</option>
                                             <option value="Annuelle">Annuelle</option>
                                             <option value="Semestrielle">Semestrielle</option>
                                             <option value="Trimestrielle">Trimestrielle</option>
@@ -73,45 +76,45 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group p-2">
-                                    <label for="competeDifferencielInteret">differenciel intéret</label>
-                                    <input type="text" class="form-control" id="competeDifferencielInteret" name="competeDifferencielInteret" placeholder="Entrer la differenciel d'intéret">
+                                <div class="form-group form-focus select-focus p-2">
+                                    <label class="focus-label" for="competeDifferencielInteret">differenciel intéret</label>
+                                    <input type="text" class="form-control" id="competeDifferencielInteret" name="competeDifferencielInteret">
                                 </div>
-                                <div class="form-group p-2">
-                                    <label for="competeFraisDeGestion">frais de gestion</label>
-                                    <input type="text" class="form-control" id="competeFraisDeGestion" name="competeFraisDeGestion" placeholder="Entrer le frais de gestion">
+                                <div class="form-group form-focus select-focus p-2">
+                                    <label class="focus-label" for="competeFraisDeGestion">frais de gestion</label>
+                                    <input type="text" class="form-control" id="competeFraisDeGestion" name="competeFraisDeGestion">
                                 </div>
-                                <div class="form-group p-2">
-                                    <label for="competeComissionEngagement">comission d'engagement</label>
-                                    <input type="text" class="form-control" id="competeComissionEngagement" name="competeComissionEngagement" placeholder="Entrer la comission d'engagement">
+                                <div class="form-group form-focus select-focus p-2">
+                                    <label class="focus-label" for="competeComissionEngagement">comission d'engagement</label>
+                                    <input type="text" class="form-control" id="competeComissionEngagement" name="competeComissionEngagement">
                                 </div>
-                                <div class="form-group p-2">
-                                    <label for="competeCommissionDeService">commission de service</label>
-                                    <input type="text" class="form-control" id="competeCommissionDeService" name="competeCommissionDeService" placeholder="Entrer le frais d'exposition">
+                                <div class="form-group form-focus select-focus p-2">
+                                    <label class="focus-label" for="competeCommissionDeService">commission de service</label>
+                                    <input type="text" class="form-control" id="competeCommissionDeService" name="competeCommissionDeService">
                                 </div>
-                                <div class="form-group p-2">
-                                    <label for="competeCommissionInitiale">commission initiale</label>
-                                    <input type="text" class="form-control" id="competeCommissionInitiale" name="competeCommissionInitiale" placeholder="Entrer le frais d'exposition">
+                                <div class="form-group form-focus select-focus p-2">
+                                    <label class="focus-label" for="competeCommissionInitiale">commission initiale</label>
+                                    <input type="text" class="form-control" id="competeCommissionInitiale" name="competeCommissionInitiale">
                                 </div>
-                                <div class="form-group p-2">
-                                    <label for="competeCommissionArragement">commission d'arragement</label>
-                                    <input type="text" class="form-control" id="competeCommissionArragement" name="competeCommissionArragement" placeholder="Entrer le frais d'exposition">
+                                <div class="form-group form-focus select-focus p-2">
+                                    <label class="focus-label" for="competeCommissionArragement">commission d'arragement</label>
+                                    <input type="text" class="form-control" id="competeCommissionArragement" name="competeCommissionArragement">
                                 </div>
-                                <div class="form-group p-2">
-                                    <label for="competeFraisExposition">frais d'exposition</label>
-                                    <input type="text" class="form-control" id="competeFraisExposition" name="competeFraisExposition" placeholder="Entrer le frais d'exposition">
+                                <div class="form-group form-focus select-focus p-2">
+                                    <label class="focus-label" for="competeFraisExposition">frais d'exposition</label>
+                                    <input type="text" class="form-control" id="competeFraisExposition" name="competeFraisExposition">
                                 </div>
-                                <div class="form-group p-2">
-                                    <label for="competeCommissionAgent">commission d'agent</label>
-                                    <input type="text" class="form-control" id="competeCommissionAgent" name="competeCommissionAgent" placeholder="Entrer le commission d'agent">
+                                <div class="form-group form-focus select-focus p-2">
+                                    <label class="focus-label" for="competeCommissionAgent">commission d'agent</label>
+                                    <input type="text" class="form-control" id="competeCommissionAgent" name="competeCommissionAgent">
                                 </div>
-                                <div class="form-group p-2">
-                                    <label for="competeFraisDeRebours">frais de rebours</label>
-                                    <input type="text" class="form-control" id="competeFraisDeRebours" name="competeFraisDeRebours" placeholder="Entrer le frais de rebours">
+                                <div class="form-group form-focus select-focus p-2">
+                                    <label class="focus-label" for="competeFraisDeRebours">frais de rebours</label>
+                                    <input type="text" class="form-control" id="competeFraisDeRebours" name="competeFraisDeRebours">
                                 </div>
-                                <div class="form-group p-2">
-                                    <label for="competePrimeAssurenceFraisGarantie">prime d'assurence frais garantie</label>
-                                    <input type="text" class="form-control" id="competePrimeAssurenceFraisGarantie" name="competePrimeAssurenceFraisGarantie" placeholder="Entrer le prime d'assurence frais ganratie">
+                                <div class="form-group form-focus select-focus p-2">
+                                    <label class="focus-label" for="competePrimeAssurenceFraisGarantie">prime d'assurence frais garantie</label>
+                                    <input type="text" class="form-control" id="competePrimeAssurenceFraisGarantie" name="competePrimeAssurenceFraisGarantie">
                                 </div>
                             </div>
                         </form>
@@ -256,9 +259,18 @@
             </div>
         </div>
         <div class="row">
+            <div class="col-sm-12 col-md-6">
+                <div id="test_filter" class="dataTables_filter">
+                    <label>Rechercher:
+                        <input type="search" class="form-control form-control-sm" placeholder="" aria-controls="test">
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-12">
                 <div class="table-responsive">
-                    <table class="table table-striped custom-table datatable mb-0">
+                    <table class="table" id="datatableBailleur">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -267,8 +279,10 @@
                                 <th>Période de grâce</th>
                                 <th>taux d'intérêt</th>
                                 <th>mode de remboursement</th>
-                                <th>périodistité de remboursement</th>
-                                <th class="text-right">Actions</th>
+                                <th>périodistité</th>
+                                <?php if ($_SESSION['role'] == "Utilisateur") { ?>
+                                    <th class="text-right">Actions</th>
+                                <?php } ?>
                             </tr>
                         </thead>
                         <tbody id="bailleurs">
