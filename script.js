@@ -1025,14 +1025,44 @@ function addUser() {
   var form_data = new FormData();
   form_data.append("file", file_data);
   // form_data.append("filename", filename);
+
+  // var err = null;
+  // var err1 = "";
+  // var err2 = "";
+  // var err3 = "";
+
+  // if ($("#completeName").val() != null) {
   form_data.append("completeName", $("#completeName").val());
+  // } else {
+  //   err1 = "Veuillez indiquer votre nom.";
+  //   err = err + err1;
+  // }
+
+  // if ($("#completeEmail").val() != null) {
   form_data.append("completeEmail", $("#completeEmail").val());
+  // } else {
+  //   err2 = "Veuillez indiquer votre email.";
+  //   err = err + err2;
+  // }
+
+  // if ($("#completePassword").val() != null) {
   form_data.append("completePassword", $("#completePassword").val());
+  // } else {
+  //   err3 = "Veuillez indiquer votre mots de passe.";
+  //   err = err + err3;
+  // }
+
+  // VERIFICATION VALIDATION MOTS DE PASSE
+  // if ($("#completePassword").val()) {
+
+  // }
+
   form_data.append("completeService", $("#completeService").val());
   form_data.append("completeGenre", $("#completeGenre").val());
   form_data.append("completeRole", $("#completeRole").val());
   form_data.append("action", "CREATE");
-
+  // console.log(err);
+  // if (err != null) {
   $.ajax({
     url: "user-requette.php",
     // url: "load.php",
@@ -1045,10 +1075,19 @@ function addUser() {
 
     success: function (data) {
       // alert(data.output);
-      $("#user-modal .close").click();
-      displayUser();
+      // console.log(data.errorEmpty);
+      if (data.errorEmpty == true) {
+        // alert("erreur à checker");
+        $("#completeName").addClass("is-invalid");
+      } else {
+        $("#user-modal .close").click();
+        displayUser();
+      }
     },
   });
+  // } else {
+  //   alert("affichage mesg d_erreur");
+  // }
 }
 
 function displayUser() {

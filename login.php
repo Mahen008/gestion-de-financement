@@ -437,29 +437,30 @@ include('header.php');
         <div class='box-login-tab'></div>
         <div class='box-login-title my-3'>
             <!-- <div class='i i-login'></div> -->
-            <h2>LOGIN</h2>
+            <h2>CONNEXION</h2>
         </div>
         <div class='box-login'>
             <div class='fieldset-body' id='login_form'>
                 <button class='b b-form' title='Mais Informações'></button>
                 <form action="" method="POST" id="formLogin">
                     <p class='field'>
-                        <label for='form_username'>E-MAIL</label>
+                        <label for='form_username'>e-mail</label>
                         <input type='text' id='form_username' name='form_username' title='Username' />
                         <span id='valida' class='i i-warning'></span>
                     </p>
                     <p class='field'>
-                        <label for='form_password'>MOTS DE PASSE</label>
+                        <label for='form_password'>mots de passe</label>
                         <input type='password' id='form_password' name='form_password' title='Password' />
                         <span id='valida' class='i i-close'></span>
                     </p>
-
-                    <label class='checkbox'>
+                    <br>
+                    <br>
+                    <!-- <label class='checkbox'>
                         <input type='checkbox' value='TRUE' title='Keep me Signed in' /> Gardez-moi connecté
-                    </label>
+                    </label> -->
                 </form>
 
-                <input type='submit' id='do_login' value='COMMENCER' title='Get Started' />
+                <input type='submit' id='do_login' value='LOGIN' title='Get Started' />
             </div>
         </div>
     </div>

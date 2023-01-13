@@ -27,7 +27,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form method="post" id="formUser" enctype="multipart/form-data">
+                        <form method="post" id="formUser" class="needs-validation" novalidate enctype="multipart/form-data">
                             <div class="row d-flex flex-wrap justify-content-around p-3">
                                 <div class="col-md-12">
                                     <!-- <div class="profile-img-wrap">
@@ -40,22 +40,29 @@
                                     <!-- <div class="profile-basic"> -->
                                     <div class="row d-flex flex-wrap justify-content-around">
                                         <div class="form-group form-focus select-focus">
-                                            <label class="focus-label" for="completeName">nom</label>
+                                            <label class="focus-label" for="completeName">nom*</label>
                                             <input type="text" required class="form-control" id="completeName" name="completeName" placeholder="Entrer le nom du projet" required>
+                                            <div id="invalidCheck3Feedback" class="invalid-feedback">
+                                                Veuillez fournir un nom valide.
+                                            </div>
+                                            <div class="valid-feedback">
+                                                Looks good!
+                                            </div>
                                         </div>
                                         <div class="form-group form-focus select-focus">
-                                            <label class="focus-label" for="completeEmail">e-mail</label>
+                                            <label class="focus-label" for="completeEmail">e-mail*</label>
                                             <input type="email" required class="form-control" id="completeEmail" name="completeEmail" placeholder="Entrer le montant du prêt">
+
                                         </div>
 
                                     </div>
                                     <div class="row d-flex flex-wrap justify-content-around">
                                         <div class="form-group form-focus select-focus">
-                                            <label class="focus-label" for="completePassword">mots de passe</label>
+                                            <label class="focus-label" for="completePassword">mots de passe*</label>
                                             <input type="password" required class="form-control" id="completePassword" name="completePassword" placeholder="Entrer le montant du prêt">
                                         </div>
                                         <div class="form-group form-focus select-focus">
-                                            <label class="focus-label" for="completePassword2">confirmer mots de passe</label>
+                                            <label class="focus-label" for="completePassword2">confirmer mots de passe*</label>
                                             <input type="password" class="form-control" id="completePassword2" name="completePassword2" placeholder="Entrer le montant du prêt">
                                         </div>
                                     </div>

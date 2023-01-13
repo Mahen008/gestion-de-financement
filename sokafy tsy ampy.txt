@@ -1,20 +1,23 @@
-
-
+form validation
 
 autre mode de remboursement
+
 modif bailleurs
+
 chiffre après atao deux chiffre
+
 maturité-par default chiffre avec aption modif
+
 changer duréé en menu deroulante avec option dajout
-somme ny frais aloa @voalohany
+
 regle probleme any faingo mihatonga @ajout
+
 input @confirmation delete
 
 séparer trois zéros
-form validation
-sitebar actif
 
-css placeholder
 bailleurs datatable-pagination
 
 récupérer le prémiere lettre d'un variable
+
+vérification validation mots de passe

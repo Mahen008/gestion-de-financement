@@ -7,83 +7,82 @@ global $conn;
 ?>
 
 <body>
-    <div class="main-wrapper">
-        <div class="page-wrapper">
-            <div class="content">
-                <div class="row">
-                    <img class="logoRepoblikaMada mx-auto" src="assets/img/Logo_hd_MEF-PETIT-2.png" alt="">
-                </div><br>
-                <div class="row">
-                    <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                        <div class="dash-widget">
-                            <span class="dash-widget-bg1"><i class="fa fa-money" aria-hidden="true"></i></span>
-                            <div class="dash-widget-info text-right">
-                                <?php
-                                $query = "SELECT COUNT(id_bai) AS nb_bailleurs FROM `bailleurs`";
-                                $resultat = mysqli_query($conn, $query);
-                                $response = array();
-                                while ($row = mysqli_fetch_assoc($resultat)) {
-                                    $response = $row;
-                                }
-                                ?>
-                                <h3><?php echo $response['nb_bailleurs']; ?></h3>
-                                <span class="widget-title1">Baileurs de fond <i class="fa fa-check" aria-hidden="true"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                        <div class="dash-widget">
-                            <span class="dash-widget-bg2"><i class="fa fa-check"></i></span>
-                            <div class="dash-widget-info text-right">
-                                <?php
-                                $query = "SELECT COUNT(id) AS nb_pret_signe FROM `pret` WHERE status='signé'";
-                                $resultat = mysqli_query($conn, $query);
-                                $response = array();
-                                while ($row = mysqli_fetch_assoc($resultat)) {
-                                    $response = $row;
-                                }
-                                ?>
-                                <h3><?php echo $response['nb_pret_signe']; ?></h3>
-                                <span class="widget-title2">Prêt signé <i class="fa fa-check" aria-hidden="true"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                        <div class="dash-widget">
-                            <span class="dash-widget-bg3"><i class="fa fa-balance-scale" aria-hidden="true"></i></span>
-                            <div class="dash-widget-info text-right">
-                                <?php
-                                $query = "SELECT COUNT(id) AS nb_pret_encours_nego FROM `pret` WHERE status='en cours de négociation'";
-                                $resultat = mysqli_query($conn, $query);
-                                $response = array();
-                                while ($row = mysqli_fetch_assoc($resultat)) {
-                                    $response = $row;
-                                }
-                                ?>
-                                <h3><?php echo $response['nb_pret_encours_nego']; ?></h3>
-                                <span class="widget-title3">En cours de négociation <i class="fa fa-check" aria-hidden="true"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                        <div class="dash-widget">
-                            <span class="dash-widget-bg4"><i class="fa fa-spinner" aria-hidden="true"></i></span>
-                            <div class="dash-widget-info text-right">
-                                <?php
-                                $query = "SELECT COUNT(id) AS nb_pret_encours_signe FROM `pret` WHERE status='en cours de signature'";
-                                $resultat = mysqli_query($conn, $query);
-                                $response = array();
-                                while ($row = mysqli_fetch_assoc($resultat)) {
-                                    $response = $row;
-                                }
-                                ?>
-                                <h3><?php echo $response['nb_pret_encours_signe']; ?></h3>
-                                <span class="widget-title4">En cours de signature <i class="fa fa-check" aria-hidden="true"></i></span>
-                            </div>
+    <div class="page-wrapper">
+        <div class="content">
+            <div class="row">
+                <img class="logoRepoblikaMada mx-auto" src="assets/img/Logo_hd_MEF-PETIT-2.png" alt="">
+            </div><br>
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                    <div class="dash-widget">
+                        <span class="dash-widget-bg1"><i class="fa fa-money" aria-hidden="true"></i></span>
+                        <div class="dash-widget-info text-right">
+                            <?php
+                            $query = "SELECT COUNT(id_bai) AS nb_bailleurs FROM `bailleurs`";
+                            $resultat = mysqli_query($conn, $query);
+                            $response = array();
+                            while ($row = mysqli_fetch_assoc($resultat)) {
+                                $response = $row;
+                            }
+                            ?>
+                            <h3><?php echo $response['nb_bailleurs']; ?></h3>
+                            <span class="widget-title1">Baileurs de fond <i class="fa fa-check" aria-hidden="true"></i></span>
                         </div>
                     </div>
                 </div>
-                <!-- <div class="row">
+                <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                    <div class="dash-widget">
+                        <span class="dash-widget-bg2"><i class="fa fa-check"></i></span>
+                        <div class="dash-widget-info text-right">
+                            <?php
+                            $query = "SELECT COUNT(id) AS nb_pret_signe FROM `pret` WHERE status='signé'";
+                            $resultat = mysqli_query($conn, $query);
+                            $response = array();
+                            while ($row = mysqli_fetch_assoc($resultat)) {
+                                $response = $row;
+                            }
+                            ?>
+                            <h3><?php echo $response['nb_pret_signe']; ?></h3>
+                            <span class="widget-title2">Prêt signé <i class="fa fa-check" aria-hidden="true"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                    <div class="dash-widget">
+                        <span class="dash-widget-bg3"><i class="fa fa-balance-scale" aria-hidden="true"></i></span>
+                        <div class="dash-widget-info text-right">
+                            <?php
+                            $query = "SELECT COUNT(id) AS nb_pret_encours_nego FROM `pret` WHERE status='en cours de négociation'";
+                            $resultat = mysqli_query($conn, $query);
+                            $response = array();
+                            while ($row = mysqli_fetch_assoc($resultat)) {
+                                $response = $row;
+                            }
+                            ?>
+                            <h3><?php echo $response['nb_pret_encours_nego']; ?></h3>
+                            <span class="widget-title3">En cours de négociation <i class="fa fa-check" aria-hidden="true"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                    <div class="dash-widget">
+                        <span class="dash-widget-bg4"><i class="fa fa-spinner" aria-hidden="true"></i></span>
+                        <div class="dash-widget-info text-right">
+                            <?php
+                            $query = "SELECT COUNT(id) AS nb_pret_encours_signe FROM `pret` WHERE status='en cours de signature'";
+                            $resultat = mysqli_query($conn, $query);
+                            $response = array();
+                            while ($row = mysqli_fetch_assoc($resultat)) {
+                                $response = $row;
+                            }
+                            ?>
+                            <h3><?php echo $response['nb_pret_encours_signe']; ?></h3>
+                            <span class="widget-title4">En cours de signature <i class="fa fa-check" aria-hidden="true"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="row">
                     <div class="col-md-6 col-sm-6 col-lg-4 col-xl-4">
                         <div class="card member-panel">
                             <div class="card-header bg-white">
@@ -226,7 +225,6 @@ global $conn;
                         </div>
                     </div>
                 </div> -->
-            </div>
         </div>
     </div>
     <div class="sidebar-overlay" data-reff=""></div>

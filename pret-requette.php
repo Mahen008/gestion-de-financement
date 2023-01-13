@@ -129,14 +129,14 @@ if ($action == 'READ') {
             if (isset($element_don) && isset($element_don_pret)) {
                 // $table .= '<td>' . (($row["montant_projet_sub"] - $element_don) / $row["montant_projet_sub"]) * 100 . '</td>';
                 if ($element_don_pret > 35 || $element_don_pret == 35) {
-                    $table .= '<td><span class="custom-badge status-green">concessionnel</span></td>';
-                    // $table .= '<td>' . $element_don_pret . '<span class="custom-badge status-green">concessionnel</span></td>';
+                    // $table .= '<td><span class="custom-badge status-green">concessionnel</span></td>';
+                    $table .= '<td>' . $element_don_pret . '<span class="custom-badge status-green">concessionnel</span></td>';
                 } elseif (($element_don_pret > 20 || $element_don_pret == 20) && $element_don_pret < 35) {
-                    $table .= '<td><span class="custom-badge status-orange">semi-concessionnel</span></td>';
-                    // $table .= '<td>' . $element_don_pret . '<span class="custom-badge status-orange">semi-concessionnel</span></td>';
+                    // $table .= '<td><span class="custom-badge status-orange">semi-concessionnel</span></td>';
+                    $table .= '<td>' . $element_don_pret . '<span class="custom-badge status-orange">semi-concessionnel</span></td>';
                 } else {
-                    $table .= '<td><span class="custom-badge status-red">non-concessionnel</span></td>';
-                    // $table .= '<td>' . $element_don_pret . '<span class="custom-badge status-red">non-concessionnel</span></td>';
+                    // $table .= '<td><span class="custom-badge status-red">non-concessionnel</span></td>';
+                    $table .= '<td>' . $element_don_pret . '<span class="custom-badge status-red">non-concessionnel</span></td>';
                 }
             } else {
                 $table .= '<td>not found</td>';
@@ -349,7 +349,7 @@ if ($action == 'READ') {
                 for ($ligne = 0; $ligne < $maturite; $ligne++) {
                     while ($periode_grace > 0) {
                         $arrondiInteretAvecPG = ($ENCt_1 + $ENCt / 2) * $interet;
-                        $arrondiTotalPaiementParPeriodeAvecPG = $arrondiInteretAvecPG + $commission_de_gestion + $ENCt_1;
+                        $arrondiTotalPaiementParPeriodeAvecPG = $arrondiInteretAvecPG + $commission_de_gestion;
                         $table .= '<tr>
                             <td>
                                 <a href="#" class="avatar">' . $nb_paiement++ . '</a>
@@ -377,7 +377,7 @@ if ($action == 'READ') {
                         $arrodiEndcENC = 0;
                     }
                     $arrondiInteret = (((int)$c_ENC[$i - 1] + (int)end($c_ENC)) / 2) * $interet;
-                    $arrondiTotalPaiementParPeriode = $arrondiInteret + $PPt + $commission_de_gestion + $arrodiEndcENC;
+                    $arrondiTotalPaiementParPeriode = $arrondiInteret + $PPt + $commission_de_gestion;
                     $table .= '<tr>
                             <td>    
                                 <a href="#" class="avatar">' . $nb_paiement++ . '</a>

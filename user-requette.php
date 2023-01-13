@@ -28,6 +28,7 @@ if ($action == 'CREATE') {
     }
     $file_destination = 'assets/img/' . $file;
     $output = "";
+    $errorEmpty = false;
     $hash = password_hash($completePassword, PASSWORD_BCRYPT);
     $query = "INSERT INTO users SET 
           id_users = '', 
@@ -39,18 +40,26 @@ if ($action == 'CREATE') {
           service = '$completeService',
           profile = '$file'";
 
-    $res = mysqli_query($conn, $query);
-    if ($res) {
-        if (isset($_FILES['file']['name'])) {
-            move_uploaded_file($_FILES['file']['tmp_name'], $file_destination);
+    if (empty($completeName)) {
+        $errorEmpty = true;
+    }
+
+    if ($errorEmpty == false) {
+        # code...
+        $res = mysqli_query($conn, $query);
+        if ($res) {
+            if (isset($_FILES['file']['name'])) {
+                move_uploaded_file($_FILES['file']['tmp_name'], $file_destination);
+            }
+            $output = "done";
+        } else {
+            $output = "failed";
         }
-        $output = "done";
-    } else {
-        $output = "failed";
     }
 
     $resp = array(
-        'output' =>  $output
+        'output' =>  $output,
+        'errorEmpty' => $errorEmpty
     );
 
     echo json_encode($resp);
