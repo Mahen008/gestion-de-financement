@@ -13,7 +13,8 @@ if ($action == 'READ') {
                                         `id_projet`, 
                                         `id_bai`, 
                                         `nom`, 
-                                        `secteur_intervation`, 
+                                        `id_secteur`,
+                                        `nom_secteur`, 
                                         `maturite`, 
                                         `periode_grace`, 
                                         `taux_interet`, 
@@ -30,13 +31,16 @@ if ($action == 'READ') {
                                         `prime_assurance`,
                                         `id_projet_sub`, 
                                         `nom_projet_sub`, 
-                                        `montant_projet_sub`, 
+                                        `montant_projet_sub`,
                                         YEAR(date_signature) AS annee_signature
                                 FROM pret 
                                 INNER JOIN bailleurs 
                                 ON pret.id_bailleurs = bailleurs.id_bai
                                 INNER JOIN projet_sub 
-                                ON pret.id_projet = projet_sub.id_projet_sub");
+                                ON pret.id_projet = projet_sub.id_projet_sub
+                                INNER JOIN secteur_intervation 
+                                ON pret.id_sec = secteur_intervation.id_secteur ORDER BY pret.id
+                                ");
 
     $a = 1;
     $table =  "";
@@ -73,19 +77,29 @@ if ($action == 'READ') {
             $annee_remboursement = $row['annee_signature'];
             $ENCt_1 = $row['montant_projet_sub'];
             // $PPt = 0;
-            $PPt = $ENCt_1 / ($maturite - $periode_grace);
+            if($maturite > 0 && $maturite > $periode_grace)
+            {
+                $PPt = $ENCt_1 / ($maturite - $periode_grace);
+            } else {
+                $PPt = 0;
+            }
             $ENCt = 0;
             $c_ENC_t = 0;
             $interet = $row['taux_interet'];
             $PP_avec_periode_grace = 0;
             $c_ENC = array();
             $i = 0;
-            $commission_de_gestion =  $frais_gestion / $maturite;
+            if($maturite > 0)
+            {
+                $commission_de_gestion =  $frais_gestion / $maturite;
+            } else {
+                $commission_de_gestion = 0;
+            }
             $SDi = array();
             // $element_don = 0.001;
             $element_don_pret;
             // const taux_actualisation = 0.05;
-            if ($mode_remboursement_principal == 'Remboursement constant du principal') {
+            if ($mode_remboursement_principal == 'Remboursement constant du principal' && $maturite > 0) {
                 if ($periodisite_de_remboursement == 'Annuelle') {
                     if (
                         isset($row['montant_projet_sub']) &&
@@ -122,7 +136,9 @@ if ($action == 'READ') {
                 } elseif ($periodisite_de_remboursement == 'mensuelle') {
                 }
             }
-            $element_don_pret = (($row["montant_projet_sub"] - $element_don) / $row["montant_projet_sub"]) * 100;
+            if ($maturite > 0 && isset($element_don)) {
+                $element_don_pret = (($row["montant_projet_sub"] - $element_don) / $row["montant_projet_sub"]) * 100;
+            }
             // echo '<pre>';
             // echo $element_don_pret;
             // echo '</pre>';
@@ -174,9 +190,17 @@ if ($action == 'READ') {
     foreach ($dataBailleur as $row) {
         $drowpBailleurs .= '<option value="' . $row["id_bai"] . '">' . $row["nom"] . '</option>';
     };
+
+    $dataSecteurs = mysqli_query($conn, "SELECT * 
+                                FROM secteur_intervation;");
+    $drowpSecteurs =  "";
+    foreach ($dataSecteurs as $row) {
+        $drowpSecteurs .= '<option value="' . $row["id_secteur"] . '">' . $row["nom_secteur"] . '</option>';
+    };
     // echo $drowpBailleurs;
     $drowpdata = array();
     $drowpdata['drowpBailleurs'] = $drowpBailleurs;
+    $drowpdata['drowpSecteurs'] = $drowpSecteurs;
 
     $dataProjet = mysqli_query($conn, "SELECT * 
                                        FROM `pret` 
@@ -210,19 +234,51 @@ if ($action == 'READ') {
     mysqli_query($conn, $query);
 } elseif ($action == "CREATE") {
     // if (isset($completeIdBailleurs) && isset($completeIdProjet)) {
-    echo $completeStatus;
-    echo $completeIdBailleurs;
-    echo $completeIdProjet;
+    // echo $completeStatus;
+    // echo $completeIdBailleurs;
+    // echo $completeIdProjet;
 
-    $query = "INSERT INTO pret SET
-        id= '',
-        status = '$completeStatus',
-        id_bailleurs = '$completeIdBailleurs',
-        id_projet = '$completeIdProjet'";
+    if (is_numeric($competeMaturite)
+     && is_numeric($competePeriodeGrace)
+     && is_numeric($competeTauxInteret)
+     && is_numeric($competeDifferencielInteret)
+     && is_numeric($competeFraisDeGestion)
+     && is_numeric($competeComissionEngagement)
+     && is_numeric($competeCommissionDeService)
+     && is_numeric($competeCommissionInitiale)
+     && is_numeric($competeCommissionArragement)
+     && is_numeric($competeCommissionAgent)
+     && is_numeric($competeFraisDeRebours)
+     && is_numeric($competePrimeAssurenceFraisGarantie)
+     ) {
+        $query = "INSERT INTO pret SET
+            id= '',
+            status = '$completeStatus',
+            id_bailleurs = '$completeIdBailleurs',
+            id_projet = '$completeIdProjet',
+            id_sec = '$competeSecteurIntervation',
+            maturite = '$competeMaturite',
+            periode_grace = '$competePeriodeGrace',
+            taux_interet = '$competeTauxInteret',
+            mode_remboursement_principal = '$competeModeRemboursementPrincipal',
+            periodisite_de_remboursement = '$competePeriodisteDeRemboursement',
+            differenciel_interet = '$competeDifferencielInteret',
+            frais_gestion = '$competeFraisDeGestion',
+            commission_engagement= '$competeComissionEngagement',
+            commission_service = '$competeCommissionDeService',
+            commission_initiale = '$competeCommissionInitiale',
+            commission_arragement = '$competeCommissionArragement',
+            commission_agent = '$competeCommissionAgent',
+            frais_rebours = '$competeFraisDeRebours',
+            prime_assurance = '$competePrimeAssurenceFraisGarantie'";
 
-    mysqli_query($conn, $query);
+        mysqli_query($conn, $query);
+        echo "ajouter";
+    } else {
+        echo "notNumeric";
+    }
     // }
-    echo "problème de requette sql";
+    // echo "problème de requette sql";
 } elseif ($action == 'DELETE') {
     $id = $_POST['id'];
     echo $id;
@@ -246,7 +302,8 @@ if ($action == 'READ') {
                     `id_projet`, 
                     `id_bai`, 
                     `nom`, 
-                    `secteur_intervation`, 
+                    `id_secteur`,
+                    `nom_secteur`, 
                     `maturite`, 
                     `periode_grace`, 
                     `taux_interet`, 
@@ -270,6 +327,8 @@ if ($action == 'READ') {
             ON pret.id_projet = projet_sub.id_projet_sub 
             INNER JOIN bailleurs 
             ON pret.id_bailleurs = bailleurs.id_bai
+            INNER JOIN secteur_intervation 
+            ON pret.id_sec = secteur_intervation.id_secteur
             WHERE pret.id = $id 
             LIMIT 1";
 

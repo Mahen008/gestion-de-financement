@@ -6,17 +6,49 @@ extract($_POST);
 // echo $action;
 
 if ($action == 'CREATE') {
+    if (!empty($competeName) && isset($competeName) 
+    && !empty($competeMontant) && isset($competeMontant)) {
+        $validationNom = false;
+        $validationMontant = false;
+        $validationresultat = array();
+        if (preg_match("/^[a-zA-Z][a-zA-Z0-9\s!@#'-]*$/", $competeName)) {
+            $validationNom = true;
+        }
+        if (is_numeric($competeMontant)) {
+            $validationMontant = true;
+        }
+            if ($validationNom == true && $validationMontant == true) {
 
-    $query = "INSERT INTO projet_sub SET 
-      id_projet_sub= '', 
-      nom_projet_sub= '$competeName', 
-      montant_projet_sub = '$competeMontant', 
-      date_signature = NOW()";
-
-    mysqli_query($conn, $query);
+                $stmt = $conn->prepare("SELECT * FROM projet_sub WHERE nom_projet_sub = ?");
+                $stmt->bind_param("s", $competeName);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                
+                if($result->num_rows === 0) {
+                    $query = $conn->prepare("INSERT INTO projet_sub SET 
+                    id_projet_sub= '', 
+                    nom_projet_sub= '$competeName', 
+                    montant_projet_sub = '$competeMontant', 
+                    date_signature = NOW()");
+                    $query->execute();
+                    // mysqli_query($conn, $query);
+                    echo "ajouter";
+                } else {
+                    echo "Le nom entrer existe déja, veuillez le changer";
+                }
+            }
+            else {
+                // $validationresultat[] = $validationNom;
+                // $validationresultat[] = $validationMontant;
+                // echo json_encode($validationresultat);
+                echo "invalide";
+            }
+    }else {
+        echo "vide";
+    }
 } elseif ($action == 'READ') {
 
-    $projet = mysqli_query($conn, "SELECT * FROM projet_sub");
+    $projet = mysqli_query($conn, "SELECT * FROM projet_sub ORDER BY id_projet_sub DESC");
     $table =  "";
     $i = 1;
     foreach ($projet as $row) {
@@ -48,13 +80,46 @@ if ($action == 'CREATE') {
         $response = $row;
     }
     echo json_encode($response);
-} elseif ($action == 'UPDATE') {
-    $query = "UPDATE projet_sub SET
-                nom_projet_sub= '$updateName', 
-                montant_projet_sub = '$updateMontant'
-            WHERE id_projet_sub = '$id'";
-    mysqli_query($conn, $query);
-} elseif ($action == 'DATADELETE') {
+} 
+elseif ($action == 'UPDATE') 
+{
+    if (!empty($updateName) && isset($updateName) 
+    && !empty($updateMontant) && isset($updateMontant)) 
+    {
+        $validationNom = false;
+        $validationMontant = false;
+        $validationresultat = array();
+        if (preg_match("/^[a-zA-Z][a-zA-Z0-9\s!@#'-]*$/", $updateName)) {
+            $validationNom = true;
+        }
+        if (is_numeric($updateMontant)) {
+            $validationMontant = true;       
+        }
+            if ($validationNom == true && $validationMontant == true) 
+            {
+                // $query = $conn->prepare( "UPDATE projet_sub SET
+                //             nom_projet_sub= '$updateName', 
+                //             montant_projet_sub = '$updateMontant'
+                //         WHERE id_projet_sub = '$id'");
+                // $query->execute();
+                $query = $conn->prepare("UPDATE projet_sub SET nom_projet_sub = ?, montant_projet_sub = ? WHERE id_projet_sub = ?");
+                $query->bind_param("sid", $updateName, $updateMontant, $id);
+                $query->execute();
+                echo "ajouter";
+                // mysqli_query($conn, $query);
+    
+            }
+            else 
+            {
+                echo "invalide";
+            }
+    }
+    else 
+    {
+        echo "vide";
+    }
+} 
+elseif ($action == 'DATADELETE') {
     $id = $_POST['id'];
     $query = "SELECT * FROM projet_sub WHERE id_projet_sub = $id LIMIT 1";
     $resultat = mysqli_query($conn, $query);

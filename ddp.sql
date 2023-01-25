@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : dim. 06 nov. 2022 à 08:44
+-- Généré le : lun. 23 jan. 2023 à 13:38
 -- Version du serveur : 10.4.21-MariaDB
--- Version de PHP : 7.3.30
+-- Version de PHP : 7.4.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,6 +29,29 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `bailleurs` (
   `id_bai` int(11) NOT NULL,
+  `nom` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `bailleurs`
+--
+
+INSERT INTO `bailleurs` (`id_bai`, `nom`) VALUES
+(1, 'banque mondiale'),
+(2, 'fond africain de developpement'),
+(3, 'agence française de developpement'),
+(4, 'Fida'),
+(5, 'Investec'),
+(6, 'Banque Europeen Investissement');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `bailleurs_old`
+--
+
+CREATE TABLE `bailleurs_old` (
+  `id_bai` int(11) NOT NULL,
   `nom` varchar(255) NOT NULL,
   `secteur_intervation` varchar(255) NOT NULL,
   `maturite` int(11) NOT NULL,
@@ -48,10 +71,10 @@ CREATE TABLE `bailleurs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `bailleurs`
+-- Déchargement des données de la table `bailleurs_old`
 --
 
-INSERT INTO `bailleurs` (`id_bai`, `nom`, `secteur_intervation`, `maturite`, `periode_grace`, `taux_interet`, `mode_remboursement_principal`, `periodisite_de_remboursement`, `differenciel_interet`, `frais_gestion`, `commission_engagement`, `commission_service`, `commission_initiale`, `commission_arragement`, `commission_agent`, `frais_rebours`, `prime_assurance`) VALUES
+INSERT INTO `bailleurs_old` (`id_bai`, `nom`, `secteur_intervation`, `maturite`, `periode_grace`, `taux_interet`, `mode_remboursement_principal`, `periodisite_de_remboursement`, `differenciel_interet`, `frais_gestion`, `commission_engagement`, `commission_service`, `commission_initiale`, `commission_arragement`, `commission_agent`, `frais_rebours`, `prime_assurance`) VALUES
 (1, 'banque mondiale', 'appui budgetaire', 100, 5, 0.0078, 'Remboursement constant du principal', 'Annuelle', 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (2, 'fond africain de developpement', 'gouvernance', 50, 3, 0.0196, 'Remboursement constant du principal', 'Annuelle', 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (4, 'agence française de developpement', 'infranstructure', 100, 0, 0.01, 'Remboursement constant du principal', 'Annuelle', 0, 0, 0, 0, 0, 0, 0, 0, 0),
@@ -89,19 +112,33 @@ CREATE TABLE `pret` (
   `id` int(11) NOT NULL,
   `status` varchar(255) NOT NULL,
   `id_bailleurs` int(11) NOT NULL,
-  `id_projet` int(11) NOT NULL
+  `id_projet` int(11) NOT NULL,
+  `maturite` int(11) NOT NULL,
+  `periode_grace` int(11) NOT NULL,
+  `taux_interet` float NOT NULL,
+  `mode_remboursement_principal` varchar(255) NOT NULL,
+  `periodisite_de_remboursement` varchar(50) NOT NULL,
+  `differenciel_interet` float NOT NULL,
+  `frais_gestion` float NOT NULL,
+  `commission_engagement` float NOT NULL,
+  `commission_service` float NOT NULL,
+  `commission_initiale` float NOT NULL,
+  `commission_arragement` float NOT NULL,
+  `commission_agent` float NOT NULL,
+  `frais_rebours` float NOT NULL,
+  `prime_assurance` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `pret`
 --
 
-INSERT INTO `pret` (`id`, `status`, `id_bailleurs`, `id_projet`) VALUES
-(7, 'requette envoyée', 1, 2),
-(9, 'en cours de négociation', 1, 3),
-(10, 'en cours de signature', 1, 1),
-(13, 'en cours d\'etude', 7, 5),
-(16, 'en cours de négociation', 12, 4);
+INSERT INTO `pret` (`id`, `status`, `id_bailleurs`, `id_projet`, `maturite`, `periode_grace`, `taux_interet`, `mode_remboursement_principal`, `periodisite_de_remboursement`, `differenciel_interet`, `frais_gestion`, `commission_engagement`, `commission_service`, `commission_initiale`, `commission_arragement`, `commission_agent`, `frais_rebours`, `prime_assurance`) VALUES
+(7, 'requette envoyée', 1, 2, 0, 0, 0, '', '', 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(9, 'en cours de négociation', 1, 3, 0, 0, 0, '', '', 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(10, 'en cours de signature', 1, 1, 0, 0, 0, '', '', 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(13, 'en cours d\'etude', 7, 5, 0, 0, 0, '', '', 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(16, 'en cours de négociation', 12, 4, 0, 0, 0, '', '', 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -126,6 +163,27 @@ INSERT INTO `projet_sub` (`id_projet_sub`, `nom_projet_sub`, `montant_projet_sub
 (3, 'Parn', 1763660, '2022-10-27'),
 (4, 'PFSS', 58820000, '2022-10-27'),
 (5, 'STATCAP', 1740020, '2022-10-27');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `secteur_intervation`
+--
+
+CREATE TABLE `secteur_intervation` (
+  `id_secteur` int(11) NOT NULL,
+  `nom_secteur` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `secteur_intervation`
+--
+
+INSERT INTO `secteur_intervation` (`id_secteur`, `nom_secteur`) VALUES
+(14, 'test de test@1'),
+(17, 'm113245'),
+(18, 'fsdfsq m113245'),
+(19, 'v12454 b799');
 
 -- --------------------------------------------------------
 
@@ -155,7 +213,8 @@ INSERT INTO `users` (`id_users`, `name`, `email`, `password`, `gender`, `role`, 
 (24, 'Harielle', 'harielle@gmail.com', '$2y$10$gmXoPIqutDHvJgwkRJYIn.Rmo2Z3BpQTSBAh0pmrw360DjZR0JJyG', 'Femme', 'Utilisateur', '', 'Service des Aides et de la Dette extérieures', '127715041.jpg'),
 (25, 'John', 'Johnddp@gmail.com', '$2y$10$waP0512IM1/ZvbItP2zsSOU1CRtTIfhZQ4hVr3Ch4TkIsmu.6.Osy', 'Homme', 'Utilisateur', '', 'Service des Aides et de la Dette extérieures', '800px-Stromae.jpg'),
 (26, 'Arson', 'arsonddp@gmail.com', '$2y$10$8pB7pboAfIwaS5YJgPh6EO5SrZgOn3985tvL0QoqMBMb.SYtocB1.', 'Homme', 'Utilisateur', '', 'Service des Analyses et des Statistiques de la Dette', 'user-03.jpg'),
-(27, 'Patrice Mahen', 'patrice.mahen008@gmail.com', '$2y$10$zlS2v9cb/oayyjyzAUKX4ekrp/QpX2LFdKvVnM3gbHc99iGg14c6G', 'Homme', 'Administrateur', '', 'Service des Analyses et des Statistiques de la Dette', '_1012958.JPG');
+(27, 'Patrice Mahen', 'patrice.mahen008@gmail.com', '$2y$10$zlS2v9cb/oayyjyzAUKX4ekrp/QpX2LFdKvVnM3gbHc99iGg14c6G', 'Homme', 'Administrateur', '', 'Service des Analyses et des Statistiques de la Dette', '_1012958.JPG'),
+(28, 'user', 'user@gmail.com', '$2y$10$a1YpX/g0WznhM/FYYGQ8neS91ewpklM3HAe0jn96DCBDMzG9caZdC', 'Homme', 'Utilisateur', '', 'Service du Suivi des Projets', 'user.jpg');
 
 --
 -- Index pour les tables déchargées
@@ -165,6 +224,12 @@ INSERT INTO `users` (`id_users`, `name`, `email`, `password`, `gender`, `role`, 
 -- Index pour la table `bailleurs`
 --
 ALTER TABLE `bailleurs`
+  ADD PRIMARY KEY (`id_bai`);
+
+--
+-- Index pour la table `bailleurs_old`
+--
+ALTER TABLE `bailleurs_old`
   ADD PRIMARY KEY (`id_bai`);
 
 --
@@ -186,6 +251,12 @@ ALTER TABLE `projet_sub`
   ADD PRIMARY KEY (`id_projet_sub`);
 
 --
+-- Index pour la table `secteur_intervation`
+--
+ALTER TABLE `secteur_intervation`
+  ADD PRIMARY KEY (`id_secteur`);
+
+--
 -- Index pour la table `users`
 --
 ALTER TABLE `users`
@@ -199,6 +270,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `bailleurs`
 --
 ALTER TABLE `bailleurs`
+  MODIFY `id_bai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT pour la table `bailleurs_old`
+--
+ALTER TABLE `bailleurs_old`
   MODIFY `id_bai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
@@ -220,10 +297,16 @@ ALTER TABLE `projet_sub`
   MODIFY `id_projet_sub` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT pour la table `secteur_intervation`
+--
+ALTER TABLE `secteur_intervation`
+  MODIFY `id_secteur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

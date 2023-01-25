@@ -1,9 +1,7 @@
 <?php include('header.php'); ?>
 <?php include('navbar.php'); ?>
 <?php include('sidebar.php'); ?>
-<?php
-session_start();
-?>
+
 <div class="page-wrapper">
     <div class="content">
         <div class="row">
@@ -56,6 +54,87 @@ session_start();
                                     <div>
                                         <select name="completeIdProjet" id="completeIdProjet" class="select"></select>
                                     </div>
+                                </div>                                
+                                <div class="form-group form-focus select-focus">
+                                    <label class="focus-label" for="competeSecteurIntervation">secteur d'intervation</label>
+                                    <div>
+                                        <select name="competeSecteurIntervation" id="competeSecteurIntervation" class="select"></select>
+                                    </div>
+                                </div>
+                                <div class="form-group form-focus select-focus">
+                                    <label class="focus-label" for="competeMaturite">maturité</label>
+                                    <input type="text" class="form-control" id="competeMaturite" name="competeMaturite">
+                                </div>
+                                <div class="form-group form-focus select-focus">
+                                    <label class="focus-label" for="competePeriodeGrace">période de grace</label>
+                                    <input type="text" class="form-control" id="competePeriodeGrace" name="competePeriodeGrace">
+                                </div>
+                                <div class="form-group form-focus select-focus">
+                                    <label class="focus-label" for="competeTauxInteret">taux d'intéret</label>
+                                    <input type="text" class="form-control" id="competeTauxInteret" name="competeTauxInteret">
+                                </div>
+                                <div class="form-group form-focus select-focus">
+                                    <label class="focus-label" for="competeModeRemboursementPrincipal" class="col-form-label">mode de remboursement</label>
+                                    <div>
+                                        <select name="competeModeRemboursementPrincipal" id="competeModeRemboursementPrincipal" class="select">
+                                            <option value="Remboursement constant du principal">Remboursement constant du principal</option>
+                                            <option value="Annuité">Annuité</option>
+                                            <option value="Remboursement principal en fin">Remboursement principal en fin</option>
+                                            <option value="Lamp Sum principal & intérêt simple">Lamp Sum principal & intérêt simple</option>
+                                            <option value="Lamp Sum principal & intérêt composée">Lamp Sum principal & intérêt composée</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group form-focus select-focus">
+                                    <label class="focus-label" for="competePeriodisteDeRemboursement">périodistité</label>
+                                    <div>
+                                        <select name="competePeriodisteDeRemboursement" id="competePeriodisteDeRemboursement" class="select">
+                                            <option value="Annuelle">Annuelle</option>
+                                            <option value="Semestrielle">Semestrielle</option>
+                                            <option value="Trimestrielle">Trimestrielle</option>
+                                            <option value="Mensuelle">Mensuelle</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group form-focus select-focus">
+                                    <label class="focus-label" for="competeDifferencielInteret">differenciel intéret</label>
+                                    <input type="text" class="form-control" id="competeDifferencielInteret" name="competeDifferencielInteret">
+                                </div>
+                                <div class="form-group form-focus select-focus">
+                                    <label class="focus-label" for="competeFraisDeGestion">frais de gestion</label>
+                                    <input type="text" class="form-control" id="competeFraisDeGestion" name="competeFraisDeGestion">
+                                </div>
+                                <div class="form-group form-focus select-focus">
+                                    <label class="focus-label" for="competeComissionEngagement">comission d'engagement</label>
+                                    <input type="text" class="form-control" id="competeComissionEngagement" name="competeComissionEngagement">
+                                </div>
+                                <div class="form-group form-focus select-focus">
+                                    <label class="focus-label" for="competeCommissionDeService">commission de service</label>
+                                    <input type="text" class="form-control" id="competeCommissionDeService" name="competeCommissionDeService">
+                                </div>
+                                <div class="form-group form-focus select-focus">
+                                    <label class="focus-label" for="competeCommissionInitiale">commission initiale</label>
+                                    <input type="text" class="form-control" id="competeCommissionInitiale" name="competeCommissionInitiale">
+                                </div>
+                                <div class="form-group form-focus select-focus">
+                                    <label class="focus-label" for="competeCommissionArragement">commission d'arragement</label>
+                                    <input type="text" class="form-control" id="competeCommissionArragement" name="competeCommissionArragement">
+                                </div>
+                                <div class="form-group form-focus select-focus">
+                                    <label class="focus-label" for="competeFraisExposition">frais d'exposition</label>
+                                    <input type="text" class="form-control" id="competeFraisExposition" name="competeFraisExposition">
+                                </div>
+                                <div class="form-group form-focus select-focus">
+                                    <label class="focus-label" for="competeCommissionAgent">commission d'agent</label>
+                                    <input type="text" class="form-control" id="competeCommissionAgent" name="competeCommissionAgent">
+                                </div>
+                                <div class="form-group form-focus select-focus">
+                                    <label class="focus-label" for="competeFraisDeRebours">frais de rebours</label>
+                                    <input type="text" class="form-control" id="competeFraisDeRebours" name="competeFraisDeRebours">
+                                </div>
+                                <div class="form-group form-focus select-focus">
+                                    <label class="focus-label" for="competePrimeAssurenceFraisGarantie">prime d'assurence frais garantie</label>
+                                    <input type="text" class="form-control" id="competePrimeAssurenceFraisGarantie" name="competePrimeAssurenceFraisGarantie">
                                 </div>
                             </div>
                         </form>

@@ -9,6 +9,7 @@ $(document).ready(function ($) {
   displaypret();
   displayProjet();
   displayUser();
+  displaySecteur();
   // $("#test").DataTable();
   // $("#datatableBailleur").dataTable({
   //   ajax: "data",
@@ -384,12 +385,23 @@ $("#enregistrerBailleur").on("click", function () {
     type: "POST",
     url: "bailleurs-requette.php",
     data: formdata,
-    success: function (response, status) {
-      if (response == "") {
+    success: function (response) {
+      if (response == "ajouter") 
+      {
         $("#bailleur-modal .close").click();
         displayBailleur();
-      } else {
-        alert("error");
+      } 
+      else if (response == "vide") 
+      {
+        alert("remplir le champs svp!");
+      } 
+      else if ( response == "invalide") 
+      {
+        alert("ajouter un nom valide svp");
+      }
+      else 
+      {
+        alert(response);
       }
     },
     error: function () {
@@ -421,26 +433,26 @@ function editBailleur(editId) {
       var userid = JSON.parse(data);
       $("#hidden-update-id-bailleur").val(userid.id_bai);
       $("#updateName").val(userid.nom);
-      $("#updateSecteurIntervation").val(userid.secteur_intervation);
-      $("#updateMaturite").val(userid.maturite);
-      $("#updatePeriodeGrace").val(userid.periode_grace);
-      $("#updateTauxInteret").val(userid.taux_interet);
-      $("#test").val(userid.mode_remboursement_principal);
+      // $("#updateSecteurIntervation").val(userid.secteur_intervation);
+      // $("#updateMaturite").val(userid.maturite);
+      // $("#updatePeriodeGrace").val(userid.periode_grace);
+      // $("#updateTauxInteret").val(userid.taux_interet);
+      // $("#test").val(userid.mode_remboursement_principal);
 
-      $("#updatePeriodisitedeRemboursement").val(
-        userid.periodisite_de_remboursement
-      );
-      $("#updateDifferencielInteret").val(userid.differenciel_interet);
-      $("#updateFraisDeGestion").val(userid.frais_gestion);
-      $("#updateComissionEngagement").val(userid.commission_engagement);
-      $("#updateCommissionDeService").val(userid.commission_service);
-      $("#updateCommissionInitiale").val(userid.commission_initiale);
-      $("#updateCommissionArragement").val(userid.commission_arragement);
-      $("#updateCommissionAgent").val(userid.commission_agent);
-      $("#updateFraisDeRebours").val(userid.frais_rebours);
-      $("#updatePrimeAssurenceFraisGarantie").val(
-        userid.prime_assurance_frais_garantie
-      );
+      // $("#updatePeriodisitedeRemboursement").val(
+      //   userid.periodisite_de_remboursement
+      // );
+      // $("#updateDifferencielInteret").val(userid.differenciel_interet);
+      // $("#updateFraisDeGestion").val(userid.frais_gestion);
+      // $("#updateComissionEngagement").val(userid.commission_engagement);
+      // $("#updateCommissionDeService").val(userid.commission_service);
+      // $("#updateCommissionInitiale").val(userid.commission_initiale);
+      // $("#updateCommissionArragement").val(userid.commission_arragement);
+      // $("#updateCommissionAgent").val(userid.commission_agent);
+      // $("#updateFraisDeRebours").val(userid.frais_rebours);
+      // $("#updatePrimeAssurenceFraisGarantie").val(
+      //   userid.prime_assurance_frais_garantie
+      // );
     }
   );
 }
@@ -462,9 +474,24 @@ function updateBalleur() {
     type: "POST",
     url: "bailleurs-requette.php",
     data: formupdata,
-    success: function () {
-      $("#bailleur-update-modal .close").click();
-      displayBailleur();
+    success: function (response) {
+
+      if (response == "ajouter") 
+      {
+        $("#bailleur-update-modal .close").click();
+        displayBailleur();
+      }
+      else if (response == "vide") 
+      {
+        alert("remplir le champs svp!");
+      } 
+      else if ( response == "invalide") 
+      {
+        alert("entrer un nom valide svp");
+      }
+      else {
+        alert(response);
+      }
     },
     error: function () {
       alert("Error");
@@ -510,6 +537,151 @@ function deleteBailleur() {
 
 // =============== end gestion bailleur ===============
 
+// =============== gestion secteur ===============
+function displaySecteur() {
+  $.ajax({
+    url: "secteurs-requette.php",
+    type: "POST",
+    data: {
+      action: "READ",
+    },
+    success: function (data) {
+      $("#secteurs").html(data);
+    },
+  });
+}
+$("#enregistrerSecteur").on("click", function () {
+  // alert("here");
+  var formdata = $("#formSecteur").serializeArray();
+  var action = {
+    name: "action",
+    value: "CREATE",
+  };
+  formdata.push(action);
+  console.log(formdata);
+
+  $.ajax({
+    type: "POST",
+    url: "secteurs-requette.php",
+    data: formdata,
+    success: function (response) {
+      if (response == "ajouter") 
+      {
+        $("#secteur-modal .close").click();
+        displaySecteur();
+      } 
+      else if (response == "vide") 
+      {
+        alert("remplir le champs svp!");
+      } 
+      else if ( response == "invalide") 
+      {
+        alert("ajouter un nom valide svp");
+      }
+      else 
+      {
+        alert(response);
+      }
+    },
+    error: function () {
+      alert("Error");
+    },
+  });
+});
+
+function editSecteur(editId) {
+  $("#hidden-update-id-secteur").val(editId);
+
+  $.post(
+    "secteurs-requette.php",
+    { editId: editId, action: "EDIT" },
+    function (data, status) {
+      var userid = JSON.parse(data);
+      $("#hidden-update-id-secteur").val(userid.id_secteur);
+      $("#updateSecteur").val(userid.nom_secteur);
+    }
+  );
+}
+
+function updateSecteur() {
+  var formupdata = $("#formUpdateSecteur").serializeArray();
+  var hiddendata = {
+    name: "id",
+    value: $("#hidden-update-id-secteur").val(),
+  };
+  var action = {
+    name: "action",
+    value: "UPDATE",
+  };
+  formupdata.push(hiddendata);
+  formupdata.push(action);
+
+  $.ajax({
+    type: "POST",
+    url: "secteurs-requette.php",
+    data: formupdata,
+    success: function (response) {
+      // alert(response);
+      if (response == "ajouter") 
+      {
+        $("#secteur-update-modal .close").click();
+        displaySecteur();
+      }
+      else if (response == "vide") 
+      {
+        alert("remplir le champs svp!");
+      } 
+      else if ( response == "invalide") 
+      {
+        alert("entrer un nom valide svp");
+      }
+      else {
+        alert(response);
+      }
+    },
+    error: function () {
+      alert("Error");
+    },
+  });
+}
+
+function confirmDataDeleteSecteur(id) {
+  // $("#PopupModalDelete").modal("show");
+  $("#deleteId").val(id);
+  // alert(id);
+  $.post(
+    "secteurs-requette.php",
+    { id: id, action: "DATADELETE" },
+    function (data) {
+      var secteur = JSON.parse(data);
+      $("#deleteSecteur").val(secteur.nom_secteur);
+      // $("#updateDuree").val(userid.duree);
+      // $("#updateMontant").val(userid.montant);
+    }
+  );
+}
+
+function deleteSecteur() {
+  // $("#deleteId").val(deleteid);
+  var deleteid = $("#deleteId").val();
+  $.ajax({
+    url: "secteurs-requette.php",
+    type: "POST",
+    data: {
+      deleteid: deleteid,
+      action: "DELETE",
+    },
+    success: function (response) {
+      $("#PopupModalDelete .close").click();
+      $(`#secteur-${deleteid}`).remove();
+    },
+    error: function () {
+      alert("Error");
+    },
+  });
+}
+// =============== end gestion secteur ===============
+
 // =============== gestion plafond fmi ===============
 
 function addPlafondFMI() {
@@ -526,7 +698,7 @@ function addPlafondFMI() {
     url: "fmi-requette.php",
     data: formdatafmi,
     success: function (response, status) {
-      if (response == "") {
+      if (response == "") {  
         $("#fmi-add-modal .close").click();
         displayPlafondFmi();
       } else {
@@ -653,6 +825,7 @@ function dataDrowp() {
       // console.log(datadrowpdown.drowpBailleurs);
       $("#completeIdBailleurs").html(datadrowpdown.drowpBailleurs);
       $("#completeIdProjet").html(datadrowpdown.drowpPret);
+      $("#competeSecteurIntervation").html(datadrowpdown.drowpSecteurs);
     },
   });
 }
@@ -672,12 +845,13 @@ function addPret() {
     data: formdataPret,
     success: function (response) {
       if (response) {
-        $("#pret-modal .close").click();
-        displaypret();
+        if (response == "ajouter") {
+            $("#pret-modal .close").click();
+            displaypret();
+        } else if (response == "notNumeric") {
+            alert("tous les frais doivent être en valeur numérique");
+        }
       }
-      // else {
-      // alert("request not send");
-      // }
     },
     error: function () {
       alert("Error");
@@ -793,11 +967,16 @@ function addProjet() {
     url: "projet-requette.php",
     data: formdataProjet,
     success: function (response) {
-      if (response == "") {
+      if (response == "ajouter") {
         $("#projet-modal .close").click();
         displayProjet();
-      } else {
-        // alert("error");
+      }else if (response == "vide") {
+        alert("touts les champs sont obligatoires")
+      }else if (response == "invalide") {
+        alert("champs invalide");
+      }
+       else {
+        alert(response);
       }
     },
     error: function () {
@@ -845,9 +1024,18 @@ function updateProjet() {
     type: "POST",
     url: "projet-requette.php",
     data: formupdataProjet,
-    success: function () {
-      $("#projet-update-modal .close").click();
-      displayProjet();
+    success: function (response) {
+      if (response == "ajouter") {
+        $("#projet-update-modal .close").click();
+        displayProjet();
+      }else if (response == "vide") {
+        alert("touts les champs sont obligatoires")
+      }else if (response == "invalide") {
+        alert("champs invalide");
+      }
+       else {
+        alert(response);
+      }
     },
     error: function () {
       alert("Error");

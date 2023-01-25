@@ -1,10 +1,6 @@
-form validation
+COTE UX
 
 autre mode de remboursement
-
-modif bailleurs
-
-chiffre après atao deux chiffre
 
 maturité-par default chiffre avec aption modif
 
@@ -12,12 +8,35 @@ changer duréé en menu deroulante avec option dajout
 
 regle probleme any faingo mihatonga @ajout
 
+fixer l'entête des tableaux
+
+type cursor -> pointeur, sur toutes les pointeurs-edit &delete
+
+load du bouton avant ajout ajax - pour l'attente - en évitant la redodance de data
+
+spécification des champs non valable en form validation
+
+changer tous les placeholder en exemple
+
+@ajout prêt - @mameno ny secteur asina option d'ajout akoatran'ilay drowpdown
+
+
+CÖTE UI
+
+responsivité mode tablette
+
+rédimenssionner tableaux ex: secteur
+
+msg de reussite ajout
+
+form validation
+
 input @confirmation delete
 
 séparer trois zéros
 
-bailleurs datatable-pagination
-
-récupérer le prémiere lettre d'un variable
+pagination
 
 vérification validation mots de passe
+
+form validation ajout prêt

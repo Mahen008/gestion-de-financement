@@ -1,10 +1,13 @@
 <?php
-// include('function.php');
 session_start();
 if (isset($_GET['action']) && !empty($_GET['action']) && $_GET['action'] == "logout") {
     session_unset();
     session_destroy();
     header('Location: login.php');
+}
+if (!isset($_SESSION['role']) || empty($_SESSION['role'])) {
+    header("Location: http://localhost:8000/login.php");
+    exit;
 }
 ?>
 <div class="header">

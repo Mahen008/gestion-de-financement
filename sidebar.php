@@ -39,6 +39,13 @@ $page_courante = $_SERVER['REQUEST_URI'];
                     <a href="bailleurs.php"><i class="fa fa-money"></i> <span>Bailleurs</span></a>
                 </li>
                 <li class=<?php
+                            if ($page_courante == "/secteur.php") {
+                                echo "active";
+                            }
+                            ?>>
+                    <a href="secteur.php"><i class="fa fa-shopping-cart"></i> <span>Secteurs</span></a>
+                </li>
+                <li class=<?php
                             if ($page_courante == "/projet.php") {
                                 echo "active";
                             }
@@ -50,7 +57,7 @@ $page_courante = $_SERVER['REQUEST_URI'];
                                 echo "active";
                             }
                             ?>>
-                    <a href="previsionPret.php"><i class="fa fa-hospital-o"></i> <span>prêt</span></a>
+                    <a href="previsionPret.php"><i class="fa fa-hospital-o"></i> <span>Prêt</span></a>
                 </li>
                 <!-- <li>
                     <a href="concessionnalite.php"><i class="fa fa-calendar-check-o"></i> <span>Concessionnalité de prêt</span></a>

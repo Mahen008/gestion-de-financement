@@ -1,9 +1,7 @@
 <?php include('header.php'); ?>
 <?php include('navbar.php'); ?>
 <?php include('sidebar.php'); ?>
-<?php
-session_start();
-?>
+
 <div class="page-wrapper">
     <div class="content">
         <div class="row">
@@ -22,7 +20,7 @@ session_start();
         </div>
         <!-- Modal bailleur-->
         <div class="modal fade" role="dialog" id="bailleur-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable modal-xl">
+            <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title" id="exampleModalLabel">Enregistrement bailleur</h4>
@@ -37,7 +35,7 @@ session_start();
                                     <label class="focus-label" for="competeName">nom</label>
                                     <input type="text" class="form-control" id="competeName" name="competeName">
                                 </div>
-                                <div class="form-group form-focus select-focus p-2">
+                                <!-- <div class="form-group form-focus select-focus p-2">
                                     <label class="focus-label" for="competeSecteurIntervation">secteur d'intervation</label>
                                     <input type="text" class="form-control" id="competeSecteurIntervation" name="competeSecteurIntervation">
                                 </div>
@@ -115,7 +113,7 @@ session_start();
                                 <div class="form-group form-focus select-focus p-2">
                                     <label class="focus-label" for="competePrimeAssurenceFraisGarantie">prime d'assurence frais garantie</label>
                                     <input type="text" class="form-control" id="competePrimeAssurenceFraisGarantie" name="competePrimeAssurenceFraisGarantie">
-                                </div>
+                                </div> -->
                             </div>
                         </form>
                     </div>
@@ -128,7 +126,7 @@ session_start();
         </div>
         <!-- Modal update -->
         <div class="modal fade" role="dialog" id="bailleur-update-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable modal-xl">
+            <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Modification bailleur</h5>
@@ -143,7 +141,7 @@ session_start();
                                     <label for="updateName">nom</label>
                                     <input type="text" class="form-control" id="updateName" name="updateName" placeholder="Entrer le nom du bailleur">
                                 </div>
-                                <div class="form-group p-2">
+                                <!-- <div class="form-group p-2">
                                     <label for="updateSecteurIntervation">secteur d'intervation</label>
                                     <input type="text" class="form-control" id="updateSecteurIntervation" name="updateSecteurIntervation" placeholder="Entrer son secteur d'intervation">
                                 </div>
@@ -219,7 +217,7 @@ session_start();
                                 <div class="form-group p-2">
                                     <label for="updatePrimeAssurenceFraisGarantie">prime d'assurence</label>
                                     <input type="text" class="form-control" id="updatePrimeAssurenceFraisGarantie" name="updatePrimeAssurenceFraisGarantie" placeholder="Entrer le prime d'assurence">
-                                </div>
+                                </div> -->
                             </div>
                             <input type="hidden" name="" id="hidden-update-id-bailleur">
                         </form>
@@ -262,7 +260,7 @@ session_start();
             <div class="col-sm-12 col-md-6">
                 <div id="test_filter" class="dataTables_filter">
                     <label>Rechercher:
-                        <input type="search" class="form-control form-control-sm" placeholder="" aria-controls="test">
+                        <input type="search" class="form-control form-control-sm" id="search_input" placeholder="" aria-controls="test">
                     </label>
                 </div>
             </div>
@@ -270,16 +268,16 @@ session_start();
         <div class="row">
             <div class="col-md-12">
                 <div class="table-responsive">
-                    <table class="table" id="datatableBailleur">
+                    <table class="table table-striped custom-table" id="datatableBailleur">
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>Nom</th>
-                                <th>Maturite</th>
+                                <!-- <th>Maturite</th>
                                 <th>Période de grâce</th>
                                 <th>taux d'intérêt</th>
                                 <th>mode de remboursement</th>
-                                <th>périodistité</th>
+                                <th>périodistité</th> -->
                                 <?php if ($_SESSION['role'] == "Utilisateur") { ?>
                                     <th class="text-right">Actions</th>
                                 <?php } ?>
