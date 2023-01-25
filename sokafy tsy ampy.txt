@@ -20,6 +20,8 @@ changer tous les placeholder en exemple
 
 @ajout prêt - @mameno ny secteur asina option d'ajout akoatran'ilay drowpdown
 
+virgule et point sur les nombres
+
 
 CÖTE UI
 

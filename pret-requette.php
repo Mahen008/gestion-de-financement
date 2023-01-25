@@ -52,17 +52,17 @@ if ($action == 'READ') {
                         <td>' . $row["nom"] . '</td>
                         <td>' . $row["montant_projet_sub"] . '</td>';
             // echo $row["status"];
-            if ($row["status"] == "en cours d'etude") {
-                $table .= '<td><span class="custom-badge status-red">' . $row["status"] . '</span></td>';
-            } elseif ($row["status"] == "requette envoyée") {
-                $table .= '<td><span class="custom-badge status-blue">' . $row["status"] . '</span></td>';
-            } elseif ($row["status"] == "en cours de négociation") {
-                $table .= '<td><span class="custom-badge status-grey">' . $row["status"] . '</span></td>';
-            } elseif ($row["status"] == "en cours de signature") {
-                $table .= '<td><span class="custom-badge status-purple">' . $row["status"] . '</span></td>';
-            } else {
-                $table .= '<td><span class="custom-badge status-green">' . $row["status"] . '</span></td>';
-            }
+            // if ($row["status"] == "en cours d'etude") {
+            //     $table .= '<td><span class="custom-badge status-red">' . $row["status"] . '</span></td>';
+            // } elseif ($row["status"] == "requette envoyée") {
+            //     $table .= '<td><span class="custom-badge status-blue">' . $row["status"] . '</span></td>';
+            // } elseif ($row["status"] == "en cours de négociation") {
+            //     $table .= '<td><span class="custom-badge status-grey">' . $row["status"] . '</span></td>';
+            // } elseif ($row["status"] == "en cours de signature") {
+            //     $table .= '<td><span class="custom-badge status-purple">' . $row["status"] . '</span></td>';
+            // } else {
+            //     $table .= '<td><span class="custom-badge status-green">' . $row["status"] . '</span></td>';
+            // }
 
             $table .=  '<td>' . $row["maturite"] . '</td>
                         <td>' . $row["periode_grace"] . '</td>
@@ -146,20 +146,28 @@ if ($action == 'READ') {
                 // $table .= '<td>' . (($row["montant_projet_sub"] - $element_don) / $row["montant_projet_sub"]) * 100 . '</td>';
                 if ($element_don_pret > 35 || $element_don_pret == 35) {
                     // $table .= '<td><span class="custom-badge status-green">concessionnel</span></td>';
-                    $table .= '<td>' . $element_don_pret . '<span class="custom-badge status-green">concessionnel</span></td>';
+                    $table .= '<td>' . $element_don_pret . '<br><span class="custom-badge status-green">concessionnel</span></td>';
                 } elseif (($element_don_pret > 20 || $element_don_pret == 20) && $element_don_pret < 35) {
                     // $table .= '<td><span class="custom-badge status-orange">semi-concessionnel</span></td>';
-                    $table .= '<td>' . $element_don_pret . '<span class="custom-badge status-orange">semi-concessionnel</span></td>';
+                    $table .= '<td>' . $element_don_pret . '<br><span class="custom-badge status-orange">semi-concessionnel</span></td>';
                 } else {
                     // $table .= '<td><span class="custom-badge status-red">non-concessionnel</span></td>';
-                    $table .= '<td>' . $element_don_pret . '<span class="custom-badge status-red">non-concessionnel</span></td>';
+                    $table .= '<td>' . $element_don_pret . '<br><span class="custom-badge status-red">non-concessionnel</span></td>';
                 }
             } else {
                 $table .= '<td>not found</td>';
             }
             // calcule de valeur actuelle (VA)
             // formule VA= SD1/(1+r)+ SD1/(1+r)²+ ... + SDn/(1+r)^n
-
+            $table .=  '<td>' . $row["differenciel_interet"] . '</td>
+                        <td>' . $row["frais_gestion"] . '</td>
+                        <td>' . $row["commission_engagement"] . '</td>
+                        <td>' . $row["commission_service"] . '</td>
+                        <td>' . $row["commission_initiale"] . '</td>
+                        <td>' . $row["commission_arragement"] . '</td>
+                        <td>' . $row["commission_agent"] . '</td>
+                        <td>' . $row["frais_rebours"] . '</td>
+                        <td>' . $row["prime_assurance"] . '</td>';
             // fin VA 
             if ($_SESSION['role'] == "Utilisateur") {
                 $table .=  '<td class="">

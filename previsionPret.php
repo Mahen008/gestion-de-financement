@@ -149,8 +149,8 @@
         <div class="row">
             <div class="col-sm-12 col-md-6">
                 <div id="test_filter" class="dataTables_filter">
-                    <label>Rechercher:
-                        <input type="search" class="form-control form-control-sm" placeholder="" aria-controls="test">
+                    <label>
+                        <input type="search" class="form-control form-control-sm" placeholder="Rechercher" aria-controls="test">
                     </label>
                 </div>
             </div>
@@ -165,12 +165,21 @@
                                 <th>Nom du projet</th>
                                 <th>Nom du bailleur</th>
                                 <th>Montant</th>
-                                <th>Status</th>
+                                <!-- <th>Status</th> -->
                                 <th>Maturité</th>
                                 <th>Période de grâce</th>
                                 <th>Mode de remboursement</th>
                                 <th>Périodisité de remboursement</th>
                                 <th>Taux d'intérêt</th>
+                                <th>differenciel intérêt</th>
+                                <th>frais de gestion</th>
+                                <th>commission d'engagement</th>
+                                <th>commission de service</th>
+                                <th>commission initiale</th>
+                                <th>commission d'arragement</th>
+                                <th>commission d'agent</th>
+                                <th>frais de rebours</th>
+                                <th>prime d'assurance</th>
                                 <th>Concessionnalité de prêt</th>
                                 <th class="text-right">Action</th>
                             </tr>
@@ -185,7 +194,7 @@
 </div>
 <!-- Edit Modal -->
 <div class="modal fade" id="pret-update-modal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
         <div class="modal-content">
 
             <!-- Modal Header -->
@@ -198,7 +207,7 @@
             <div class="modal-body">
                 <form action="POST" id="formupPret">
                     <div class="row d-flex flex-wrap justify-content-around p-3">
-                        <div class="form-group p-2">
+                        <!-- <div class="form-group p-2">
                             <label for="updateStatus">status</label>
                             <div>
                                 <select name="updateStatus" id="updateStatus" class="select">
@@ -209,7 +218,7 @@
                                     <option value="Signé">Signé</option>
                                 </select>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="form-group">
                             <label for="updateIdBailleurs">Bailleur de fond</label>
                             <div>
@@ -222,6 +231,83 @@
                                 <select name="updateIdProjet" id="updateIdProjet" class="select"></select>
                             </div>
                         </div>
+                        <div class="form-group">
+                                    <label for="updateSecteurIntervation">secteur d'intervation</label>
+                                    <input type="text" class="form-control" id="updateSecteurIntervation" name="updateSecteurIntervation" placeholder="Entrer son secteur d'intervation">
+                                </div>
+                                <div class="form-group">
+                                    <label for="updateMaturite">maturité</label>
+                                    <input type="text" class="form-control" id="updateMaturite" name="updateMaturite" placeholder="Entrer la maturité">
+                                </div>
+                                <div class="form-group">
+                                    <label for="updatePeriodeGrace">période de grace</label>
+                                    <input type="text" class="form-control" id="updatePeriodeGrace" name="updatePeriodeGrace" placeholder="Entrer la période de grâce">
+                                </div>
+                                <div class="form-group">
+                                    <label for="updateTauxInteret">taux d'intéret</label>
+                                    <input type="" class="form-control" id="updateTauxInteret" name="updateTauxInteret" placeholder="Entrer le taux d'intéret">
+                                </div>
+                                <div class="form-group">
+                                    <label for="updateModeRemboursementPrincipal">mode de remboursement</label>
+                                    <div>
+                                        <select id="updateModeRemboursementPrincipal" name="updateModeRemboursementPrincipal" class="select">
+                                            <option id="editModeRemboursementPrincipal"></option>
+                                            <option value="Remboursement constant du principal">Remboursement constant du principal</option>
+                                            <option value="Annuité">Annuité</option>
+                                            <option value="Remboursement principal en fin">Remboursement principal en fin</option>
+                                            <option value="Lamp Sum principal & intérêt simple">Lamp Sum principal & intérêt simple</option>
+                                            <option value="Lamp Sum principal & intérêt composée">Lamp Sum principal & intérêt composée</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="updatePeriodisteDeRemboursement">périodistité de remboursement</label>
+                                    <div>
+                                        <select name="updatePeriodisteDeRemboursement" id="updatePeriodisteDeRemboursement" class="select">
+                                            <option id="editPeriodisteDeRemboursement"></option>
+                                            <option value="Annuelle">Annuelle</option>
+                                            <option value="Semestrielle">Semestrielle</option>
+                                            <option value="Trimestrielle">Trimestrielle</option>
+                                            <option value="Mensuelle">Mensuelle</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="updateDifferencielInteret">differenciel intéret</label>
+                                    <input type="text" class="form-control" id="updateDifferencielInteret" name="updateDifferencielInteret" placeholder="Entrer la differenciel d'intéret">
+                                </div>
+                                <div class="form-group">
+                                    <label for="updateFraisDeGestion">frais de gestion</label>
+                                    <input type="text" class="form-control" id="updateFraisDeGestion" name="updateFraisDeGestion" placeholder="Entrer le frais de gestion">
+                                </div>
+                                <div class="form-group">
+                                    <label for="updateComissionEngagement">comission d'engagement</label>
+                                    <input type="text" class="form-control" id="updateComissionEngagement" name="updateComissionEngagement" placeholder="Entrer la comission d'engagement">
+                                </div>
+                                <div class="form-group">
+                                    <label for="updateCommissionDeService">commission de service</label>
+                                    <input type="text" class="form-control" id="updateCommissionDeService" name="updateCommissionDeService" placeholder="Entrer le frais d'exposition">
+                                </div>
+                                <div class="form-group">
+                                    <label for="updateCommissionInitiale">commission initiale</label>
+                                    <input type="text" class="form-control" id="updateCommissionInitiale" name="updateCommissionInitiale" placeholder="Entrer le frais d'exposition">
+                                </div>
+                                <div class="form-group">
+                                    <label for="updateCommissionArragement">commission d'arragement</label>
+                                    <input type="text" class="form-control" id="updateCommissionArragement" name="updateCommissionArragement" placeholder="Entrer le frais d'exposition">
+                                </div>
+                                <div class="form-group">
+                                    <label for="updateCommissionAgent">commission d'agent</label>
+                                    <input type="text" class="form-control" id="updateCommissionAgent" name="updateCommissionAgent" placeholder="Entrer le commission d'agent">
+                                </div>
+                                <div class="form-group">
+                                    <label for="updateFraisDeRebours">frais de rebours</label>
+                                    <input type="text" class="form-control" id="updateFraisDeRebours" name="updateFraisDeRebours" placeholder="Entrer le frais de rebours">
+                                </div>
+                                <div class="form-group">
+                                    <label for="updatePrimeAssurenceFraisGarantie">prime d'assurence</label>
+                                    <input type="text" class="form-control" id="updatePrimeAssurenceFraisGarantie" name="updatePrimeAssurenceFraisGarantie" placeholder="Entrer le prime d'assurence">
+                                </div>
                     </div>
                     <input type="hidden" id="hidden-update-id-fmi">
                 </form>

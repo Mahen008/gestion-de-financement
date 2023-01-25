@@ -259,8 +259,8 @@
         <div class="row">
             <div class="col-sm-12 col-md-6">
                 <div id="test_filter" class="dataTables_filter">
-                    <label>Rechercher:
-                        <input type="search" class="form-control form-control-sm" id="search_input" placeholder="" aria-controls="test">
+                    <label>
+                        <input type="search" class="form-control form-control-sm" id="search_input" placeholder="Rechercher" aria-controls="test">
                     </label>
                 </div>
             </div>
