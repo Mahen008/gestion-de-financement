@@ -876,11 +876,13 @@ function confirmDataDeletePret(id) {
 }
 
 function editPret(id) {
+  // alert(id);
   $("#hidden-update-id-pret").val(id);
   $.post("pret-requette.php", { id: id, action: "EDIT" }, function (data) {
     var dataEditPret = JSON.parse(data);
-    $("#updateStatus").val(dataEditPret.status);
-    $("#updateIdBailleurs").val(dataEditPret.id_bailleurs);
+    // $("#updateStatus").val(dataEditPret.status);
+    // alert(dataEditPret.id_bailleurs);
+    $("#updateIdBailleurs").html(dataEditPret.drowpBailleurs);
     $("#updateIdProjet").val(dataEditPret.id_projet);
   });
 }

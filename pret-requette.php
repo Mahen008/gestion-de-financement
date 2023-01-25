@@ -225,14 +225,42 @@ if ($action == 'READ') {
     echo json_encode($drowpdata);
     // print_r($drowpdata);
 } elseif ($action == 'EDIT') {
+
     $id = $_POST['id'];
-    $query = "SELECT * FROM pret WHERE id = $id LIMIT 1";
+
+    //récupération de la ligne à modifier
+    $query = "SELECT * FROM pret 
+                INNER JOIN bailleurs 
+                ON pret.id_bailleurs = bailleurs.id_bai 
+                WHERE id = $id";
     $resultat = mysqli_query($conn, $query);
-    $response = array();
+
     while ($row = mysqli_fetch_assoc($resultat)) {
-        $response = $row;
+        $LigneEdit = $row;
     }
+    // echo $LigneEdit['nom'];
+    $selected = "";
+    // récupération de la drowpdown bailleur
+    $dataBailleur = mysqli_query($conn, "SELECT * 
+                                FROM bailleurs;");
+    $drowpBailleurs =  "";
+    foreach ($dataBailleur as $row) {
+        if ($LigneEdit['nom'] == $row['nom']) 
+        {
+            $selected = "selected";
+        } else {
+            $selected = "";
+        }
+
+        $drowpBailleurs .= '<option value="' . $row["id_bai"] . '"'. $selected .'>' . $row["nom"] . '</option>';
+    };
+    
+    $response = array();
+    $response['LigneEdit'] = $LigneEdit;
+    $response['drowpBailleurs'] = $drowpBailleurs;
+
     echo json_encode($response);
+
 } elseif ($action == 'UPDATE') {
     $query = "UPDATE pret SET
                 status = '$updateStatus', 

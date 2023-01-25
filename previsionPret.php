@@ -31,7 +31,7 @@
                     <div class="modal-body">
                         <form method="post" id="formPret">
                             <div class="row d-flex flex-wrap justify-content-around">
-                                <div class="form-group form-focus select-focus">
+                                <!-- <div class="form-group form-focus select-focus">
                                     <label class="focus-label" for="completeStatus">status</label>
                                     <div>
                                         <select name="completeStatus" id="completeStatus" class="select">
@@ -42,7 +42,7 @@
                                             <option value="signé">Signé</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="form-group form-focus select-focus">
                                     <label class="focus-label" for="completeIdBailleurs">Bailleur de fond</label>
                                     <div>
@@ -79,7 +79,7 @@
                                         <select name="competeModeRemboursementPrincipal" id="competeModeRemboursementPrincipal" class="select">
                                             <option value="Remboursement constant du principal">Remboursement constant du principal</option>
                                             <option value="Annuité">Annuité</option>
-                                            <option value="Remboursement principal en fin">Remboursement principal en fin</option>
+                                            <option value="Remboursement principal en fin" selected>Remboursement principal en fin</option>
                                             <option value="Lamp Sum principal & intérêt simple">Lamp Sum principal & intérêt simple</option>
                                             <option value="Lamp Sum principal & intérêt composée">Lamp Sum principal & intérêt composée</option>
                                         </select>
